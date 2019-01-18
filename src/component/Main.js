@@ -2,11 +2,13 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Ask from './Ask';
-import News from './News';
+import Newest from './Newest';
 import Show from './Show';
 import Jobs from './Jobs';
 import Login from './Login';
 import Comments from './Comments';
+import TopStories from './TopStories';
+
 import ROUTES from '../routes/routes';
 import '../App.css';
 
@@ -20,8 +22,8 @@ const Main = props => {
   return (
     <div className="main ">
       <Switch>
-        <Route exact path="/" component={News} />
-        <Route path={ROUTES.NEWS} component={News} />
+        <Route exact path="/" component={TopStories} />
+        <Route path={ROUTES.NEWS} component={Newest} />
         <Route path={ROUTES.COMMENTS} component={Comments} />
         <Route path={ROUTES.ASK} component={Ask} />
         <Route path={ROUTES.SHOW} component={Show} />

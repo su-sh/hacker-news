@@ -21,7 +21,9 @@ class Menu extends Component {
   render() {
     return (
       <div className="menu clearfix">
-        <div className="logo left">Hacker News</div>
+        <div className="logo left">
+          <Link to="/">Hacker News</Link>
+        </div>
         <div className="tab-menu-list left clearfix">
           <ul>
             <li>
