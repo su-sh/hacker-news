@@ -7,6 +7,7 @@ import React, { Component } from 'react';
  * @extends {Component}
  */
 class Jobs extends Component {
+
   /**
    *
    *
@@ -16,6 +17,7 @@ class Jobs extends Component {
   render() {
     return <div>Jobs</div>;
   }
+
 }
 
 export default Jobs;

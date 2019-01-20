@@ -27,10 +27,7 @@ class Menu extends Component {
         <div className="tab-menu-list left clearfix">
           <ul>
             <li>
-              <Link to={ROUTES.NEWS}>new</Link>
-            </li>
-            <li>
-              <Link to={ROUTES.COMMENTS}>comment</Link>
+              <Link to={ROUTES.NEWEST}>new</Link>
             </li>
             <li>
               <Link to={ROUTES.ASK}>ask</Link>

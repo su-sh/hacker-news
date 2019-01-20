@@ -1,11 +1,13 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import * as api from '../api/api';
 
+import StoryListItem from './story/StoryListItem';
+
 /**
- *
+ * This class renders list of top stories .
  *
  * @class TopStories
- * @extends {Component}
  */
 class TopStories extends Component {
 
@@ -17,21 +19,11 @@ class TopStories extends Component {
   constructor() {
     super();
     this.state = {
-      postIdList: []
+      currentPageNo: 0,
+      allStoryIdList: [],
+      showStoryIdList: [123123, 123124]
     };
   }
-
-  componentDidMount = () => {
-    const storiesIndexPromise = api.getStoriesIndex('topstories');
-
-    storiesIndexPromise
-      .then((req, res) => {
-        this.setState({
-          postIdList: req.data
-        });
-      })
-      .catch();
-  };
 
   /**
    *
@@ -40,7 +32,20 @@ class TopStories extends Component {
    * @memberof TopStories
    */
   render() {
-    return <div>TopStories</div>;
+    const storiesList = this.state.showStoryIdList.length ? (
+      this.state.showStoryIdList.map(storyId => {
+        return <StoryListItem key={storyId} id={storyId} />;
+      })
+    ) : (
+      <div className="center">Loading</div>
+    );
+
+    return (
+      <div>
+        TopStories
+        {storiesList}
+      </div>
+    );
   }
 
 }
