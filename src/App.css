@@ -98,7 +98,7 @@ a {
 /* POST ITEM */
 .post-item {
   padding: 5px 10px 5px 0px;
-  margin-left: 2%;
+  /* margin-left: 2%; */
 }
 .post-position {
   width: 25px;
