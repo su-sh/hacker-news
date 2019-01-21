@@ -41,3 +41,17 @@ export const getTimeDifference = previousTimestamp => {
     return 'approximately ' + Math.round(elapsed / msPerYear) + ' years ago';
   }
 };
+
+/**
+ * This function generates hostname form obtained url.
+ *
+ * @param {*} url
+ * @returns {string} Returns hostname.
+ */
+export const getHostname = url => {
+  const l = document.createElement('a');
+
+  l.href = url;
+
+  return l.hostname;
+};
