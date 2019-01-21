@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 
 import Loading from '.././Loading';
 import ROUTES from '../../routes/routes';
-import { getTimeDifference } from '../../utils/utils';
-import { getItem } from '../../api/api';
+import { getTimeDifference, getHostname } from '../../utils/utils';
+
 import '../../App.css';
 import upImg from '../../assets/up.png';
 /**
@@ -67,52 +67,55 @@ class StoryListItem extends Component {
    * @memberof Post
    */
   render() {
-    return this.state.idLoaded ? (
+    return !this.state.idLoaded ? (
+      <Loading />
+    ) : (
       <div className="post-item clearfix">
-        <div className="post-top-section clearfix">
+        <div className="post-left left clearfix">
           <div className="left post-position">1.</div>
-
-          <div className="left post-position-arrow">
+          <div className="right post-position-arrow">
             <img className="up-img" src={upImg} />
           </div>
-
-          <div className="left post-title">
-            <a href={this.state.url}>{this.state.title}</a>
-          </div>
-
-          <div className="left post-url">({this.state.url})</div>
         </div>
 
-        <div className="post-bottom-section clearfix">
-          <div className="post-points left">{this.state.score} points</div>
+        <div className="left post-right clearfix">
+          <div className="post-top-section clearfix">
+            <div className="left post-title">
+              <a href={this.state.url}>{this.state.title}</a>
+            </div>
 
-          <div className="post-by left">
-            by
-            <Link to={'/' + `${this.state.by}`}>{this.state.by}</Link>
+            <div className="left post-url">({getHostname(this.state.url)})</div>
           </div>
 
-          <div className="post-time left">
-            <Link to={ROUTES.ITEM + this.state.id}>
-              {getTimeDifference(this.state.time)} hours ago
-            </Link>
+          <div className="post-bottom-section clearfix">
+            <div className="post-points left">{this.state.score} points</div>
+
+            <div className="post-by left">
+              by
+              <Link to="#">{this.state.by}</Link>
+            </div>
+
+            <div className="post-time left">
+              <Link to={ROUTES.ITEM + this.state.id}>
+                {getTimeDifference(this.state.time)} hours ago
+              </Link>
+            </div>
+
+            <div className="post-hide left">hide</div>
+
+            <div className="left">next</div>
+
+            {this.state.descendants === 0 ? (
+              <WithoutComment />
+            ) : (
+              <WithComment
+                id={this.state.id}
+                descendants={this.state.descendants}
+              />
+            )}
           </div>
-
-          <div className="post-hide left">hide</div>
-
-          <div className="left">next</div>
-
-          {this.state.descendants === 0 ? (
-            <WithoutComment />
-          ) : (
-            <WithComment
-              id={this.state.id}
-              descendants={this.state.descendants}
-            />
-          )}
         </div>
       </div>
-    ) : (
-      <Loading />
     );
   }
 

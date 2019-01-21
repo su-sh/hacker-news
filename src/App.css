@@ -97,17 +97,25 @@ a {
 
 /* POST ITEM */
 .post-item {
+  display: table;
   padding: 5px 10px 5px 0px;
   /* margin-left: 2%; */
 }
 .post-position {
-  width: 25px;
-  margin-right: 5px;
+  width: 31px;
   font-size: 10pt;
   color: #828282;
   text-align: center;
 }
+.post-left {
+  display: table-row;
+  width: 51.28px;
+}
 
+.post-right {
+  display: table-row;
+  width: calc(100% - 51.28px);
+}
 .post-title {
   margin-left: 5px;
   font-size: 10pt;
@@ -120,10 +128,14 @@ a {
 .post-bottom-section {
   color: #828282;
   font-size: 8pt;
-  margin-left: 16px;
+  margin-left: 5px;
 }
 .post-bottom-section > div {
   padding: 0 3px 0 3px;
+}
+
+.post-bottom-section > div:first-child {
+  padding: 0 3px 0 0px;
 }
 .post-hide {
   border-right: 1px solid #828282;
