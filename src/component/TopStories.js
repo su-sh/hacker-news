@@ -22,7 +22,7 @@ class TopStories extends Component {
     super();
     this.state = {
       allStoryIdList: [],
-      showStoryIdList: [123]
+      showStoryIdList: []
     };
   }
 
@@ -32,7 +32,12 @@ class TopStories extends Component {
    * @memberof TopStories
    */
   componentDidMount = async () => {
-    const newArray = await api.getStoriesIndexNew();
+    const newArray = await api.getStoriesIndexArray();
+
+    this.setState({
+      allStoryIdList: newArray,
+      showStoryIdList: newArray.slice(0, 30)
+    });
   };
 
   /**

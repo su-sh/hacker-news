@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Loading from '.././Loading';
 import ROUTES from '../../routes/routes';
 import { getTimeDifference } from '../../utils/utils';
-
+import { getItem } from '../../api/api';
 import '../../App.css';
 import upImg from '../../assets/up.png';
 /**
@@ -24,6 +24,7 @@ class StoryListItem extends Component {
    */
   constructor(props) {
     super(props);
+
     this.state = {
       id: this.props.id,
       by: undefined,
@@ -42,20 +43,22 @@ class StoryListItem extends Component {
    *
    * @memberof StoryListItem
    */
-  componentDidMount() {
+  componentDidMount = async () => {
+    const data = await getItem(this.state.id);
+
     this.setState({
-      by: 'dhouston',
-      descendants: 7,
-      id: 18950807,
-      score: 111,
-      time: 1547923143,
-      title: 'My YC app: Dropbox - Throw away your USB drive',
-      url: 'http://www.getdropbox.com'
+      by: data.by,
+      descendants: data.descendants,
+      id: data.id,
+      score: data.score,
+      time: data.time,
+      title: data.title,
+      url: data.url
     });
     this.setState({
       idLoaded: true
     });
-  }
+  };
 
   /**
    *
@@ -85,7 +88,7 @@ class StoryListItem extends Component {
 
           <div className="post-by left">
             by
-            <Link to="#">{this.state.by}</Link>
+            <Link to={'/' + `${this.state.by}`}>{this.state.by}</Link>
           </div>
 
           <div className="post-time left">
@@ -136,7 +139,7 @@ const WithComment = props => {
 
 WithComment.propTypes = {
   id: PropTypes.number,
-  descendants: PropTypes.array
+  descendants: PropTypes.number
 };
 
 /**
