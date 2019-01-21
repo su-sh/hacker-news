@@ -11,6 +11,22 @@ export const getStoriesIndex = storiesType => {
 
 /**
  *
+ * @returns {object}
+ * @param {*} storiesType
+ */
+export const getStoriesIndexNew = storiesType => {
+  storiesType = 'topstories';
+
+  return axios
+    .get(`https://hacker-news.firebaseio.com/v0/${storiesType}.json`)
+    .then(res => {
+      return res.data;
+    })
+    .catch(err => {});
+};
+
+/**
+ *
  * @returns {promise}
  * @param {string} id
  */

@@ -1,8 +1,10 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import * as api from '../api/api';
 
+import Loading from './Loading';
+import * as api from '../api/api';
 import StoryListItem from './story/StoryListItem';
+
+import '.././App.css';
 
 /**
  * This class renders list of top stories .
@@ -19,11 +21,19 @@ class TopStories extends Component {
   constructor() {
     super();
     this.state = {
-      currentPageNo: 0,
       allStoryIdList: [],
-      showStoryIdList: [123123, 123124]
+      showStoryIdList: [123]
     };
   }
+
+  /**
+   *
+   *
+   * @memberof TopStories
+   */
+  componentDidMount = async () => {
+    const newArray = await api.getStoriesIndexNew();
+  };
 
   /**
    *
@@ -32,18 +42,15 @@ class TopStories extends Component {
    * @memberof TopStories
    */
   render() {
-    const storiesList = this.state.showStoryIdList.length ? (
-      this.state.showStoryIdList.map(storyId => {
-        return <StoryListItem key={storyId} id={storyId} />;
-      })
-    ) : (
-      <div className="center">Loading</div>
-    );
-
     return (
       <div>
-        TopStories
-        {storiesList}
+        {!this.state.showStoryIdList.length ? (
+          <Loading />
+        ) : (
+          this.state.showStoryIdList.map(storyId => {
+            return <StoryListItem key={storyId} id={storyId} />;
+          })
+        )}
       </div>
     );
   }

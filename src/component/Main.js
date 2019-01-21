@@ -2,23 +2,22 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Ask from './Ask';
-import Newest from './Newest';
 import Show from './Show';
 import Jobs from './Jobs';
-import Login from './Login';
-import TopStories from './TopStories';
 import Test from './Item';
-import ROUTES from '../routes/routes';
+import Login from './Login';
+import Newest from './Newest';
+import TopStories from './TopStories';
 
+import ROUTES from '../routes/routes';
 import '../App.css';
 
 /**
  * This Functional Component.
  *
- * @param {*} props
  * @returns {object}
  */
-const Main = props => {
+const Main = () => {
   return (
     <div className="main ">
       <Switch>

@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
+import Loading from '.././Loading';
 import ROUTES from '../../routes/routes';
 import { getTimeDifference } from '../../utils/utils';
 
 import '../../App.css';
-
+import upImg from '../../assets/up.png';
 /**
  * This class renders individual story item.
  *
@@ -32,7 +33,7 @@ class StoryListItem extends Component {
       title: undefined,
       descendants: undefined,
 
-      componentLoaded: false
+      idLoaded: false
     };
   }
 
@@ -44,7 +45,7 @@ class StoryListItem extends Component {
   componentDidMount() {
     this.setState({
       by: 'dhouston',
-      descendants: 5,
+      descendants: 7,
       id: 18950807,
       score: 111,
       time: 1547923143,
@@ -52,7 +53,7 @@ class StoryListItem extends Component {
       url: 'http://www.getdropbox.com'
     });
     this.setState({
-      componentLoaded: true
+      idLoaded: true
     });
   }
 
@@ -63,26 +64,14 @@ class StoryListItem extends Component {
    * @memberof Post
    */
   render() {
-    const noComment =
-      this.state.descendants === 0 ? (
-        <div className="clearfix left post-new">
-          <div className="left">web</div>
-          <div className="left ">discuss</div>
-        </div>
-      ) : (
-        <div className="post-comment left">
-          <Link to={ROUTES.ITEM + this.state.id}>
-            {this.state.descendants} comment
-          </Link>
-        </div>
-      );
-
-    return this.state.componentLoaded ? (
+    return this.state.idLoaded ? (
       <div className="post-item clearfix">
         <div className="post-top-section clearfix">
           <div className="left post-position">1.</div>
 
-          <div className="left post-position-arrow">^</div>
+          <div className="left post-position-arrow">
+            <img className="up-img" src={upImg} />
+          </div>
 
           <div className="left post-title">
             <a href={this.state.url}>{this.state.title}</a>
@@ -107,13 +96,20 @@ class StoryListItem extends Component {
 
           <div className="post-hide left">hide</div>
 
-          <div className="left"> next</div>
+          <div className="left">next</div>
 
-          {noComment}
+          {this.state.descendants === 0 ? (
+            <WithoutComment />
+          ) : (
+            <WithComment
+              id={this.state.id}
+              descendants={this.state.descendants}
+            />
+          )}
         </div>
       </div>
     ) : (
-      <div>Loading</div>
+      <Loading />
     );
   }
 
@@ -122,4 +118,37 @@ class StoryListItem extends Component {
 StoryListItem.propTypes = {
   id: PropTypes.number
 };
+
 export default StoryListItem;
+
+/**
+ *
+ * @param {object} props
+ * @returns {object}
+ */
+const WithComment = props => {
+  return (
+    <div className="post-comment left">
+      <Link to={ROUTES.ITEM + props.id}>{props.descendants} comment</Link>
+    </div>
+  );
+};
+
+WithComment.propTypes = {
+  id: PropTypes.number,
+  descendants: PropTypes.array
+};
+
+/**
+ *
+ *
+ * @returns {object}
+ */
+const WithoutComment = () => {
+  return (
+    <div className="clearfix left post-new">
+      <div className="left">web</div>
+      <div className="left ">discuss</div>
+    </div>
+  );
+};

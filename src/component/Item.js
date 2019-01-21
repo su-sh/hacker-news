@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import * as api from '../api/api';
 import Story from './story/Story';
 
@@ -18,7 +19,7 @@ class Item extends Component {
   constructor() {
     super();
     this.state = {
-      type: 'err'
+      type: ''
     };
   }
 
