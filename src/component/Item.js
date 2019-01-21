@@ -24,7 +24,6 @@ class Item extends Component {
   }
 
   componentDidMount = () => {
-    // console.log(this.props.match.params.id);
     const itemId = this.props.match.params.id;
 
     let itemType = 'none';
