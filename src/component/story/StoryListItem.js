@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import Loading from '.././Loading';
+
+import { getItem } from '../../api/api';
 import ROUTES from '../../routes/routes';
 import { getTimeDifference, getHostname } from '../../utils/utils';
 
 import '../../App.css';
 import upImg from '../../assets/up.png';
+
 /**
  * This class renders individual story item.
  *
@@ -15,7 +18,6 @@ import upImg from '../../assets/up.png';
  * @extends {Component}
  */
 class StoryListItem extends Component {
-
   /**
    * Creates an instance of StoryListItem.
    *
@@ -48,14 +50,13 @@ class StoryListItem extends Component {
 
     this.setState({
       by: data.by,
-      descendants: data.descendants,
       id: data.id,
-      score: data.score,
+      url: data.url,
       time: data.time,
+      score: data.score,
       title: data.title,
-      url: data.url
-    });
-    this.setState({
+      descendants: data.descendants,
+
       idLoaded: true
     });
   };
@@ -97,16 +98,16 @@ class StoryListItem extends Component {
 
             <div className="post-time left">
               <Link to={ROUTES.ITEM + this.state.id}>
-                {getTimeDifference(this.state.time)} hours ago
+                {getTimeDifference(this.state.time)}
               </Link>
             </div>
-
+            {/*
             <div className="post-hide left">hide</div>
 
             <div className="left">next</div>
-
+            */}
             {this.state.descendants === 0 ? (
-              <WithoutComment />
+              <WithoutComment id={this.state.id} />
             ) : (
               <WithComment
                 id={this.state.id}
@@ -118,7 +119,6 @@ class StoryListItem extends Component {
       </div>
     );
   }
-
 }
 
 StoryListItem.propTypes = {
@@ -147,14 +147,20 @@ WithComment.propTypes = {
 
 /**
  *
- *
+ * @param {object} props
  * @returns {object}
  */
-const WithoutComment = () => {
+const WithoutComment = props => {
   return (
     <div className="clearfix left post-new">
       <div className="left">web</div>
-      <div className="left ">discuss</div>
+      <div className="left ">
+        <Link to={ROUTES.ITEM + props.id}>discuss</Link>
+      </div>
     </div>
   );
+};
+
+WithoutComment.propTypes = {
+  id: PropTypes.number
 };

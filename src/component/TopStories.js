@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Loading from './Loading';
-import * as api from '../api/api';
+import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
 import StoryListItem from './story/StoryListItem';
 
 import '.././App.css';
@@ -32,7 +32,7 @@ class TopStories extends Component {
    * @memberof TopStories
    */
   componentDidMount = async () => {
-    const newArray = await api.getStoriesIndexArray();
+    const newArray = await getStoriesIndexArray(STORY_TYPE.TOP_STORIES);
 
     this.setState({
       allStoryIdList: newArray,

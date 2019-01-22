@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 
+import Loading from './Loading';
+import JobsListItem from './JobsListItem';
+
+import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
+
 /**
  *
  *
@@ -7,6 +12,32 @@ import React, { Component } from 'react';
  * @extends {Component}
  */
 class Jobs extends Component {
+  /**
+   * Creates an instance of Jobs.
+   *
+   * @memberof Jobs
+   */
+  constructor() {
+    super();
+    this.state = {
+      allStoryIdList: [],
+      showStoryIdList: []
+    };
+  }
+
+  /**
+   *
+   *
+   * @memberof Jobs
+   */
+  componentDidMount = async () => {
+    const newArray = await getStoriesIndexArray(STORY_TYPE.JOB_STORIES);
+
+    this.setState({
+      allStoryIdList: newArray,
+      showStoryIdList: newArray.slice(0, 30)
+    });
+  };
 
   /**
    *
@@ -15,9 +46,18 @@ class Jobs extends Component {
    * @memberof Jobs
    */
   render() {
-    return <div>Jobs</div>;
+    return (
+      <div>
+        {!this.state.showStoryIdList.length ? (
+          <Loading />
+        ) : (
+          this.state.showStoryIdList.map(storyId => {
+            return <JobsListItem key={storyId} id={storyId} />;
+          })
+        )}
+      </div>
+    );
   }
-
 }
 
 export default Jobs;

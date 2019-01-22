@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import * as api from '../api/api';
 import Story from './story/Story';
+import { getItem } from '../api/api';
 
 /**
  * This Component renders data according to the items type.
@@ -19,24 +19,20 @@ class Item extends Component {
   constructor() {
     super();
     this.state = {
-      type: ''
+      type: undefined,
+      data: undefined
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     const itemId = this.props.match.params.id;
 
-    let itemType = 'none';
+    const data = await getItem(itemId);
 
-    api
-      .getItem(itemId)
-      .then(res => {
-        itemType = res.data.type;
-        this.setState({
-          type: itemType
-        });
-      })
-      .catch(err => {});
+    this.setState({
+      type: data.type,
+      data: data
+    });
   };
 
   /**
@@ -46,7 +42,11 @@ class Item extends Component {
    * @memberof Item
    */
   render() {
-    return <div>{this.state.type === 'story' && <Story />}</div>;
+    return (
+      <div>
+        {this.state.type === 'story' && <Story data={this.state.data} />}
+      </div>
+    );
   }
 
 }

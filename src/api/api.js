@@ -1,13 +1,5 @@
 import axios from 'axios';
-
-/**
- *
- * @returns {promise}
- * @param {*} storiesType
- */
-export const getStoriesIndex = storiesType => {
-  return axios.get(`https://hacker-news.firebaseio.com/v0/${storiesType}.json`);
-};
+const BASE_URL = 'https://hacker-news.firebaseio.com/v0/';
 
 /**
  *
@@ -15,10 +7,10 @@ export const getStoriesIndex = storiesType => {
  * @param {*} storiesType
  */
 export const getStoriesIndexArray = storiesType => {
-  storiesType = 'topstories';
+  // storiesType = 'topstories';
 
   return axios
-    .get(`https://hacker-news.firebaseio.com/v0/${storiesType}.json`)
+    .get(`${BASE_URL}${storiesType}.json`)
     .then(res => {
       return res.data;
     })
@@ -34,7 +26,7 @@ export const getItem = id => {
   console.log('id', id);
 
   return axios
-    .get(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
+    .get(`${BASE_URL}item/${id}.json`)
     .then(res => {
       return res.data;
     })
@@ -44,6 +36,8 @@ export const getItem = id => {
 export const STORY_TYPE = {
   TOP_STORIES: 'topstories',
   NEW_STORIES: 'newstories',
+  ASK_STORIES: 'askstories',
+  JOB_STORIES: 'jobstories',
   BEST_STORIES: 'beststories',
-  ASK_STORIES: 'askstories'
+  SHOW_STORIES: 'showstories'
 };
