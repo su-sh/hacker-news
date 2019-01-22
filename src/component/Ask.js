@@ -20,7 +20,7 @@ class Ask extends Component {
     super();
     this.state = {
       allStoryIdList: [],
-      showStoryIdList: []
+      showStoryIdList: [123, 1231]
     };
   }
 

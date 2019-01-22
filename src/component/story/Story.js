@@ -65,13 +65,14 @@ class Story extends Component {
   render() {
     return (
       <div>
-        <div>
-          <div className="post-item clearfix">
+        <div className="clearfix story">
+          <div className="left post-position-arrow">
+            <img alt="up-icon" src={upImg} />
+          </div>
+
+          <div className="story-item left clearfix">
             <div className="post-top-section clearfix">
-              <div className="left post-position-arrow">
-                <img alt="up-icon" src={upImg} />
-              </div>
-              <div className="left post-title">
+              <div className="left story-title">
                 <a href={this.state.url}>{this.state.title}</a>
               </div>
               <div className="left post-url">({this.state.url})</div>
@@ -92,13 +93,8 @@ class Story extends Component {
               </div>
             </div>
           </div>
-
-          <form className="comment-form">
-            <textarea />
-            <br />
-            <input type="submit" value="Add Comment" />
-          </form>
         </div>
+        <div className="comment-placeholder">Comments</div>
         {this.state.kids.length ? (
           <CommentContainer kids={this.state.kids} />
         ) : (
