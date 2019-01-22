@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
+
 import Loading from './Loading';
 import StoryListItem from './story/StoryListItem';
+import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
 
 import '../App.css';
 
@@ -50,7 +51,6 @@ class Newest extends Component {
   render() {
     return (
       <div>
-        Newest
         <div>
           {!this.state.showStoryIdList.length ? (
             <Loading />

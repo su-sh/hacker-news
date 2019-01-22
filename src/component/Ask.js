@@ -11,6 +11,30 @@ import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
  * @extends {Component}
  */
 class Ask extends Component {
+  /**
+   * Creates an instance of Ask.
+   *
+   * @memberof Ask
+   */
+  constructor() {
+    super();
+    this.state = {
+      allStoryIdList: [],
+      showStoryIdList: []
+    };
+  }
+
+  /**
+   *
+   *
+   * @memberof Ask
+   */
+  componentDidMount = () => {
+    this.setState({
+      allStoryIdList: [],
+      showStoryIdList: [123, 1234]
+    });
+  };
 
   /**
    * Creates an instance of Ask.
@@ -58,7 +82,6 @@ class Ask extends Component {
       </div>
     );
   }
-
 }
 
 export default Ask;

@@ -12,7 +12,6 @@ import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
  * @extends {Component}
  */
 class Show extends Component {
-
   /**
    * Creates an instance of Show.
    *
@@ -59,7 +58,6 @@ class Show extends Component {
       </div>
     );
   }
-
 }
 
 export default Show;

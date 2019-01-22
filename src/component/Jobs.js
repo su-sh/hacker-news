@@ -12,6 +12,7 @@ import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
  * @extends {Component}
  */
 class Jobs extends Component {
+
   /**
    * Creates an instance of Jobs.
    *
@@ -58,6 +59,7 @@ class Jobs extends Component {
       </div>
     );
   }
+
 }
 
 export default Jobs;
