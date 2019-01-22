@@ -30,6 +30,7 @@ class StoryListItem extends Component {
 
     this.state = {
       id: this.props.id,
+      position: this.props.position,
       by: undefined,
       url: undefined,
       time: undefined,
@@ -74,7 +75,7 @@ class StoryListItem extends Component {
     ) : (
       <div className="post-item clearfix">
         <div className="post-left left clearfix">
-          <div className="left post-position">1.</div>
+          <div className="left post-position">{this.state.position}.</div>
           <div className="right post-position-arrow">
             <img className="up-img" alt="up-img" src={upImg} />
           </div>
@@ -161,5 +162,6 @@ const WithoutComment = props => {
 };
 
 WithoutComment.propTypes = {
-  id: PropTypes.number
+  id: PropTypes.number,
+  position: PropTypes.number
 };

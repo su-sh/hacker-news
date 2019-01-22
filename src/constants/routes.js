@@ -6,7 +6,8 @@ const ROUTES = {
   NEWEST: '/newest',
   LOGIN: '/submit',
   SUBMIT: '/submit',
-  COMMENTS: '/newcomments'
+  COMMENTS: '/newcomments',
+  ROOT: '/'
 };
 
 export default ROUTES;

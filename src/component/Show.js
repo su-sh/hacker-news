@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import Loading from './Loading';
 import StoryListItem from './story/StoryListItem';
 
+import { getPosition } from '../utils/utils';
 import { getStoriesIndexArray } from '../api/api';
+
 import { STORY_TYPE } from '../api/api';
 
 /**
@@ -54,7 +56,13 @@ class Show extends Component {
           <Loading />
         ) : (
           this.state.showStoryIdList.map(storyId => {
-            return <StoryListItem key={storyId} id={storyId} />;
+            return (
+              <StoryListItem
+                key={storyId}
+                position={getPosition(storyId, this.state.allStoryIdList)}
+                id={storyId}
+              />
+            );
           })
         )}
       </div>

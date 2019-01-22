@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 
 import Loading from './Loading';
 import StoryListItem from './story/StoryListItem';
-import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
 
+import { getPosition } from '../utils/utils';
+import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
 /**
  *
  *
@@ -20,8 +21,9 @@ class Ask extends Component {
   constructor() {
     super();
     this.state = {
+      currentPage: 0,
       allStoryIdList: [],
-      showStoryIdList: [123, 1231]
+      showStoryIdList: []
     };
   }
 
@@ -52,7 +54,13 @@ class Ask extends Component {
           <Loading />
         ) : (
           this.state.showStoryIdList.map(storyId => {
-            return <StoryListItem key={storyId} id={storyId} />;
+            return (
+              <StoryListItem
+                key={storyId}
+                position={getPosition(storyId, this.state.allStoryIdList)}
+                id={storyId}
+              />
+            );
           })
         )}
       </div>

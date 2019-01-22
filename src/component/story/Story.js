@@ -14,7 +14,6 @@ import '../../App.css';
  * @extends {Component}
  */
 class Story extends Component {
-
   /**
    * Creates an instance of Story.
    *
@@ -22,7 +21,6 @@ class Story extends Component {
    */
   constructor() {
     super();
-    document.title = 'Story';
     this.state = {
       id: undefined,
       kids: [],
@@ -123,7 +121,6 @@ class Story extends Component {
       </div>
     );
   }
-
 }
 
 export default Story;

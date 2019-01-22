@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 
 import Loading from './Loading';
-import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
 import StoryListItem from './story/StoryListItem';
+
+import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
+import { getPosition, getShowStoryList } from '../utils/utils';
 
 import '.././App.css';
 
 /**
- * This class renders list of top stories .
+ *
  *
  * @class TopStories
+ * @extends {Component}
  */
 class TopStories extends Component {
 
@@ -22,7 +25,8 @@ class TopStories extends Component {
     super();
     this.state = {
       allStoryIdList: [],
-      showStoryIdList: []
+      showStoryIdList: [],
+      currentPage: 0
     };
   }
 
@@ -36,7 +40,7 @@ class TopStories extends Component {
 
     this.setState({
       allStoryIdList: newArray,
-      showStoryIdList: newArray.slice(0, 30)
+      showStoryIdList: getShowStoryList(newArray, 0)
     });
   };
 
@@ -53,9 +57,63 @@ class TopStories extends Component {
           <Loading />
         ) : (
           this.state.showStoryIdList.map(storyId => {
-            return <StoryListItem key={storyId} id={storyId} />;
+            return (
+              <StoryListItem
+                key={storyId}
+                position={getPosition(storyId, this.state.allStoryIdList)}
+                id={storyId}
+              />
+            );
           })
         )}
+
+        <button
+          onClick={() => {
+            let currentPage = this.state.currentPage;
+
+            currentPage--;
+            this.setState(
+              {
+                currentPage
+              },
+              () => {
+                console.log(this.state.currentPage);
+                this.setState({
+                  showStoryIdList: getShowStoryList(
+                    this.state.allStoryIdList,
+                    this.state.currentPage
+                  )
+                });
+              }
+            );
+          }}
+        >
+          Previous
+        </button>
+
+        <button
+          onClick={() => {
+            let currentPage = this.state.currentPage;
+
+            currentPage++;
+            this.setState(
+              {
+                currentPage
+              },
+              () => {
+                console.log(this.state.currentPage);
+                this.setState({
+                  showStoryIdList: getShowStoryList(
+                    this.state.allStoryIdList,
+                    this.state.currentPage
+                  )
+                });
+              }
+            );
+          }}
+        >
+          Next
+        </button>
       </div>
     );
   }

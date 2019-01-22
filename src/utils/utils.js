@@ -55,3 +55,25 @@ export const getHostname = url => {
 
   return l.hostname;
 };
+
+/**
+ * .
+ *
+ * @param {number} storyId
+ * @param {array} storyArray
+ * @returns {number}
+ */
+export const getPosition = (storyId, storyArray) => {
+  return storyArray.indexOf(storyId) + 1;
+};
+
+/**
+ *
+ *
+ * @param {array} array
+ * @param {number} pageNumber
+ * @returns {array}
+ */
+export const getShowStoryList = (array, pageNumber) => {
+  return array.slice(pageNumber * 30, (pageNumber + 1) * 30);
+};
