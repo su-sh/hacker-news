@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Loading from '.././Loading';
 
 import { getItem } from '../../api/api';
-import ROUTES from '../../routes/routes';
+import ROUTES from '../../constants/routes';
 import { getTimeDifference, getHostname } from '../../utils/utils';
 
 import '../../App.css';
@@ -18,6 +18,7 @@ import upImg from '../../assets/up.png';
  * @extends {Component}
  */
 class StoryListItem extends Component {
+
   /**
    * Creates an instance of StoryListItem.
    *
@@ -119,6 +120,7 @@ class StoryListItem extends Component {
       </div>
     );
   }
+
 }
 
 StoryListItem.propTypes = {

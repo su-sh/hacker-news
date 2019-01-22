@@ -9,7 +9,7 @@ import Login from './Login';
 import Newest from './Newest';
 import TopStories from './TopStories';
 
-import ROUTES from '../routes/routes';
+import ROUTES from '../constants/routes';
 import '../App.css';
 
 /**
