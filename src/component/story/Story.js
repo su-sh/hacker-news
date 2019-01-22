@@ -22,6 +22,7 @@ class Story extends Component {
    */
   constructor() {
     super();
+    document.title = 'Story';
     this.state = {
       id: undefined,
       kids: [],
@@ -70,14 +71,14 @@ class Story extends Component {
   render() {
     return (
       <div>
-        <div>
-          <div className="post-item clearfix">
-            <div className="post-top-section clearfix">
-              <div className="left post-position-arrow">
-                <img alt="up-icon" src={upImg} />
-              </div>
+        <div className="clearfix story">
+          <div className="left post-position-arrow">
+            <img alt="up-icon" src={upImg} />
+          </div>
 
-              <div className="left post-title">
+          <div className="story-item left clearfix">
+            <div className="post-top-section clearfix">
+              <div className="left story-title">
                 <a href={this.state.url}>{this.state.title}</a>
               </div>
 
@@ -113,12 +114,6 @@ class Story extends Component {
               </div>
             </div>
           </div>
-
-          <form className="comment-form">
-            <textarea />
-            <br />
-            <input type="submit" value="Add Comment" />
-          </form>
         </div>
         {this.state.descendants ? (
           <CommentContainer kids={this.state.kids} />
