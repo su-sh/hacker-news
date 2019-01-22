@@ -18,6 +18,7 @@ import upImg from '../../assets/up.png';
  * @extends {Component}
  */
 class StoryListItem extends Component {
+
   /**
    * Creates an instance of StoryListItem.
    *
@@ -78,7 +79,6 @@ class StoryListItem extends Component {
             <img className="up-img" src={upImg} />
           </div>
         </div>
-
         <div className="left post-right clearfix">
           <div className="post-top-section clearfix">
             <div className="left post-title">
@@ -115,6 +115,7 @@ class StoryListItem extends Component {
       </div>
     );
   }
+
 }
 
 StoryListItem.propTypes = {
