@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import '../App.css';
-import ROUTES from '../routes/routes';
+import ROUTES from '../constants/routes';
 
 /**
  * This class contains menu elements.
