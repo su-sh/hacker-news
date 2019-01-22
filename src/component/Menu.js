@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import '../App.css';
 import ROUTES from '../routes/routes';
 
 /**
- * This class contains Menu Elements.
+ * This class contains menu elements.
  *
  * @class Menu
  * @extends {Component}

@@ -125,6 +125,7 @@ StoryListItem.propTypes = {
 export default StoryListItem;
 
 /**
+ * This component is to be rendered if there is comment.
  *
  * @param {object} props
  * @returns {object}
@@ -143,7 +144,7 @@ WithComment.propTypes = {
 };
 
 /**
- *
+ * This component is to be rendered if there is no comment.
  *
  * @returns {object}
  */

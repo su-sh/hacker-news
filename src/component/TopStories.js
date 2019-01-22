@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Loading from './Loading';
-import * as api from '../api/api';
+
 import StoryListItem from './story/StoryListItem';
 
 import '.././App.css';
@@ -25,15 +25,6 @@ class TopStories extends Component {
       showStoryIdList: [123]
     };
   }
-
-  /**
-   *
-   *
-   * @memberof TopStories
-   */
-  componentDidMount = async () => {
-    const newArray = await api.getStoriesIndexNew();
-  };
 
   /**
    *

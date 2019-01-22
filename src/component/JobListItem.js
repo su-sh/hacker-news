@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Loading from './Loading';
 
-import { getItem } from '../api/api';
 import { getTimeDifference, getHostname } from '../utils/utils';
 
 import '../App.css';
@@ -63,8 +62,6 @@ class JobsListItem extends Component {
    * @memberof JobListItem
    */
   render() {
-    console.log(this.state);
-
     return !this.state.idLoaded ? (
       <Loading />
     ) : (

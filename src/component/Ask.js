@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import Loading from './Loading';
 import StoryListItem from './story/StoryListItem';
-import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
 
 /**
  *
@@ -11,6 +10,7 @@ import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
  * @extends {Component}
  */
 class Ask extends Component {
+
   /**
    * Creates an instance of Ask.
    *
@@ -55,6 +55,7 @@ class Ask extends Component {
       </div>
     );
   }
+
 }
 
 export default Ask;
