@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+import Loading from './Loading';
+import StoryListItem from './story/StoryListItem';
+import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
+
 /**
  *
  *
@@ -7,6 +11,30 @@ import React, { Component } from 'react';
  * @extends {Component}
  */
 class Ask extends Component {
+  /**
+   * Creates an instance of Ask.
+   *
+   * @memberof Ask
+   */
+  constructor() {
+    super();
+    this.state = {
+      allStoryIdList: [],
+      showStoryIdList: []
+    };
+  }
+
+  /**
+   *
+   *
+   * @memberof Ask
+   */
+  componentDidMount = () => {
+    this.setState({
+      allStoryIdList: [],
+      showStoryIdList: [123, 1234]
+    });
+  };
 
   /**
    *
@@ -15,9 +43,18 @@ class Ask extends Component {
    * @memberof Ask
    */
   render() {
-    return <div>ASK</div>;
+    return (
+      <div>
+        {!this.state.showStoryIdList.length ? (
+          <Loading />
+        ) : (
+          this.state.showStoryIdList.map(storyId => {
+            return <StoryListItem key={storyId} id={storyId} />;
+          })
+        )}
+      </div>
+    );
   }
-
 }
 
 export default Ask;
