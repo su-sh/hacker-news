@@ -7,14 +7,14 @@ const BASE_URL = 'https://hacker-news.firebaseio.com/v0/';
  * @param {*} storiesType
  */
 export const getStoriesIndexArray = storiesType => {
-  // storiesType = 'topstories';
-
   return axios
     .get(`${BASE_URL}${storiesType}.json`)
     .then(res => {
       return res.data;
     })
-    .catch(err => {});
+    .catch(err => {
+      return err;
+    });
 };
 
 /**
@@ -23,14 +23,14 @@ export const getStoriesIndexArray = storiesType => {
  * @param {string} id
  */
 export const getItem = id => {
-  console.log('id', id);
-
   return axios
     .get(`${BASE_URL}item/${id}.json`)
     .then(res => {
       return res.data;
     })
-    .catch(err => {});
+    .catch(err => {
+      return err;
+    });
 };
 
 export const STORY_TYPE = {

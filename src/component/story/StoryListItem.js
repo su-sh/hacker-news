@@ -18,7 +18,6 @@ import upImg from '../../assets/up.png';
  * @extends {Component}
  */
 class StoryListItem extends Component {
-
   /**
    * Creates an instance of StoryListItem.
    *
@@ -102,11 +101,7 @@ class StoryListItem extends Component {
                 {getTimeDifference(this.state.time)}
               </Link>
             </div>
-            {/*
-            <div className="post-hide left">hide</div>
 
-            <div className="left">next</div>
-            */}
             {this.state.descendants === 0 ? (
               <WithoutComment id={this.state.id} />
             ) : (
@@ -120,7 +115,6 @@ class StoryListItem extends Component {
       </div>
     );
   }
-
 }
 
 StoryListItem.propTypes = {
@@ -130,6 +124,7 @@ StoryListItem.propTypes = {
 export default StoryListItem;
 
 /**
+ * This component is to be rendered if there is comment.
  *
  * @param {object} props
  * @returns {object}
@@ -148,6 +143,7 @@ WithComment.propTypes = {
 };
 
 /**
+ * This component is to be rendered if there is no comment.
  *
  * @param {object} props
  * @returns {object}
