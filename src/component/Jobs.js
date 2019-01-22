@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import Loading from './Loading';
 import JobsListItem from './JobListItem';
 
-import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
-
 /**
  *
  *

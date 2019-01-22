@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import Loading from './Loading';
 import StoryListItem from './story/StoryListItem';
 
-import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
-
 /**
  *
  *
@@ -12,7 +10,6 @@ import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
  * @extends {Component}
  */
 class Show extends Component {
-
   /**
    * Creates an instance of Show.
    *
@@ -57,7 +54,6 @@ class Show extends Component {
       </div>
     );
   }
-
 }
 
 export default Show;

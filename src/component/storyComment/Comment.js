@@ -2,11 +2,12 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import '../../App.css';
-import upImg from '../../assets/up.png';
 import Loading from '.././Loading';
 import CommentContainer from './CommentContainer';
 import { getTimeDifference } from '../../utils/utils';
+
+import '../../App.css';
+import upImg from '../../assets/up.png';
 
 /**
  *
@@ -40,23 +41,16 @@ class Comment extends Component {
     axios
       .get(`https://hacker-news.firebaseio.com/v0/item/${this.state.id}.json`)
       .then(res => {
-        console.log(res.data);
-
-        this.setState(
-          {
-            by: res.data.by,
-            id: res.data.id,
-            kids: res.data.kids,
-            parent: res.data.parent,
-            text: res.data.text,
-            time: res.data.time,
-            type: res.data.type,
-            componentLoaded: true
-          },
-          () => {
-            console.log('stateData', this.state);
-          }
-        );
+        this.setState({
+          by: res.data.by,
+          id: res.data.id,
+          kids: res.data.kids,
+          parent: res.data.parent,
+          text: res.data.text,
+          time: res.data.time,
+          type: res.data.type,
+          componentLoaded: true
+        });
       })
       .catch(err => {
         console.log(err);
@@ -76,7 +70,7 @@ class Comment extends Component {
       <div className="comment">
         <div className="comment-top clearfix">
           <div className="left post-position-arrow">
-            <img src={upImg} />
+            <img alt="up-img" src={upImg} />
           </div>
           <div className="left">{this.state.by}</div>
           <div className="left">{getTimeDifference(this.state.time)}</div>

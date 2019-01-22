@@ -22,7 +22,7 @@ class TopStories extends Component {
     super();
     this.state = {
       allStoryIdList: [],
-      showStoryIdList: [123]
+      showStoryIdList: [123, 654, 3, 21, 654]
     };
   }
 

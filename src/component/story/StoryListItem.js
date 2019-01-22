@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import Loading from '.././Loading';
-
-import { getItem } from '../../api/api';
 import ROUTES from '../../constants/routes';
 import { getTimeDifference, getHostname } from '../../utils/utils';
 
@@ -12,13 +10,12 @@ import '../../App.css';
 import upImg from '../../assets/up.png';
 
 /**
- * This class renders individual story item.
+ * This class renders story item on list.
  *
  * @class StoryListItem
  * @extends {Component}
  */
 class StoryListItem extends Component {
-
   /**
    * Creates an instance of StoryListItem.
    *
@@ -74,7 +71,7 @@ class StoryListItem extends Component {
         <div className="post-left left clearfix">
           <div className="left post-position">1.</div>
           <div className="right post-position-arrow">
-            <img className="up-img" src={upImg} />
+            <img className="up-img" alt="up-img" src={upImg} />
           </div>
         </div>
         <div className="left post-right clearfix">
@@ -113,7 +110,6 @@ class StoryListItem extends Component {
       </div>
     );
   }
-
 }
 
 StoryListItem.propTypes = {

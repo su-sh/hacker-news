@@ -7,7 +7,7 @@ import CommentContainer from '../storyComment/CommentContainer';
 import '../../App.css';
 
 /**
- * This is a class that holds individual story
+ * This is a component holds and render individual story.
  *
  * @class Story
  * @extends {Component}
@@ -69,7 +69,7 @@ class Story extends Component {
           <div className="post-item clearfix">
             <div className="post-top-section clearfix">
               <div className="left post-position-arrow">
-                <img src={upImg} />
+                <img alt="up-icon" src={upImg} />
               </div>
               <div className="left post-title">
                 <a href={this.state.url}>{this.state.title}</a>
