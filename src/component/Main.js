@@ -21,7 +21,7 @@ const Main = () => {
   return (
     <div className="main ">
       <Switch>
-        <Route exact path="/" component={TopStories} />
+        <Route exact path={ROUTES.ROOT} component={TopStories} />
         <Route path={ROUTES.NEWEST} component={Newest} />
         <Route path={ROUTES.ASK} component={Ask} />
         <Route path={ROUTES.SHOW} component={Show} />
