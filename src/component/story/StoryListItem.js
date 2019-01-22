@@ -12,7 +12,7 @@ import '../../App.css';
 import upImg from '../../assets/up.png';
 
 /**
- * This class renders individual story item.
+ * This class renders story item on list.
  *
  * @class StoryListItem
  * @extends {Component}
@@ -76,7 +76,7 @@ class StoryListItem extends Component {
         <div className="post-left left clearfix">
           <div className="left post-position">1.</div>
           <div className="right post-position-arrow">
-            <img className="up-img" src={upImg} />
+            <img className="up-img" alt="up-img" src={upImg} />
           </div>
         </div>
         <div className="left post-right clearfix">
