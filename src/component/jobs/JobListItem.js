@@ -58,6 +58,12 @@ class JobsListItem extends Component {
     });
   };
 
+  showUrl = () => {
+    if (this.state.url !== undefined) {
+      return getHostname(this.state.url);
+    }
+  };
+
   /**
    *
    *
@@ -74,7 +80,7 @@ class JobsListItem extends Component {
             <div className="jobs-title left">
               <a href={this.state.url}>{this.state.title}</a>
             </div>
-            <div className="jobs-url left">{getHostname(this.state.url)}</div>
+            <div className="jobs-url left">{this.showUrl()}</div>
           </div>
           <div className="jobs-bottom clearfix">
             {getTimeDifference(this.state.time)}
