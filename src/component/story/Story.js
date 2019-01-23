@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
@@ -114,15 +115,20 @@ class Story extends Component {
             </div>
           </div>
         </div>
+        <div className="comment-placeholder">Comments</div>
+
         {this.state.descendants ? (
           <CommentContainer kids={this.state.kids} />
         ) : (
-          ''
+          <div className="comment-placeholder"> No Comments Yet</div>
         )}
       </div>
     );
   }
 
 }
+Story.propTypes = {
+  data: PropTypes.object
+};
 
 export default Story;

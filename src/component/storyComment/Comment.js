@@ -1,8 +1,9 @@
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import Loading from '.././Loading';
+
+import { getItem } from '../../api/api';
 import CommentContainer from './CommentContainer';
 import { getTimeDifference } from '../../utils/utils';
 
@@ -36,24 +37,20 @@ class Comment extends Component {
     };
   }
 
-  componentDidMount = () => {
-    axios
-      .get(`https://hacker-news.firebaseio.com/v0/item/${this.state.id}.json`)
-      .then(res => {
-        this.setState({
-          by: res.data.by,
-          id: res.data.id,
-          kids: res.data.kids,
-          parent: res.data.parent,
-          text: res.data.text,
-          time: res.data.time,
-          type: res.data.type,
-          componentLoaded: true
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  componentDidMount = async () => {
+    const data = await getItem(this.state.id);
+
+    this.setState({
+      id: data.id,
+      by: data.by,
+      kids: data.kids,
+      text: data.text,
+      time: data.time,
+      type: data.type,
+      parent: data.parent,
+
+      componentLoaded: true
+    });
   };
 
   /**
