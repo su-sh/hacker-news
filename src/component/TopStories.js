@@ -7,6 +7,7 @@ import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
 import { getPosition, getShowStoryList } from '../utils/utils';
 
 import '.././App.css';
+import PaginationFooter from './Pagination';
 
 /**
  *
@@ -26,7 +27,7 @@ class TopStories extends Component {
     this.state = {
       allStoryIdList: [],
       showStoryIdList: [],
-      currentPage: 0
+      currentPageNumber: 0
     };
   }
 
@@ -56,11 +57,11 @@ class TopStories extends Component {
         {!this.state.showStoryIdList.length ? (
           <Loading />
         ) : (
-          this.state.showStoryIdList.map(storyId => {
+          this.state.showStoryIdList.map((storyId, index) => {
             return (
               <StoryListItem
                 key={storyId}
-                position={getPosition(storyId, this.state.allStoryIdList)}
+                position={getPosition(index, this.state.currentPageNumber)}
                 id={storyId}
               />
             );
@@ -68,20 +69,21 @@ class TopStories extends Component {
         )}
 
         <button
+          disabled={this.isDisabledLeft(this.state.currentPageNumber)}
           onClick={() => {
-            let currentPage = this.state.currentPage;
+            let currentPageNumber = this.state.currentPageNumber;
 
-            currentPage--;
+            currentPageNumber--;
             this.setState(
               {
-                currentPage
+                currentPageNumber
               },
               () => {
-                console.log(this.state.currentPage);
+                console.log(this.state.currentPageNumber);
                 this.setState({
                   showStoryIdList: getShowStoryList(
                     this.state.allStoryIdList,
-                    this.state.currentPage
+                    this.state.currentPageNumber
                   )
                 });
               }
@@ -92,20 +94,24 @@ class TopStories extends Component {
         </button>
 
         <button
+          disabled={this.isDisabledRight(
+            this.currentPageNumber,
+            this.state.allStoryIdList.length
+          )}
           onClick={() => {
-            let currentPage = this.state.currentPage;
+            let currentPageNumber = this.state.currentPageNumber;
 
-            currentPage++;
+            currentPageNumber++;
             this.setState(
               {
-                currentPage
+                currentPageNumber
               },
               () => {
-                console.log(this.state.currentPage);
+                console.log(this.state.currentPageNumber);
                 this.setState({
                   showStoryIdList: getShowStoryList(
                     this.state.allStoryIdList,
-                    this.state.currentPage
+                    this.state.currentPageNumber
                   )
                 });
               }
@@ -114,9 +120,44 @@ class TopStories extends Component {
         >
           Next
         </button>
+
+        <PaginationFooter />
       </div>
     );
   }
+
+  /**
+   *
+   *
+   * @param {*} currentPageNumber
+   * @returns {boolean}
+   * */
+  isDisabledLeft = currentPageNumber => {
+    if (currentPageNumber === 0) {
+      // console.log(currentPageNumber);
+
+      return true;
+    } else {
+      // console.log(currentPageNumber);
+
+      return false;
+    }
+  };
+
+  /**
+   *
+   *
+   * @param {number} currentPageNumber
+   * @param {number} allStoryListLength
+   * @returns {boolean}
+   * */
+  isDisabledRight = (currentPageNumber, allStoryListLength) => {
+    if ((currentPageNumber + 1) * 30 >= allStoryListLength) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
 }
 

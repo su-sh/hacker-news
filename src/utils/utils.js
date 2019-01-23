@@ -57,14 +57,14 @@ export const getHostname = url => {
 };
 
 /**
- * .
+ * This function returns position of listItem on list.
  *
- * @param {number} storyId
- * @param {array} storyArray
+ * @param {number} index
+ * @param {number} pageNumber
  * @returns {number}
  */
-export const getPosition = (storyId, storyArray) => {
-  return storyArray.indexOf(storyId) + 1;
+export const getPosition = (index, pageNumber) => {
+  return index + 1 + pageNumber * 30;
 };
 
 /**
