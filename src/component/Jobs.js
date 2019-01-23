@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 
-import Loading from './Loading';
-import JobsListItem from './JobsListItem';
-
 import { getStoriesIndexArray } from '../api/api';
 import { STORY_TYPE } from '../api/api';
+import JobListWrapper from './jobs/JobsListWrapper';
 /**
  *
  *
@@ -12,6 +10,7 @@ import { STORY_TYPE } from '../api/api';
  * @extends {Component}
  */
 class Jobs extends Component {
+
   /**
    * Creates an instance of Jobs.
    *
@@ -46,18 +45,9 @@ class Jobs extends Component {
    * @memberof Jobs
    */
   render() {
-    return (
-      <div>
-        {!this.state.showStoryIdList.length ? (
-          <Loading />
-        ) : (
-          this.state.showStoryIdList.map(storyId => {
-            return <JobsListItem key={storyId} id={storyId} />;
-          })
-        )}
-      </div>
-    );
+    return <JobListWrapper showStoryIdList={this.state.showStoryIdList} />;
   }
+
 }
 
 export default Jobs;

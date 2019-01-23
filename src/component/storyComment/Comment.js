@@ -16,7 +16,6 @@ import upImg from '../../assets/up.png';
  * @extends {Component}
  */
 class Comment extends Component {
-
   /**
    * Creates an instance of Comment.
    *
@@ -82,12 +81,10 @@ class Comment extends Component {
             dangerouslySetInnerHTML={{ __html: this.state.text }}
           />
         </div>
-
         {this.state.kids && <CommentContainer kids={this.state.kids} />}
       </div>
     );
   }
-
 }
 
 Comment.propTypes = {

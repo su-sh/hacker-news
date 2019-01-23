@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Loading from './Loading';
+import Loading from '../Loading';
 
-import { getTimeDifference, getHostname } from '../utils/utils';
+import { getItem } from '../../api/api';
+import { getTimeDifference, getHostname } from '../../utils/utils';
 
-import '../App.css';
+import '../../App.css';
 
 /**
  *
@@ -41,15 +42,17 @@ class JobsListItem extends Component {
    *
    * @memberof StoryListItem
    */
-  componentDidMount = () => {
+  componentDidMount = async () => {
+    const data = await getItem(this.state.id);
+
     this.setState({
-      id: 123,
-      by: 'sus',
-      url: 'data.url',
-      time: 546465465,
-      type: 'jobstories',
-      score: 12,
-      title: 'title',
+      id: data.id,
+      by: data.by,
+      url: data.url,
+      time: data.time,
+      type: data.type,
+      score: data.score,
+      title: data.title,
 
       idLoaded: true
     });

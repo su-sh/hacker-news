@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 
-import Loading from './Loading';
-import StoryListItem from './story/StoryListItem';
+import StoryListWrapper from './story/StoryListWrapper';
 
-import { getPosition } from '../utils/utils';
 import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
 /**
  *
@@ -12,7 +10,6 @@ import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
  * @extends {Component}
  */
 class Ask extends Component {
-
   /**
    * Creates an instance of Ask.
    *
@@ -21,7 +18,7 @@ class Ask extends Component {
   constructor() {
     super();
     this.state = {
-      currentPage: 0,
+      currentPageNumber: 0,
       allStoryIdList: [],
       showStoryIdList: []
     };
@@ -49,24 +46,12 @@ class Ask extends Component {
    */
   render() {
     return (
-      <div>
-        {!this.state.showStoryIdList.length ? (
-          <Loading />
-        ) : (
-          this.state.showStoryIdList.map(storyId => {
-            return (
-              <StoryListItem
-                key={storyId}
-                position={getPosition(storyId, this.state.allStoryIdList)}
-                id={storyId}
-              />
-            );
-          })
-        )}
-      </div>
+      <StoryListWrapper
+        currentPageNumber={this.state.currentPageNumber}
+        showStoryIdList={this.state.showStoryIdList}
+      />
     );
   }
-
 }
 
 export default Ask;

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 
-import Loading from './Loading';
-import StoryListItem from './story/StoryListItem';
 import { getStoriesIndexArray, STORY_TYPE } from '../api/api';
-import { getPosition } from '../utils/utils';
+import StoryListWrapper from './story/StoryListWrapper';
 
 import '../App.css';
 
@@ -23,7 +21,7 @@ class Newest extends Component {
   constructor() {
     super();
     this.state = {
-      currentPage: 0,
+      currentPageNumber: 0,
       allStoriesIdList: [],
       showStoryIdList: []
     };
@@ -51,23 +49,10 @@ class Newest extends Component {
    */
   render() {
     return (
-      <div>
-        <div>
-          {!this.state.showStoryIdList.length ? (
-            <Loading />
-          ) : (
-            this.state.showStoryIdList.map(storyId => {
-              return (
-                <StoryListItem
-                  key={storyId}
-                  position={getPosition(storyId, this.state.allStoryIdList)}
-                  id={storyId}
-                />
-              );
-            })
-          )}
-        </div>
-      </div>
+      <StoryListWrapper
+        currentPageNumber={this.state.currentPageNumber}
+        showStoryIdList={this.state.showStoryIdList}
+      />
     );
   }
 
