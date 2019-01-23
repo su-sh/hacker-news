@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import Loading from './Loading';
-import StoryListItem from './story/StoryListItem';
+import StoryListWrapper from './story/StoryListWrapper';
 
 import '../App.css';
 
@@ -35,7 +34,7 @@ class Newest extends Component {
   componentDidMount = () => {
     this.setState({
       allStoryIdList: [],
-      showStoryIdList: [123, 12, 54]
+      showStoryIdList: [123, 12, 54, 123, 12, 54, 123, 12, 54]
     });
   };
 
@@ -46,19 +45,7 @@ class Newest extends Component {
    * @memberof Newest
    */
   render() {
-    return (
-      <div>
-        <div>
-          {!this.state.showStoryIdList.length ? (
-            <Loading />
-          ) : (
-            this.state.showStoryIdList.map(storyId => {
-              return <StoryListItem key={storyId} id={storyId} />;
-            })
-          )}
-        </div>
-      </div>
-    );
+    return <StoryListWrapper showStoryIdList={this.state.showStoryIdList} />;
   }
 
 }

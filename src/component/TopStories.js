@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
-import Loading from './Loading';
-import PaginationFooter from './Pagination';
-import StoryListItem from './story/StoryListItem';
-
+import StoryListWrapper from './story/StoryListWrapper';
 import '.././App.css';
 
 /**
@@ -12,6 +9,7 @@ import '.././App.css';
  * @class TopStories
  */
 class TopStories extends Component {
+
   /**
    * Creates an instance of TopStories.
    *
@@ -21,7 +19,8 @@ class TopStories extends Component {
     super();
     this.state = {
       allStoryIdList: [],
-      showStoryIdList: [123, 654, 3, 21, 654]
+      showStoryIdList: [123, 654, 3, 21, 654],
+      currentPageNumber: 0
     };
   }
 
@@ -32,20 +31,9 @@ class TopStories extends Component {
    * @memberof TopStories
    */
   render() {
-    return (
-      <div>
-        {!this.state.showStoryIdList.length ? (
-          <Loading />
-        ) : (
-          this.state.showStoryIdList.map(storyId => {
-            return <StoryListItem key={storyId} id={storyId} />;
-          })
-        )}
-
-        <PaginationFooter />
-      </div>
-    );
+    return <StoryListWrapper showStoryIdList={this.state.showStoryIdList} />;
   }
+
 }
 
 export default TopStories;

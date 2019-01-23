@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
-import Loading from './Loading';
-import PaginationFooter from './Pagination';
-import JobsListItem from './JobListItem';
-
+import JobListWrapper from './jobs/JobsListWrapper';
 /**
  *
  *
@@ -11,7 +8,6 @@ import JobsListItem from './JobListItem';
  * @extends {Component}
  */
 class Jobs extends Component {
-
   /**
    * Creates an instance of Jobs.
    *
@@ -44,20 +40,8 @@ class Jobs extends Component {
    * @memberof Jobs
    */
   render() {
-    return (
-      <div>
-        {!this.state.showStoryIdList.length ? (
-          <Loading />
-        ) : (
-          this.state.showStoryIdList.map(storyId => {
-            return <JobsListItem key={storyId} id={storyId} />;
-          })
-        )}
-        <PaginationFooter />
-      </div>
-    );
+    return <JobListWrapper showStoryIdList={this.state.showStoryIdList} />;
   }
-
 }
 
 export default Jobs;

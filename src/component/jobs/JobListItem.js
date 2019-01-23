@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Loading from './Loading';
+import Loading from '../Loading';
 
-import { getTimeDifference, getHostname } from '../utils/utils';
+import { getTimeDifference, getHostname } from '../../utils/utils';
 
-import '../App.css';
+import '../../App.css';
 
 /**
  *

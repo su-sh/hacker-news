@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
-import Loading from './Loading';
-import PaginationFooter from './Pagination';
-import StoryListItem from './story/StoryListItem';
+import StoryListWrapper from './story/StoryListWrapper';
 
 /**
  *
@@ -11,6 +9,7 @@ import StoryListItem from './story/StoryListItem';
  * @extends {Component}
  */
 class Ask extends Component {
+
   /**
    * Creates an instance of Ask.
    *
@@ -43,20 +42,9 @@ class Ask extends Component {
    * @memberof Ask
    */
   render() {
-    return (
-      <div>
-        {!this.state.showStoryIdList.length ? (
-          <Loading />
-        ) : (
-          this.state.showStoryIdList.map(storyId => {
-            return <StoryListItem key={storyId} id={storyId} />;
-          })
-        )}
-
-        <PaginationFooter />
-      </div>
-    );
+    return <StoryListWrapper showStoryIdList={this.state.showStoryIdList} />;
   }
+
 }
 
 export default Ask;
