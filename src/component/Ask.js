@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Loading from './Loading';
+import PaginationFooter from './Pagination';
 import StoryListItem from './story/StoryListItem';
 
 /**
@@ -10,7 +11,6 @@ import StoryListItem from './story/StoryListItem';
  * @extends {Component}
  */
 class Ask extends Component {
-
   /**
    * Creates an instance of Ask.
    *
@@ -52,10 +52,11 @@ class Ask extends Component {
             return <StoryListItem key={storyId} id={storyId} />;
           })
         )}
+
+        <PaginationFooter />
       </div>
     );
   }
-
 }
 
 export default Ask;

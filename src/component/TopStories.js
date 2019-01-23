@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Loading from './Loading';
-
+import PaginationFooter from './Pagination';
 import StoryListItem from './story/StoryListItem';
 
 import '.././App.css';
@@ -12,7 +12,6 @@ import '.././App.css';
  * @class TopStories
  */
 class TopStories extends Component {
-
   /**
    * Creates an instance of TopStories.
    *
@@ -42,10 +41,11 @@ class TopStories extends Component {
             return <StoryListItem key={storyId} id={storyId} />;
           })
         )}
+
+        <PaginationFooter />
       </div>
     );
   }
-
 }
 
 export default TopStories;

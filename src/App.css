@@ -140,11 +140,9 @@ a {
   padding-bottom: 5px;
   border-left: 2px solid #ebebc0;
 }
-
 .comment:hover {
   border-left: 2px solid #cc6666;
 }
-
 .comment-top {
   font-size: 8pt;
   color: #828282;
@@ -186,6 +184,17 @@ div > p:last-child {
 }
 .story-item {
   width: calc(100% - 15px);
+}
+.pagination {
+  padding: 10px 5px 10px 5px;
+  position: relative;
+}
+.page-number {
+  position: absolute;
+  left: 47%;
+}
+.paginationButton {
+  width: 80px;
 }
 img {
   display: block;

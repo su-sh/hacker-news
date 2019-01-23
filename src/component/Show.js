@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Loading from './Loading';
+import PaginationFooter from './Pagination';
 import StoryListItem from './story/StoryListItem';
 
 /**
@@ -10,6 +11,7 @@ import StoryListItem from './story/StoryListItem';
  * @extends {Component}
  */
 class Show extends Component {
+
   /**
    * Creates an instance of Show.
    *
@@ -51,9 +53,11 @@ class Show extends Component {
             return <StoryListItem key={storyId} id={storyId} />;
           })
         )}
+        <PaginationFooter />
       </div>
     );
   }
+
 }
 
 export default Show;

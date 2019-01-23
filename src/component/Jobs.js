@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Loading from './Loading';
+import PaginationFooter from './Pagination';
 import JobsListItem from './JobListItem';
 
 /**
@@ -10,6 +11,7 @@ import JobsListItem from './JobListItem';
  * @extends {Component}
  */
 class Jobs extends Component {
+
   /**
    * Creates an instance of Jobs.
    *
@@ -51,9 +53,11 @@ class Jobs extends Component {
             return <JobsListItem key={storyId} id={storyId} />;
           })
         )}
+        <PaginationFooter />
       </div>
     );
   }
+
 }
 
 export default Jobs;
