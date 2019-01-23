@@ -68,11 +68,11 @@ export const getPosition = (index, pageNumber) => {
 };
 
 /**
+ * This function returns story list with limited number of item that is to be shown.
  *
- *
- * @param {array} array
- * @param {number} pageNumber
- * @returns {array}
+ * @param {array} array Array with all elements.
+ * @param {number} pageNumber Current page number.
+ * @returns {array} Array with sliced elements.
  */
 export const getShowStoryList = (array, pageNumber) => {
   return array.slice(pageNumber * 30, (pageNumber + 1) * 30);

@@ -14,6 +14,7 @@ import '../../App.css';
  * @extends {Component}
  */
 class Story extends Component {
+
   /**
    * Creates an instance of Story.
    *
@@ -121,6 +122,7 @@ class Story extends Component {
       </div>
     );
   }
+
 }
 
 export default Story;

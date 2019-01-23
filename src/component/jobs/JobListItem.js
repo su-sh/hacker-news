@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+
 import Loading from '../Loading';
 
 import { getItem } from '../../api/api';
@@ -73,7 +74,7 @@ class JobsListItem extends Component {
   render() {
     return !this.state.idLoaded ? (
       <Loading />
-    ) : (
+    ) : this.state.url ? (
       <div>
         <div className="jobs-item clearfix">
           <div className="jobs-top clearfix">
@@ -87,6 +88,8 @@ class JobsListItem extends Component {
           </div>
         </div>
       </div>
+    ) : (
+      ''
     );
   }
 

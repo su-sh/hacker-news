@@ -64,8 +64,6 @@ class JobsListItem extends Component {
    * @memberof JobListItem
    */
   render() {
-    console.log(this.state);
-
     return !this.state.idLoaded ? (
       <Loading />
     ) : (

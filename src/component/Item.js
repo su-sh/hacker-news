@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Story from './story/Story';
 import { getItem } from '../api/api';
@@ -51,4 +52,11 @@ class Item extends Component {
 
 }
 
+Item.propTypes = {
+  match: {
+    params: {
+      id: PropTypes.number
+    }
+  }
+};
 export default Item;
