@@ -23,6 +23,8 @@ class StoryListWrapper extends Component {
    */
   constructor() {
     super();
+    this.shouldLoad = true;
+    // this.promise = getStoriesIndexArray(this.props.storyType);
     this.state = {
       currentPageNumber: 0,
       allStoriesIdList: undefined,
@@ -45,6 +47,12 @@ class StoryListWrapper extends Component {
 
       isLoaded: true
     });
+  };
+
+  componentWillUnmount = () => {
+    // console.log();
+    this.shouldLoad = false;
+    // this.promise.reject();
   };
 
   handlePreviousPaginationClick = () => {
