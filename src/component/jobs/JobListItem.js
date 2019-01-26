@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import Loading from '../Loading';
 
-import { getItem } from '../../api/api';
+import { fetchItem } from '../../api/api';
 import { getTimeDifference, getHostname } from '../../utils/utils';
 
 import '../../App.css';
@@ -44,7 +44,7 @@ class JobsListItem extends Component {
    * @memberof StoryListItem
    */
   componentDidMount = async () => {
-    const data = await getItem(this.state.id);
+    const data = await fetchItem(this.state.id);
 
     this.setState({
       id: data.id,

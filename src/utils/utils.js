@@ -3,8 +3,8 @@
  * This function return sliced array of id's according to current page number.
  *
  * @param {array} array
- * @param {*} pageSize
- * @param {*} pageNumber
+ * @param {number} pageSize
+ * @param {number} pageNumber
  * @returns {array}
  */
 export const paginate = (array, pageSize, pageNumber) => {

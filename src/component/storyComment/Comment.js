@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import Loading from '.././Loading';
 
-import { getItem } from '../../api/api';
+import { fetchItem } from '../../api/api';
 import CommentContainer from './CommentContainer';
 import { getTimeDifference } from '../../utils/utils';
 
@@ -17,6 +17,7 @@ import upImg from '../../assets/up.png';
  * @extends {Component}
  */
 class Comment extends Component {
+
   /**
    * Creates an instance of Comment.
    *
@@ -38,7 +39,7 @@ class Comment extends Component {
   }
 
   componentDidMount = async () => {
-    const data = await getItem(this.state.id);
+    const data = await fetchItem(this.state.id);
 
     this.setState({
       id: data.id,
@@ -82,6 +83,7 @@ class Comment extends Component {
       </div>
     );
   }
+
 }
 
 Comment.propTypes = {

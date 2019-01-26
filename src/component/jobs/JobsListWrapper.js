@@ -116,11 +116,7 @@ class JobsListWrapper extends Component {
    * @returns {boolean}
    * */
   isDisabledLeft = currentPageNumber => {
-    if (currentPageNumber === 0) {
-      return true;
-    } else {
-      return false;
-    }
+    return currentPageNumber === 0;
   };
 
   /**

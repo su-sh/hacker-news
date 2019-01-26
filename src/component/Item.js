@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Story from './story/Story';
-import { getItem } from '../api/api';
+import { fetchItem } from '../api/api';
 
 /**
  * This Component renders data according to the items type.
@@ -27,8 +27,7 @@ class Item extends Component {
 
   componentDidMount = async () => {
     const itemId = this.props.match.params.id;
-
-    const data = await getItem(itemId);
+    const data = await fetchItem(itemId);
 
     this.setState({
       type: data.type,

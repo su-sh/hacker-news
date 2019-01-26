@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import Loading from '.././Loading';
-import { getItem } from '../../api/api';
+import { fetchItem } from '../../api/api';
 import ROUTES from '../../constants/routes';
 import { getTimeDifference, getHostname } from '../../utils/utils';
 
@@ -47,7 +47,7 @@ class StoryListItem extends Component {
    * @memberof StoryListItem
    */
   componentDidMount = async () => {
-    const data = await getItem(this.state.id);
+    const data = await fetchItem(this.state.id);
 
     this.setState({
       by: data.by,
