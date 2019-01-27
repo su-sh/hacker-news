@@ -62,6 +62,9 @@ a {
 .tab-menu-list > ul > li:last-child {
   border-right: 0;
 }
+.tab-menu-list > ul > li .active{
+  color:white;
+}
 .main {
   background-color: #f6f6ef;
   width: 100%;
