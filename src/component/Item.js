@@ -51,11 +51,17 @@ class Item extends Component {
 
 }
 
+
 Item.propTypes = {
-  match: {
-    params: {
-      id: PropTypes.number
+  match: PropTypes.shape(
+    {
+      params: PropTypes.shape(
+        {
+          id: PropTypes.string
+        }
+      )
     }
-  }
+  )
 };
+
 export default Item;

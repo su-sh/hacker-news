@@ -77,3 +77,13 @@ export const getPosition = (index, pageNumber) => {
 export const getShowStoryList = (array, pageNumber) => {
   return array.slice(pageNumber * 30, (pageNumber + 1) * 30);
 };
+
+/**
+ * This function returns search url.
+ *
+ * @param {string} searchString
+ * @returns {string}
+ */
+export const getSearchUrl = (searchString) => {
+  return `http://www.google.com/search?q=${searchString}`;
+};

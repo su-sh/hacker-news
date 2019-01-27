@@ -71,15 +71,20 @@ a {
 }
 .jobs-top {
   font-size: 10pt;
+
+}
+.jobs-title{
+  padding-right: 4px;
 }
 .jobs-url {
   color: #828282;
   font-size: 8pt;
-  margin: 3px 5px 0px 5px;
+  margin: 3px 0px 0px 0px;
 }
 .jobs-bottom {
+  padding-top: 3px;
   color: #828282;
-  font-size: 7pt;
+  font-size: 8pt;
 }
 .post-item {
   display: table;

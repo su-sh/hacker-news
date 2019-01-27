@@ -72,25 +72,18 @@ class JobsListItem extends Component {
    * @memberof JobListItem
    */
   render() {
-    return !this.state.idLoaded ? (
-      <Loading />
-    ) : this.state.url ? (
-      <div>
-        <div className="jobs-item clearfix">
-          <div className="jobs-top clearfix">
-            <div className="jobs-title left">
-              <a href={this.state.url}>{this.state.title}</a>
-            </div>
-            <div className="jobs-url left">{this.showUrl()}</div>
-          </div>
-          <div className="jobs-bottom clearfix">
-            {getTimeDifference(this.state.time)}
-          </div>
-        </div>
-      </div>
-    ) : (
-      ''
-    );
+    return !this.state.idLoaded ?
+      (
+        <Loading />
+      ) :
+      (
+        <JobListItemContent
+          showUrl={this.showUrl}
+          title={this.state.title}
+          url={this.state.url}
+          time={this.state.time}
+        />
+      );
   }
 
 }
@@ -100,3 +93,39 @@ JobsListItem.propTypes = {
 };
 
 export default JobsListItem;
+
+
+/**
+ * Functional Component.
+ * If job item contains url then this component renders job item's content.
+ *
+ * @param {object} props
+ * @returns {*}
+ */
+const JobListItemContent = props => {
+  if (props.url) {
+    return (
+      <div>
+        <div className="jobs-item clearfix">
+          <div className="jobs-top clearfix">
+            <div className="jobs-title left">
+              <a href={props.url}>{props.title}</a>
+            </div>
+
+            <div className="jobs-url left">
+              {props.showUrl()}
+            </div>
+          </div>
+
+          <div className="jobs-bottom clearfix">
+            {getTimeDifference(props.time)}
+          </div>
+        </div>
+      </div>
+    );
+  }
+};
+
+JobListItemContent.propTypes = {
+  props: PropTypes.object
+};

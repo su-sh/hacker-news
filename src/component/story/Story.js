@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import upImg from '../../assets/up.png';
 import CommentContainer from '../storyComment/CommentContainer';
-import { getTimeDifference, getHostname } from '../../utils/utils';
+import { getTimeDifference, getHostname, getSearchUrl } from '../../utils/utils';
 
 import '../../App.css';
 
@@ -25,9 +25,9 @@ class Story extends Component {
     super();
     this.state = {
       id: undefined,
-      kids: [],
       by: undefined,
       url: undefined,
+      kids: undefined,
       time: undefined,
       type: undefined,
       score: undefined,
@@ -106,7 +106,7 @@ class Story extends Component {
               <div className="clearfix left post-new">
                 <div className="left">
                   <a
-                    href={`http://www.google.com/search?q=${this.state.title}`}
+                    href={getSearchUrl(this.state.title)}
                   >
                     web
                   </a>

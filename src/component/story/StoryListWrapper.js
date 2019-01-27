@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { getStoriesIndexArray } from '../../api/api';
+import { fetchStoriesIndexArray } from '../../api/api';
 import { getPosition, getShowStoryList } from '../../utils/utils';
 
 import Loading from '../Loading';
@@ -39,7 +39,7 @@ class StoryListWrapper extends Component {
    * @memberof Newest
    */
   componentDidMount = async () => {
-    const newArray = await getStoriesIndexArray(this.props.storyType);
+    const newArray = await fetchStoriesIndexArray(this.props.storyType);
 
     this.setState({
       allStoriesIdList: newArray,
@@ -117,10 +117,9 @@ class StoryListWrapper extends Component {
    * */
   isDisabledLeft = currentPageNumber => {
     if (currentPageNumber === 0) {
-      // console.log(currentPageNumber);
+
       return true;
     } else {
-      // console.log(currentPageNumber);
 
       return false;
     }
@@ -135,30 +134,34 @@ class StoryListWrapper extends Component {
   render() {
     return (
       <div>
-        {!this.state.showStoryIdList ? (
-          <Loading />
-        ) : (
-          this.state.showStoryIdList.map((storyId, index) => {
-            return (
-              <StoryListItem
-                position={getPosition(index, this.state.currentPageNumber)}
-                key={storyId}
-                id={storyId}
-              />
-            );
-          })
-        )}
-        {this.state.allStoriesIdList ? (
-          <PaginationFooter
-            currentPageNumber={this.state.currentPageNumber}
-            handlePreviousPaginationClick={this.handlePreviousPaginationClick}
-            handleNextPaginationClick={this.handleNextPaginationClick}
-            isDisabledLeft={this.isDisabledLeft}
-            isDisabledRight={this.isDisabledRight}
-          />
-        ) : (
-          ''
-        )}
+        {
+          !this.state.showStoryIdList ? (
+            <Loading />
+          ) : (
+            this.state.showStoryIdList.map((storyId, index) => {
+              return (
+                <StoryListItem
+                  position={getPosition(index, this.state.currentPageNumber)}
+                  key={storyId}
+                  id={storyId}
+                />
+              );
+            })
+          )
+        }
+        {
+          this.state.allStoriesIdList ? (
+            <PaginationFooter
+              currentPageNumber={this.state.currentPageNumber}
+              handlePreviousPaginationClick={this.handlePreviousPaginationClick}
+              handleNextPaginationClick={this.handleNextPaginationClick}
+              isDisabledLeft={this.isDisabledLeft}
+              isDisabledRight={this.isDisabledRight}
+            />
+          ) : (
+            ''
+          )
+        }
       </div>
     );
   }

@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Loading from '.././Loading';
 import { fetchItem } from '../../api/api';
 import ROUTES from '../../constants/routes';
-import { getTimeDifference, getHostname } from '../../utils/utils';
+import { getTimeDifference, getHostname, getSearchUrl } from '../../utils/utils';
 
 import '../../App.css';
 import upImg from '../../assets/up.png';
@@ -92,24 +92,33 @@ class StoryListItem extends Component {
             <div className="post-points left">{this.state.score} points</div>
 
             <div className="post-by left">
-              by
-              <Link to="#">{this.state.by}</Link>
+                by {this.state.by}
             </div>
 
             <div className="post-time left">
-              <Link to={ROUTES.ITEM + this.state.id}>
-                {getTimeDifference(this.state.time)}
-              </Link>
+
+              {getTimeDifference(this.state.time)}
+
             </div>
 
-            {this.state.descendants === 0 ? (
-              <WithoutComment id={this.state.id} />
-            ) : (
-              <WithComment
-                id={this.state.id}
-                descendants={this.state.descendants}
-              />
-            )}
+            <div className="left">
+              <a
+                href={getSearchUrl(this.state.title)}
+              >
+                  web
+              </a>
+            </div>
+
+            {
+              this.state.descendants === 0 ? (
+                <WithoutComment id={this.state.id} />
+              ) : (
+                <WithComment
+                  id={this.state.id}
+                  descendants={this.state.descendants}
+                />
+              )
+            }
           </div>
         </div>
       </div>
@@ -152,7 +161,7 @@ WithComment.propTypes = {
 const WithoutComment = props => {
   return (
     <div className="clearfix left post-new">
-      <div className="left">web</div>
+
       <div className="left ">
         <Link to={ROUTES.ITEM + props.id}>discuss</Link>
       </div>

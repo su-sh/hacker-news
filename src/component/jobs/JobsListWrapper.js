@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { getStoriesIndexArray, STORY_TYPE } from '../../api/api';
+import { fetchStoriesIndexArray } from '../../api/api';
+import { STORY_TYPE } from '../../constants/api';
 import { getPosition, getShowStoryList } from '../../utils/utils';
 
 import Loading from '../Loading';
@@ -37,7 +38,7 @@ class JobsListWrapper extends Component {
    * @memberof Newest
    */
   componentDidMount = async () => {
-    const newArray = await getStoriesIndexArray(STORY_TYPE.JOB_STORIES);
+    const newArray = await fetchStoriesIndexArray(STORY_TYPE.JOB_STORIES);
 
     this.setState({
       allStoriesIdList: newArray,
@@ -102,7 +103,10 @@ class JobsListWrapper extends Component {
    * @returns {boolean}
    * */
   isDisabledRight = currentPageNumber => {
-    if ((currentPageNumber + 1) * 30 >= this.state.allStoriesIdList.length) {
+
+    const nosOfElementsTillCurrentPage = (currentPageNumber + 1) * 30;
+
+    if (nosOfElementsTillCurrentPage >= this.state.allStoriesIdList.length) {
       return true;
     } else {
       return false;
@@ -128,30 +132,35 @@ class JobsListWrapper extends Component {
   render() {
     return (
       <div>
-        {!this.state.showStoryIdList ? (
-          <Loading />
-        ) : (
-          this.state.showStoryIdList.map((storyId, index) => {
-            return (
-              <JobListItem
-                position={getPosition(index, this.state.currentPageNumber)}
-                key={storyId}
-                id={storyId}
-              />
-            );
-          })
-        )}
-        {this.state.allStoriesIdList ? (
-          <PaginationFooter
-            currentPageNumber={this.state.currentPageNumber}
-            handlePreviousPaginationClick={this.handlePreviousPaginationClick}
-            handleNextPaginationClick={this.handleNextPaginationClick}
-            isDisabledLeft={this.isDisabledLeft}
-            isDisabledRight={this.isDisabledRight}
-          />
-        ) : (
-          ''
-        )}
+        {
+          !this.state.showStoryIdList ? (
+            <Loading />
+          ) : (
+            this.state.showStoryIdList.map((storyId, index) => {
+              return (
+                <JobListItem
+                  position={getPosition(index, this.state.currentPageNumber)}
+                  key={storyId}
+                  id={storyId}
+                />
+              );
+            })
+          )
+        }
+
+        {
+          this.state.allStoriesIdList ? (
+            <PaginationFooter
+              currentPageNumber={this.state.currentPageNumber}
+              handlePreviousPaginationClick={this.handlePreviousPaginationClick}
+              handleNextPaginationClick={this.handleNextPaginationClick}
+              isDisabledLeft={this.isDisabledLeft}
+              isDisabledRight={this.isDisabledRight}
+            />
+          ) : (
+            ''
+          )
+        }
       </div>
     );
   }
