@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import * as api from '../api/api';
 import Story from './story/Story';
+import { fetchItem } from '../api/api';
 
 /**
  * This Component renders data according to the items type.
@@ -19,24 +20,19 @@ class Item extends Component {
   constructor() {
     super();
     this.state = {
-      type: ''
+      type: undefined,
+      data: undefined
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     const itemId = this.props.match.params.id;
+    const data = await fetchItem(itemId);
 
-    let itemType = 'none';
-
-    api
-      .getItem(itemId)
-      .then(res => {
-        itemType = res.data.type;
-        this.setState({
-          type: itemType
-        });
-      })
-      .catch(err => {});
+    this.setState({
+      type: data.type,
+      data: data
+    });
   };
 
   /**
@@ -46,9 +42,26 @@ class Item extends Component {
    * @memberof Item
    */
   render() {
-    return <div>{this.state.type === 'story' && <Story />}</div>;
+    return (
+      <div>
+        {this.state.type === 'story' && <Story data={this.state.data} />}
+      </div>
+    );
   }
 
 }
+
+
+Item.propTypes = {
+  match: PropTypes.shape(
+    {
+      params: PropTypes.shape(
+        {
+          id: PropTypes.string
+        }
+      )
+    }
+  )
+};
 
 export default Item;

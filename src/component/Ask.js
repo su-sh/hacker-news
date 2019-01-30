@@ -1,50 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 
+import { STORY_TYPE } from '../constants/api';
 import StoryListWrapper from './story/StoryListWrapper';
 
 /**
  *
- *
- * @class Ask
- * @extends {Component}
+ * @returns {object}
+ * @memberof Ask
  */
-class Ask extends Component {
-
-  /**
-   * Creates an instance of Ask.
-   *
-   * @memberof Ask
-   */
-  constructor() {
-    super();
-    this.state = {
-      allStoryIdList: [],
-      showStoryIdList: [123, 1231]
-    };
-  }
-
-  /**
-   *
-   *
-   * @memberof Ask
-   */
-  componentDidMount = () => {
-    this.setState({
-      allStoryIdList: [],
-      showStoryIdList: [123, 1234]
-    });
-  };
-
-  /**
-   *
-   *
-   * @returns {object}
-   * @memberof Ask
-   */
-  render() {
-    return <StoryListWrapper showStoryIdList={this.state.showStoryIdList} />;
-  }
-
-}
+const Ask = () => {
+  return <StoryListWrapper storyType={STORY_TYPE.ASK_STORIES} />;
+};
 
 export default Ask;

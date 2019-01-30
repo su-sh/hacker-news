@@ -1,39 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 
+import { STORY_TYPE } from '../constants/api';
 import StoryListWrapper from './story/StoryListWrapper';
-import '.././App.css';
 
 /**
- * This class renders list of top stories .
  *
- * @class TopStories
+ * @returns {object}
+ * @memberof TopStories
  */
-class TopStories extends Component {
-
-  /**
-   * Creates an instance of TopStories.
-   *
-   * @memberof TopStories
-   */
-  constructor() {
-    super();
-    this.state = {
-      allStoryIdList: [],
-      showStoryIdList: [123, 654, 3, 21, 654],
-      currentPageNumber: 0
-    };
-  }
-
-  /**
-   *
-   *
-   * @returns {object}
-   * @memberof TopStories
-   */
-  render() {
-    return <StoryListWrapper showStoryIdList={this.state.showStoryIdList} />;
-  }
-
-}
+const TopStories = () => {
+  return <StoryListWrapper storyType={STORY_TYPE.TOP_STORIES} />;
+};
 
 export default TopStories;

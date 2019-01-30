@@ -3,8 +3,8 @@
  * This function return sliced array of id's according to current page number.
  *
  * @param {array} array
- * @param {*} pageSize
- * @param {*} pageNumber
+ * @param {number} pageSize
+ * @param {number} pageNumber
  * @returns {array}
  */
 export const paginate = (array, pageSize, pageNumber) => {
@@ -54,4 +54,36 @@ export const getHostname = url => {
   l.href = url;
 
   return l.hostname;
+};
+
+/**
+ * This function returns position of listItem on list.
+ *
+ * @param {number} index
+ * @param {number} pageNumber
+ * @returns {number}
+ */
+export const getPosition = (index, pageNumber) => {
+  return index + 1 + pageNumber * 30;
+};
+
+/**
+ * This function returns story list with limited number of item that is to be shown.
+ *
+ * @param {array} array Array with all elements.
+ * @param {number} pageNumber Current page number.
+ * @returns {array} Array with sliced elements.
+ */
+export const getShowStoryList = (array, pageNumber) => {
+  return array.slice(pageNumber * 30, (pageNumber + 1) * 30);
+};
+
+/**
+ * This function returns search url.
+ *
+ * @param {string} searchString
+ * @returns {string}
+ */
+export const getSearchUrl = (searchString) => {
+  return `http://www.google.com/search?q=${searchString}`;
 };

@@ -1,22 +1,15 @@
 import axios from 'axios';
+import { BASE_URL, STORY_TYPE, STORY_TYPE_URL } from '../constants/api';
+
 
 /**
  *
- * @returns {promise}
  * @param {*} storiesType
- */
-export const getStoriesIndex = storiesType => {
-  return axios.get(`https://hacker-news.firebaseio.com/v0/${storiesType}.json`);
-};
-
-/**
- *
  * @returns {object}
- * @param {*} storiesType
  */
-export const getStoriesIndexNew = storiesType => {
+export const fetchStoriesIndexArray = storiesType => {
   return axios
-    .get(`https://hacker-news.firebaseio.com/v0/${storiesType}.json`)
+    .get(getStoriesUrl(storiesType))
     .then(res => {
       return res.data;
     })
@@ -27,9 +20,45 @@ export const getStoriesIndexNew = storiesType => {
 
 /**
  *
- * @returns {promise}
  * @param {string} id
+ * @returns {promise}
  */
-export const getItem = id => {
-  return axios.get(`https://hacker-news.firebaseio.com/v0/item/${id}.json`);
+export const fetchItem = id => {
+  return axios
+    .get(getItemUrl(id))
+    .then(res => {
+      return res.data;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+/**
+ *
+ * @param {string} storyType
+ * @returns {string}
+ */
+const getStoriesUrl = storyType => {
+  switch (storyType) {
+    case STORY_TYPE.TOP_STORIES:
+      return BASE_URL + STORY_TYPE_URL.TOP_STORIES;
+    case STORY_TYPE.BEST_STORIES:
+      return BASE_URL + STORY_TYPE_URL.BEST_STORIES;
+    case STORY_TYPE.ASK_STORIES:
+      return BASE_URL + STORY_TYPE_URL.ASK_STORIES;
+    case STORY_TYPE.JOB_STORIES:
+      return BASE_URL + STORY_TYPE_URL.JOB_STORIES;
+    default:
+      return BASE_URL + STORY_TYPE_URL.TOP_STORIES;
+  }
+};
+
+/**
+ *
+ * @param {string} itemId
+ * @returns {string}
+ */
+const getItemUrl = itemId => {
+  return `${BASE_URL}/item/${itemId}.json`;
 };

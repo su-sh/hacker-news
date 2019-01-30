@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+
 import Loading from '../Loading';
 
+import { fetchItem } from '../../api/api';
 import { getTimeDifference, getHostname } from '../../utils/utils';
 
 import '../../App.css';
@@ -41,18 +43,26 @@ class JobsListItem extends Component {
    *
    * @memberof StoryListItem
    */
-  componentDidMount = () => {
+  componentDidMount = async () => {
+    const data = await fetchItem(this.state.id);
+
     this.setState({
-      id: 123,
-      by: 'sus',
-      url: 'data.url',
-      time: 546465465,
-      type: 'jobstories',
-      score: 12,
-      title: 'title',
+      id: data.id,
+      by: data.by,
+      url: data.url,
+      time: data.time,
+      type: data.type,
+      score: data.score,
+      title: data.title,
 
       idLoaded: true
     });
+  };
+
+  showUrl = () => {
+    if (this.state.url !== undefined) {
+      return getHostname(this.state.url);
+    }
   };
 
   /**
@@ -65,19 +75,12 @@ class JobsListItem extends Component {
     return !this.state.idLoaded ? (
       <Loading />
     ) : (
-      <div>
-        <div className="jobs-item clearfix">
-          <div className="jobs-top clearfix">
-            <div className="jobs-title left">
-              <a href={this.state.url}>{this.state.title}</a>
-            </div>
-            <div className="jobs-url left">{getHostname(this.state.url)}</div>
-          </div>
-          <div className="jobs-bottom clearfix">
-            {getTimeDifference(this.state.time)}
-          </div>
-        </div>
-      </div>
+      <JobListItemContent
+        showUrl={this.showUrl}
+        title={this.state.title}
+        url={this.state.url}
+        time={this.state.time}
+      />
     );
   }
 
@@ -88,3 +91,38 @@ JobsListItem.propTypes = {
 };
 
 export default JobsListItem;
+
+/**
+ * Functional Component.
+ * If job item contains url then this component renders job item's content.
+ *
+ * @param {object} props
+ * @returns {*}
+ */
+const JobListItemContent = props => {
+  if (props.url) {
+    return (
+      <div>
+        <div className="jobs-item clearfix">
+          <div className="jobs-top clearfix">
+            <div className="jobs-title left">
+              <a href={props.url}>{props.title}</a>
+            </div>
+
+            <div className="jobs-url left">{props.showUrl()}</div>
+          </div>
+
+          <div className="jobs-bottom clearfix">
+            {getTimeDifference(props.time)}
+          </div>
+        </div>
+      </div>
+    );
+  } else {
+    return '';
+  }
+};
+
+JobListItemContent.propTypes = {
+  props: PropTypes.object
+};

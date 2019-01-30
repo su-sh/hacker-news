@@ -1,8 +1,10 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import upImg from '../../assets/up.png';
 import CommentContainer from '../storyComment/CommentContainer';
+import { getTimeDifference, getHostname, getSearchUrl } from '../../utils/utils';
 
 import '../../App.css';
 
@@ -22,15 +24,17 @@ class Story extends Component {
   constructor() {
     super();
     this.state = {
-      by: undefined,
-      descendants: undefined,
       id: undefined,
-      kids: [],
-      score: undefined,
+      by: undefined,
+      url: undefined,
+      kids: undefined,
       time: undefined,
-      title: undefined,
       type: undefined,
-      url: undefined
+      score: undefined,
+      title: undefined,
+      descendants: undefined,
+
+      text: undefined
     };
   }
 
@@ -40,18 +44,20 @@ class Story extends Component {
    * @memberof StoryListItem
    */
   componentDidMount() {
+    const data = this.props.data;
+
     this.setState({
-      by: 'dhouston',
-      descendants: 71,
-      id: 8863,
-      kids: [18951388, 18952593],
-      score: 111,
-      time: 1547923143,
-      title: 'My YC app: Dropbox - Throw away your USB drive',
-      type: 'story',
-      url: 'http://www.getdropbox.com'
-    });
-    this.setState({
+      id: data.id,
+      by: data.by,
+      url: data.url,
+      kids: data.kids,
+      time: data.time,
+      type: data.type,
+      score: data.score,
+      title: data.title,
+      descendants: data.descendants,
+
+      text: data.text,
       componentLoaded: true
     });
   }
@@ -75,35 +81,54 @@ class Story extends Component {
               <div className="left story-title">
                 <a href={this.state.url}>{this.state.title}</a>
               </div>
-              <div className="left post-url">({this.state.url})</div>
+
+              <div className="left post-url">
+                ({getHostname(this.state.url)})
+              </div>
             </div>
+
             <div className="post-bottom-section clearfix">
               <div className="post-points left">{this.state.score} points</div>
+
               <div className="post-by left">
                 by
                 <Link to="#">{' ' + this.state.by}</Link>
               </div>
-              <div className="post-time left">6 hours ago</div>
+
+              <div className="post-time left">
+                {getTimeDifference(this.state.time)}
+              </div>
+
               <div className="post-comment left">
-                <Link to="#"> 14 comment</Link>
+                <Link to="#"> {this.state.descendants} comment</Link>
               </div>
 
               <div className="clearfix left post-new">
-                <div className="left">web</div>
+                <div className="left">
+                  <a
+                    href={getSearchUrl(this.state.title)}
+                  >
+                    web
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div className="comment-placeholder">Comments</div>
-        {this.state.kids.length ? (
+
+        {this.state.descendants ? (
           <CommentContainer kids={this.state.kids} />
         ) : (
-          ''
+          <div className="comment-placeholder"> No Comments Yet</div>
         )}
       </div>
     );
   }
 
 }
+Story.propTypes = {
+  data: PropTypes.object
+};
 
 export default Story;

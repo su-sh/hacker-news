@@ -1,47 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import JobListWrapper from './jobs/JobsListWrapper';
+import JobsListWrapper from './jobs/JobsListWrapper';
+
 /**
  *
- *
- * @class Jobs
- * @extends {Component}
+ * @returns {object}
+ * @memberof Jobs
  */
-class Jobs extends Component {
-  /**
-   * Creates an instance of Jobs.
-   *
-   * @memberof Jobs
-   */
-  constructor() {
-    super();
-    this.state = {
-      allStoryIdList: [],
-      showStoryIdList: []
-    };
-  }
-
-  /**
-   *
-   *
-   * @memberof Jobs
-   */
-  componentDidMount = () => {
-    this.setState({
-      allStoryIdList: [],
-      showStoryIdList: [123, 123]
-    });
-  };
-
-  /**
-   *
-   *
-   * @returns {object}
-   * @memberof Jobs
-   */
-  render() {
-    return <JobListWrapper showStoryIdList={this.state.showStoryIdList} />;
-  }
-}
+const Jobs = () => {
+  return <JobsListWrapper />;
+};
 
 export default Jobs;

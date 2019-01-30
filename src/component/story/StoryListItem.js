@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import Loading from '.././Loading';
+import { fetchItem } from '../../api/api';
 import ROUTES from '../../constants/routes';
-import { getTimeDifference, getHostname } from '../../utils/utils';
+import { getTimeDifference, getHostname, getSearchUrl } from '../../utils/utils';
 
 import '../../App.css';
 import upImg from '../../assets/up.png';
@@ -16,6 +17,7 @@ import upImg from '../../assets/up.png';
  * @extends {Component}
  */
 class StoryListItem extends Component {
+
   /**
    * Creates an instance of StoryListItem.
    *
@@ -27,6 +29,7 @@ class StoryListItem extends Component {
 
     this.state = {
       id: this.props.id,
+      position: this.props.position,
       by: undefined,
       url: undefined,
       time: undefined,
@@ -43,15 +46,17 @@ class StoryListItem extends Component {
    *
    * @memberof StoryListItem
    */
-  componentDidMount = () => {
+  componentDidMount = async () => {
+    const data = await fetchItem(this.state.id);
+
     this.setState({
-      by: 'RandomI',
-      id: 123,
-      url: 'https://gitlab.com/su-sh/pasco/',
-      time: 654843132,
-      score: 12,
-      title: 'StoryTitle',
-      descendants: 1,
+      by: data.by,
+      id: data.id,
+      url: data.url,
+      time: data.time,
+      score: data.score,
+      title: data.title,
+      descendants: data.descendants,
 
       idLoaded: true
     });
@@ -69,7 +74,7 @@ class StoryListItem extends Component {
     ) : (
       <div className="post-item clearfix">
         <div className="post-left left clearfix">
-          <div className="left post-position">1.</div>
+          <div className="left post-position">{this.state.position}.</div>
           <div className="right post-position-arrow">
             <img className="up-img" alt="up-img" src={upImg} />
           </div>
@@ -87,29 +92,39 @@ class StoryListItem extends Component {
             <div className="post-points left">{this.state.score} points</div>
 
             <div className="post-by left">
-              by
-              <Link to="#">{this.state.by}</Link>
+                by {this.state.by}
             </div>
 
             <div className="post-time left">
-              <Link to={ROUTES.ITEM + this.state.id}>
-                {getTimeDifference(this.state.time)}
-              </Link>
+
+              {getTimeDifference(this.state.time)}
+
             </div>
 
-            {this.state.descendants === 0 ? (
-              <WithoutComment id={this.state.id} />
-            ) : (
-              <WithComment
-                id={this.state.id}
-                descendants={this.state.descendants}
-              />
-            )}
+            <div className="left">
+              <a
+                href={getSearchUrl(this.state.title)}
+              >
+                  web
+              </a>
+            </div>
+
+            {
+              this.state.descendants === 0 ? (
+                <WithoutComment id={this.state.id} />
+              ) : (
+                <WithComment
+                  id={this.state.id}
+                  descendants={this.state.descendants}
+                />
+              )
+            }
           </div>
         </div>
       </div>
     );
   }
+
 }
 
 StoryListItem.propTypes = {
@@ -146,7 +161,7 @@ WithComment.propTypes = {
 const WithoutComment = props => {
   return (
     <div className="clearfix left post-new">
-      <div className="left">web</div>
+
       <div className="left ">
         <Link to={ROUTES.ITEM + props.id}>discuss</Link>
       </div>
@@ -155,5 +170,6 @@ const WithoutComment = props => {
 };
 
 WithoutComment.propTypes = {
-  id: PropTypes.number
+  id: PropTypes.number,
+  position: PropTypes.number
 };

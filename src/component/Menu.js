@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import '../App.css';
 import ROUTES from '../constants/routes';
@@ -22,24 +22,24 @@ class Menu extends Component {
     return (
       <div className="menu clearfix">
         <div className="logo left">
-          <Link to="/">Hacker News</Link>
+          <NavLink to="/">Hacker News</NavLink>
         </div>
         <div className="tab-menu-list left clearfix">
           <ul>
             <li>
-              <Link to={ROUTES.NEWEST}>new</Link>
+              <NavLink to={ROUTES.NEWEST}>new</NavLink>
             </li>
             <li>
-              <Link to={ROUTES.ASK}>ask</Link>
+              <NavLink to={ROUTES.ASK}>ask</NavLink>
             </li>
             <li>
-              <Link to={ROUTES.SHOW}>show</Link>
+              <NavLink to={ROUTES.SHOW}>show</NavLink>
             </li>
             <li>
-              <Link to={ROUTES.JOBS}>jobs</Link>
+              <NavLink to={ROUTES.JOBS}>jobs</NavLink>
             </li>
             <li>
-              <Link to={ROUTES.SUBMIT}>submit</Link>
+              <NavLink to={ROUTES.SUBMIT}>submit</NavLink>
             </li>
           </ul>
         </div>
