@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import '../App.css';
-import ROUTES from '../routes/routes';
+import ROUTES from '../constants/routes';
 
 /**
- * This class contains Menu Elements.
+ * This class contains menu elements.
  *
  * @class Menu
  * @extends {Component}
@@ -27,10 +27,7 @@ class Menu extends Component {
         <div className="tab-menu-list left clearfix">
           <ul>
             <li>
-              <Link to={ROUTES.NEWS}>new</Link>
-            </li>
-            <li>
-              <Link to={ROUTES.COMMENTS}>comment</Link>
+              <Link to={ROUTES.NEWEST}>new</Link>
             </li>
             <li>
               <Link to={ROUTES.ASK}>ask</Link>

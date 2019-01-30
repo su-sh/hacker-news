@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
-import * as api from './api/api';
 
 import Menu from './component/Menu';
 import Main from './component/Main';
+
 import './App.css';
 
 /**
@@ -14,6 +12,7 @@ import './App.css';
  * @extends {Component}
  */
 class App extends Component {
+
   /**
    *
    *
@@ -28,6 +27,7 @@ class App extends Component {
       </div>
     );
   }
+
 }
 
 App.propTypes = {};

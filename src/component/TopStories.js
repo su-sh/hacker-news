@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import * as api from '../api/api';
+
+import StoryListWrapper from './story/StoryListWrapper';
+import '.././App.css';
 
 /**
- *
+ * This class renders list of top stories .
  *
  * @class TopStories
- * @extends {Component}
  */
 class TopStories extends Component {
 
@@ -17,21 +18,11 @@ class TopStories extends Component {
   constructor() {
     super();
     this.state = {
-      postIdList: []
+      allStoryIdList: [],
+      showStoryIdList: [123, 654, 3, 21, 654],
+      currentPageNumber: 0
     };
   }
-
-  componentDidMount = () => {
-    const storiesIndexPromise = api.getStoriesIndex('topstories');
-
-    storiesIndexPromise
-      .then((req, res) => {
-        this.setState({
-          postIdList: req.data
-        });
-      })
-      .catch();
-  };
 
   /**
    *
@@ -40,7 +31,7 @@ class TopStories extends Component {
    * @memberof TopStories
    */
   render() {
-    return <div>TopStories</div>;
+    return <StoryListWrapper showStoryIdList={this.state.showStoryIdList} />;
   }
 
 }

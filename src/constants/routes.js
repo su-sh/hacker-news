@@ -1,11 +1,13 @@
 const ROUTES = {
-  NEWS: '/newest',
-  COMMENTS: '/newcomments',
   ASK: '/ask',
   SHOW: '/show',
   JOBS: '/jobs',
+  ITEM: '/item/',
+  NEWEST: '/newest',
+  LOGIN: '/submit',
   SUBMIT: '/submit',
-  LOGIN: '/submit'
+  COMMENTS: '/newcomments',
+  ROOT: '/'
 };
 
 export default ROUTES;
