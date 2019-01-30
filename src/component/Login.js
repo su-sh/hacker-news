@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+
 import { signup, login } from './auth';
+
+import ROUTES from '../constants/routes';
 /**
  *
  *
@@ -23,13 +26,17 @@ class Login extends Component {
 
   handleLogin = () => {
     if (this.state.username && this.state.password) {
-      login(this.state);
+      if (login(this.state)) {
+        this.props.history.replace({ pathname: ROUTES.BOOKMARKS });
+      }
     }
   };
 
   handleSignup = () => {
     if (this.state.username && this.state.password) {
-      signup(this.state);
+      if (signup(this.state)) {
+        // clear input field
+      }
     }
   };
 
@@ -42,43 +49,30 @@ class Login extends Component {
   render() {
     return (
       <div>
-        Login
         <div className="login">
-          <div>
+          <div>Login / Signup</div>
+          <div className="login-signup-input">
             <input
               type="text"
               name="username"
               placeholder="username"
               onChange={this.inputChangeHandler}
             />
-            <input
-              type="password"
-              name="password"
-              placeholder="password"
-              onChange={this.inputChangeHandler}
-            />
-            <button type="submit" onClick={this.handleLogin}>
-              Login
-            </button>
           </div>
-        </div>
-        Signup
-        <div className="signup">
-          <div>
-            <input
-              type="text"
-              name="username"
-              placeholder="username"
-              onChange={this.inputChangeHandler}
-            />
+          <div className="login-signup-input">
             <input
               type="password"
               name="password"
               placeholder="password"
               onChange={this.inputChangeHandler}
             />
-            <button type="submit" onClick={this.handleSignup}>
+          </div>
+          <div className="login-submit-btn clearfix">
+            <button className="left" type="submit" onClick={this.handleSignup}>
               Sign Up
+            </button>
+            <button className="right" type="submit" onClick={this.handleLogin}>
+              Login
             </button>
           </div>
         </div>

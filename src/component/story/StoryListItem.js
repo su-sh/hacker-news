@@ -5,7 +5,11 @@ import React, { Component } from 'react';
 import Loading from '.././Loading';
 import { fetchItem } from '../../api/api';
 import ROUTES from '../../constants/routes';
-import { getTimeDifference, getHostname, getSearchUrl } from '../../utils/utils';
+import {
+  getTimeDifference,
+  getHostname,
+  getSearchUrl
+} from '../../utils/utils';
 
 import '../../App.css';
 import upImg from '../../assets/up.png';
@@ -62,6 +66,15 @@ class StoryListItem extends Component {
     });
   };
 
+  showHostName = url => {
+    const showUrl = getHostname(url);
+
+    if (showUrl === 'localhost') {
+      return '';
+    } else {
+      return `(${showUrl})`;
+    }
+  };
   /**
    *
    *
@@ -85,40 +98,32 @@ class StoryListItem extends Component {
               <a href={this.state.url}>{this.state.title}</a>
             </div>
 
-            <div className="left post-url">({getHostname(this.state.url)})</div>
+            <div className="left post-url">
+              {this.showHostName(this.state.url)}
+            </div>
           </div>
 
           <div className="post-bottom-section clearfix">
             <div className="post-points left">{this.state.score} points</div>
 
-            <div className="post-by left">
-                by {this.state.by}
-            </div>
+            <div className="post-by left">by {this.state.by}</div>
 
             <div className="post-time left">
-
               {getTimeDifference(this.state.time)}
-
             </div>
 
             <div className="left">
-              <a
-                href={getSearchUrl(this.state.title)}
-              >
-                  web
-              </a>
+              <a href={getSearchUrl(this.state.title)}>web</a>
             </div>
 
-            {
-              this.state.descendants === 0 ? (
-                <WithoutComment id={this.state.id} />
-              ) : (
-                <WithComment
-                  id={this.state.id}
-                  descendants={this.state.descendants}
-                />
-              )
-            }
+            {this.state.descendants === 0 ? (
+              <WithoutComment id={this.state.id} />
+            ) : (
+              <WithComment
+                id={this.state.id}
+                descendants={this.state.descendants}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -161,7 +166,6 @@ WithComment.propTypes = {
 const WithoutComment = props => {
   return (
     <div className="clearfix left post-new">
-
       <div className="left ">
         <Link to={ROUTES.ITEM + props.id}>discuss</Link>
       </div>

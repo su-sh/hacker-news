@@ -2,19 +2,27 @@
  *
  *
  * @param {object} object
+ * @returns {boolean}
  */
 export const signup = object => {
   console.log('hi');
-  localStorage.setItem('username', object.username);
-  localStorage.setItem('password', object.password);
-  alert('signup sucessful');
+
+  if (true) {
+    localStorage.setItem('username', object.username);
+    localStorage.setItem('password', object.password);
+    alert('signup sucessful');
+
+    return true;
+  } else {
+    return false;
+  }
 };
 
 /**
  *
  *
  * @param {object} object
- * @returns {object}
+ * @returns {boolean}
  */
 export const login = object => {
   const username = localStorage.getItem('username');

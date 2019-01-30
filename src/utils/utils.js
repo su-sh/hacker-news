@@ -84,6 +84,6 @@ export const getShowStoryList = (array, pageNumber) => {
  * @param {string} searchString
  * @returns {string}
  */
-export const getSearchUrl = (searchString) => {
+export const getSearchUrl = searchString => {
   return `http://www.google.com/search?q=${searchString}`;
 };

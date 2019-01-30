@@ -10,6 +10,7 @@ import Newest from './Newest';
 import TopStories from './TopStories';
 import Bookmarks from './bookmark/Bookmarks';
 import { withAuthentication } from './hoc/withAuthentication';
+import { withLogin } from './hoc/withLogin';
 import ROUTES from '../constants/routes';
 import '../App.css';
 
@@ -27,10 +28,16 @@ const Main = () => {
         <Route path={ROUTES.ASK} component={Ask} />
         <Route path={ROUTES.SHOW} component={Show} />
         <Route path={ROUTES.JOBS} component={Jobs} />
-        <Route path={ROUTES.SUBMIT} component={withAuthentication(Bookmarks)} />
+        <Route
+          path={ROUTES.BOOKMARKS}
+          component={withAuthentication(Bookmarks)}
+        />
         <Route path={ROUTES.ITEM + ':id'} component={Item} />
-        <Route path="/login" component={Login} />
-        <Route path="/bookmark" component={withAuthentication(Bookmarks)} />
+        <Route path={ROUTES.LOGIN} component={withLogin(Login)} />
+        <Route
+          path={ROUTES.BOOKMARKS}
+          component={withAuthentication(Bookmarks)}
+        />
       </Switch>
     </div>
   );

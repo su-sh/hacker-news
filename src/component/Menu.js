@@ -39,10 +39,11 @@ class Menu extends Component {
               <NavLink to={ROUTES.JOBS}>jobs</NavLink>
             </li>
             <li>
-              <NavLink to={ROUTES.SUBMIT}>submit</NavLink>
+              <NavLink to={ROUTES.BOOKMARKS}>bookmarks</NavLink>
             </li>
           </ul>
         </div>
+        <div className="right login-menu">Login</div>
       </div>
     );
   }

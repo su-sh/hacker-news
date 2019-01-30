@@ -4,10 +4,11 @@ const ROUTES = {
   JOBS: '/jobs',
   ITEM: '/item/',
   NEWEST: '/newest',
-  LOGIN: '/submit',
+  LOGIN: '/login',
   SUBMIT: '/submit',
   COMMENTS: '/newcomments',
-  ROOT: '/'
+  ROOT: '/',
+  BOOKMARKS: '/bookmarks'
 };
 
 export default ROUTES;

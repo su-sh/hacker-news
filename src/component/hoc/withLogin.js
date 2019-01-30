@@ -1,19 +1,19 @@
 import React from 'react';
-import ROUTES from '../../constants/routes';
+
 /**
  *
  *
  * @param {object} Component
  * @returns {object}
  */
-export const withAuthentication = Component => {
+export const withLogin = Component => {
   return class App extends Component {
 
     componentWillMount = () => {
       const getToken = localStorage.getItem('token');
 
-      if (!getToken) {
-        this.props.history.replace({ pathname: ROUTES.LOGIN });
+      if (getToken) {
+        this.props.history.replace({ pathname: '/bookmarks' });
       }
     };
 

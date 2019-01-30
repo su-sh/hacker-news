@@ -72,18 +72,16 @@ class JobsListItem extends Component {
    * @memberof JobListItem
    */
   render() {
-    return !this.state.idLoaded ?
-      (
-        <Loading />
-      ) :
-      (
-        <JobListItemContent
-          showUrl={this.showUrl}
-          title={this.state.title}
-          url={this.state.url}
-          time={this.state.time}
-        />
-      );
+    return !this.state.idLoaded ? (
+      <Loading />
+    ) : (
+      <JobListItemContent
+        showUrl={this.showUrl}
+        title={this.state.title}
+        url={this.state.url}
+        time={this.state.time}
+      />
+    );
   }
 
 }
@@ -93,7 +91,6 @@ JobsListItem.propTypes = {
 };
 
 export default JobsListItem;
-
 
 /**
  * Functional Component.
@@ -112,9 +109,7 @@ const JobListItemContent = props => {
               <a href={props.url}>{props.title}</a>
             </div>
 
-            <div className="jobs-url left">
-              {props.showUrl()}
-            </div>
+            <div className="jobs-url left">{props.showUrl()}</div>
           </div>
 
           <div className="jobs-bottom clearfix">
@@ -123,6 +118,8 @@ const JobListItemContent = props => {
         </div>
       </div>
     );
+  } else {
+    return '';
   }
 };
 
