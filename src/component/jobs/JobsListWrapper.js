@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { fetchStoriesIndexArray } from '../../api/api';
 import { STORY_TYPE } from '../../constants/api';
+import { fetchStoriesIndexArray } from '../../api/api';
 import { getPosition, getShowStoryList } from '../../utils/utils';
 
 import Loading from '../Loading';
@@ -103,7 +103,6 @@ class JobsListWrapper extends Component {
    * @returns {boolean}
    * */
   isDisabledRight = currentPageNumber => {
-
     const nosOfElementsTillCurrentPage = (currentPageNumber + 1) * 30;
 
     if (nosOfElementsTillCurrentPage >= this.state.allStoriesIdList.length) {
@@ -132,35 +131,32 @@ class JobsListWrapper extends Component {
   render() {
     return (
       <div>
-        {
-          !this.state.showStoryIdList ? (
-            <Loading />
-          ) : (
-            this.state.showStoryIdList.map((storyId, index) => {
-              return (
-                <JobListItem
-                  position={getPosition(index, this.state.currentPageNumber)}
-                  key={storyId}
-                  id={storyId}
-                />
-              );
-            })
-          )
-        }
+        {!this.state.showStoryIdList ? (
+          <Loading />
+        ) : (
+          this.state.showStoryIdList.map((storyId, index) => {
+            return (
+              <JobListItem
+                position={getPosition(index, this.state.currentPageNumber)}
+                key={storyId}
+                id={storyId}
+              />
+              // <div>asdf</div>
+            );
+          })
+        )}
 
-        {
-          this.state.allStoriesIdList ? (
-            <PaginationFooter
-              currentPageNumber={this.state.currentPageNumber}
-              handlePreviousPaginationClick={this.handlePreviousPaginationClick}
-              handleNextPaginationClick={this.handleNextPaginationClick}
-              isDisabledLeft={this.isDisabledLeft}
-              isDisabledRight={this.isDisabledRight}
-            />
-          ) : (
-            ''
-          )
-        }
+        {this.state.allStoriesIdList ? (
+          <PaginationFooter
+            currentPageNumber={this.state.currentPageNumber}
+            handlePreviousPaginationClick={this.handlePreviousPaginationClick}
+            handleNextPaginationClick={this.handleNextPaginationClick}
+            isDisabledLeft={this.isDisabledLeft}
+            isDisabledRight={this.isDisabledRight}
+          />
+        ) : (
+          ''
+        )}
       </div>
     );
   }
