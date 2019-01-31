@@ -1,4 +1,5 @@
 import React from 'react';
+import '.././App.css';
 
 /**
  *
@@ -6,7 +7,7 @@ import React from 'react';
  * @returns {object}
  */
 const NotFound = () => {
-  return <div>NOT FOUND</div>;
+  return <div className="error">404 NOT FOUND</div>;
 };
 
 export default NotFound;
