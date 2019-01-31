@@ -8,7 +8,7 @@ import Test from './Item';
 import Login from './Login';
 import Newest from './Newest';
 import TopStories from './TopStories';
-
+import NotFound from './NotFound';
 import ROUTES from '../constants/routes';
 import '../App.css';
 
@@ -28,6 +28,8 @@ const Main = () => {
         <Route path={ROUTES.JOBS} component={Jobs} />
         <Route path={ROUTES.SUBMIT} component={Login} />
         <Route path={ROUTES.ITEM + ':id'} component={Test} />
+        <Route path={ROUTES.NOT_FOUND} component={NotFound} />
+        <Route component={NotFound} />
       </Switch>
     </div>
   );

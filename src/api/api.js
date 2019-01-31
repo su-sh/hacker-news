@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { BASE_URL, STORY_TYPE, STORY_TYPE_URL } from '../constants/api';
 
-
 /**
  *
  * @param {*} storiesType
