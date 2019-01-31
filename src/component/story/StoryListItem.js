@@ -30,18 +30,19 @@ class StoryListItem extends Component {
    */
   constructor(props) {
     super(props);
+    const data = this.props.data;
 
     this.state = {
-      id: this.props.id,
-      position: this.props.position,
-      by: undefined,
-      url: undefined,
-      time: undefined,
-      score: undefined,
-      title: undefined,
-      descendants: undefined,
+      id: data.id,
+      by: data.by,
+      url: data.url,
+      time: data.time,
+      score: data.score,
+      title: data.title,
+      descendants: data.descendants,
 
-      idLoaded: false
+      position: this.props.position,
+      idLoaded: true
     };
   }
 
@@ -51,19 +52,20 @@ class StoryListItem extends Component {
    * @memberof StoryListItem
    */
   componentDidMount = async () => {
-    const data = await fetchItem(this.state.id);
-
-    this.setState({
-      by: data.by,
-      id: data.id,
-      url: data.url,
-      time: data.time,
-      score: data.score,
-      title: data.title,
-      descendants: data.descendants,
-
-      idLoaded: true
-    });
+    // await fetchItem(this.state.id).then(res => {
+    //   const data = res.data;
+    //   this.setState({
+    //     by: data.by,
+    //     id: data.id,
+    //     url: data.url,
+    //     time: data.time,
+    //     score: data.score,
+    //     title: data.title,
+    //     descendants: data.descendants,
+    //     idLoaded: true
+    //   });
+    // });
+    // const data = await this.props.data;
   };
 
   /**

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { fetchStoriesIndexArray } from '../../api/api';
+import { fetchStoriesIndexArray, fetchItem } from '../../api/api';
 import { getPosition, getShowStoryList } from '../../utils/utils';
 
 import Loading from '../Loading';
@@ -24,13 +24,18 @@ class StoryListWrapper extends Component {
   constructor() {
     super();
     this.shouldLoad = true;
+
     // this.promise = getStoriesIndexArray(this.props.storyType);
     this.state = {
       currentPageNumber: 0,
       allStoriesIdList: undefined,
       showStoryIdList: undefined,
+      stories: [],
       isLoaded: false
     };
+
+    this.start = this.state.currentPageNumber * 30;
+    this.end = this.start + 30;
   }
 
   /**
@@ -39,13 +44,14 @@ class StoryListWrapper extends Component {
    * @memberof Newest
    */
   componentDidMount = async () => {
-    const newArray = await fetchStoriesIndexArray(this.props.storyType);
+    await fetchStoriesIndexArray(this.props.storyType).then(res => {
+      this.setState({
+        allStoriesIdList: res.data,
+        showStoryIdList: res.data.slice(0, 30),
 
-    this.setState({
-      allStoriesIdList: newArray,
-      showStoryIdList: newArray.slice(0, 30),
-
-      isLoaded: true
+        isLoaded: false
+      });
+      this.loadStories();
     });
   };
 
@@ -53,6 +59,33 @@ class StoryListWrapper extends Component {
     // console.log();
     this.shouldLoad = false;
     // this.promise.reject();
+  };
+
+  /**
+   * Update the shown after changing page.
+   *
+   * @param {*} prevProps
+   * @param {*} prevState
+   */
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.currentPageNumber !== this.state.currentPageNumber) {
+      this.loadStories();
+    }
+  };
+  loadStories = () => {
+    for (let i = this.start; i < this.end; i++) {
+      fetchItem(this.state.allStoriesIdList[i]).then(res => {
+        this.setState(
+          {
+            stories: [...this.state.stories, res.data]
+          },
+          () => {}
+        );
+      });
+    }
+    this.setState({
+      isLoaded: true
+    });
   };
 
   handlePreviousPaginationClick = () => {
@@ -117,10 +150,8 @@ class StoryListWrapper extends Component {
    * */
   isDisabledLeft = currentPageNumber => {
     if (currentPageNumber === 0) {
-
       return true;
     } else {
-
       return false;
     }
   };
@@ -132,36 +163,40 @@ class StoryListWrapper extends Component {
    * @memberof StoryListWrapper
    */
   render() {
+    this.start = this.state.currentPageNumber * 30;
+    this.end = this.start + 30;
+
+    console.log(this.start, this.end);
+
     return (
       <div>
-        {
-          !this.state.showStoryIdList ? (
-            <Loading />
-          ) : (
-            this.state.showStoryIdList.map((storyId, index) => {
+        {!this.state.isLoaded ? (
+          <Loading />
+        ) : (
+          this.state.stories
+            .slice(this.start, this.end)
+            .map((storyId, index) => {
               return (
                 <StoryListItem
                   position={getPosition(index, this.state.currentPageNumber)}
-                  key={storyId}
-                  id={storyId}
+                  key={storyId.id}
+                  id={storyId.id}
+                  data={storyId}
                 />
               );
             })
-          )
-        }
-        {
-          this.state.allStoriesIdList ? (
-            <PaginationFooter
-              currentPageNumber={this.state.currentPageNumber}
-              handlePreviousPaginationClick={this.handlePreviousPaginationClick}
-              handleNextPaginationClick={this.handleNextPaginationClick}
-              isDisabledLeft={this.isDisabledLeft}
-              isDisabledRight={this.isDisabledRight}
-            />
-          ) : (
-            ''
-          )
-        }
+        )}
+        {this.state.allStoriesIdList ? (
+          <PaginationFooter
+            currentPageNumber={this.state.currentPageNumber}
+            handlePreviousPaginationClick={this.handlePreviousPaginationClick}
+            handleNextPaginationClick={this.handleNextPaginationClick}
+            isDisabledLeft={this.isDisabledLeft}
+            isDisabledRight={this.isDisabledRight}
+          />
+        ) : (
+          ''
+        )}
       </div>
     );
   }
