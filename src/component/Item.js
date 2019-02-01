@@ -64,7 +64,7 @@ class Item extends Component {
    * @memberof Item
    */
   render() {
-    return <div>{<Story data={this.state.data} />}</div>;
+    return <div>{this.state.data && <Story data={this.state.data} />}</div>;
   }
 
 }
