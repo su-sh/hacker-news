@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { fetchStoriesIndexArray, fetchItem } from '../../api/api';
-import { getPosition, getShowStoryList } from '../../utils/utils';
+import { getPosition } from '../../utils/utils';
 
 import Loading from '../Loading';
 import StoryListItem from './StoryListItem';
@@ -134,6 +134,26 @@ class StoryListWrapper extends Component {
   };
 
   /**
+   * This function generates and returns array of StoryListItems for current page.
+   *
+   * @returns {array} Returns array of StoryListItem.
+   * */
+  getStoryList = () => {
+    return this.state.stories
+      .slice(this.start, this.end)
+      .map((storyId, index) => {
+        return (
+          <StoryListItem
+            position={getPosition(index, this.state.currentPageNumber)}
+            key={storyId.id}
+            id={storyId.id}
+            data={storyId}
+          />
+        );
+      });
+  };
+
+  /**
    *
    *
    * @returns {object}
@@ -142,38 +162,11 @@ class StoryListWrapper extends Component {
   render() {
     this.start = this.state.currentPageNumber * 30;
     this.end = this.start + 30;
+    const storyList = this.getStoryList();
 
     return (
       <div>
-        {/* {!this.state.isLoaded ? (
-          <Loading />
-        ) : (
-          this.state.stories
-            .slice(this.start, this.end)
-            .map((storyId, index) => {
-              return (
-                <StoryListItem
-                  position={getPosition(index, this.state.currentPageNumber)}
-                  key={storyId.id}
-                  id={storyId.id}
-                  data={storyId}
-                />
-              );
-            })
-        )} */}
-
-        {this.state.stories
-          .slice(this.start, this.end)
-          .map((storyId, index) => {
-            return (
-              <StoryListItem
-                position={getPosition(index, this.state.currentPageNumber)}
-                key={storyId.id}
-                id={storyId.id}
-                data={storyId}
-              />
-            );
-          })}
+        {storyList}
 
         {!this.state.isLoaded ? <Loading /> : ''}
 

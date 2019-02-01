@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import Loading from '.././Loading';
-import { fetchItem } from '../../api/api';
 import ROUTES from '../../constants/routes';
+
 import {
-  getTimeDifference,
   getHostname,
-  getSearchUrl
+  getSearchUrl,
+  getTimeDifference
 } from '../../utils/utils';
 
 import '../../App.css';
@@ -51,22 +51,6 @@ class StoryListItem extends Component {
    *
    * @memberof StoryListItem
    */
-  componentDidMount = async () => {
-    // await fetchItem(this.state.id).then(res => {
-    //   const data = res.data;
-    //   this.setState({
-    //     by: data.by,
-    //     id: data.id,
-    //     url: data.url,
-    //     time: data.time,
-    //     score: data.score,
-    //     title: data.title,
-    //     descendants: data.descendants,
-    //     idLoaded: true
-    //   });
-    // });
-    // const data = await this.props.data;
-  };
 
   /**
    *
