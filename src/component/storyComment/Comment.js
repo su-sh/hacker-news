@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import Loading from '.././Loading';
-
 import { fetchItem } from '../../api/api';
 import CommentContainer from './CommentContainer';
 import { getTimeDifference } from '../../utils/utils';
@@ -34,26 +32,37 @@ class Comment extends Component {
       text: undefined,
       time: undefined,
       parent: undefined,
+      showReplies: false,
       componentLoaded: false
     };
   }
 
   componentDidMount = async () => {
-    const data = await fetchItem(this.state.id);
+    await fetchItem(this.state.id).then(res => {
+      const data = res.data;
 
-    this.setState({
-      id: data.id,
-      by: data.by,
-      kids: data.kids,
-      text: data.text,
-      time: data.time,
-      type: data.type,
-      parent: data.parent,
+      this.setState({
+        id: data.id,
+        by: data.by,
+        kids: data.kids || [],
+        text: data.text,
+        time: data.time,
+        type: data.type,
+        parent: data.parent,
 
-      componentLoaded: true
+        componentLoaded: true
+      });
     });
   };
 
+  toggleReplies = () => {
+    let showReplies = this.state.showReplies;
+
+    showReplies = !showReplies;
+    this.setState({
+      showReplies
+    });
+  };
   /**
    *
    *
@@ -62,15 +71,18 @@ class Comment extends Component {
    */
   render() {
     return !this.state.componentLoaded ? (
-      <Loading />
+      ''
     ) : (
       <div className="comment">
         <div className="comment-top clearfix">
           <div className="left post-position-arrow">
             <img alt="up-img" src={upImg} />
           </div>
-          <div className="left">{this.state.by}</div>
-          <div className="left">{getTimeDifference(this.state.time)}</div>
+          <span className="left">{this.state.by}</span>
+          <span className="left">{getTimeDifference(this.state.time)}</span>
+          <span className="left comment-replies" onClick={this.toggleReplies}>
+            {this.state.kids.length} replies
+          </span>
         </div>
 
         <div className="comment-bottom clearfix">
@@ -79,7 +91,10 @@ class Comment extends Component {
             dangerouslySetInnerHTML={{ __html: this.state.text }}
           />
         </div>
-        {this.state.kids && <CommentContainer kids={this.state.kids} />}
+
+        {this.state.showReplies
+          ? this.state.kids && <CommentContainer kids={this.state.kids} />
+          : ''}
       </div>
     );
   }

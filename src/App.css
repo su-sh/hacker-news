@@ -154,8 +154,12 @@ a {
   font-size: 8pt;
   color: #828282;
 }
-.comment-top > div {
+.comment-top > span {
   margin: 0 4px 0 4px;
+  cursor: default;
+}
+.comment-replies {
+  cursor: pointer;
 }
 .comment-text {
   overflow: hidden;
@@ -172,6 +176,7 @@ a {
 .comment-form > textarea {
   width: 25%;
 }
+
 div > p:last-child {
   margin: 0;
 }
