@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
-import Loading from '.././Loading';
 import ROUTES from '../../constants/routes';
 
 import {
@@ -45,12 +44,6 @@ class StoryListItem extends Component {
       idLoaded: true
     };
   }
-
-  /**
-   *
-   *
-   * @memberof StoryListItem
-   */
 
   /**
    *

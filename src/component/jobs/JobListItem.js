@@ -1,9 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import Loading from '../Loading';
-
-import { fetchItem } from '../../api/api';
 import { getTimeDifference, getHostname } from '../../utils/utils';
 
 import '../../App.css';

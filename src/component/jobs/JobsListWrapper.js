@@ -190,6 +190,8 @@ class JobsListWrapper extends Component {
               data={story}
             />
           );
+        } else {
+          return '';
         }
       });
   };
