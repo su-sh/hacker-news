@@ -59,9 +59,7 @@ class StoryListItem extends Component {
    * @memberof Post
    */
   render() {
-    return !this.state.idLoaded ? (
-      <Loading />
-    ) : (
+    return (
       <div className="post-item clearfix">
         <div className="post-left left clearfix">
           <div className="left post-position">{this.state.position}.</div>

@@ -53,7 +53,7 @@ class StoryListWrapper extends Component {
   };
 
   /**
-   * Update the shown after changing page.
+   *
    *
    * @param {*} prevProps
    * @param {*} prevState
@@ -69,21 +69,40 @@ class StoryListWrapper extends Component {
       }
     }
   };
+
+  /**
+   *
+   *
+   *
+   */
   loadStories = async () => {
-    this.setState({
-      isLoaded: false
-    });
+    this.setIsLoaded(false);
 
     /* eslint-disable no-await-in-loop */
     for (let i = this.start; i < this.end; i++) {
+      // handles last list item
+      if (i >= this.state.allStoriesIdList.length) {
+        this.setIsLoaded(true);
+
+        return;
+      }
       await fetchItem(this.state.allStoriesIdList[i]).then(res => {
         this.setState({
           stories: [...this.state.stories, res.data]
         });
       });
     }
+    this.setIsLoaded(true);
+  };
+
+  /**
+   *
+   * @param {boolean} bool
+   * @memberof StoryListWrapper
+   */
+  setIsLoaded = bool => {
     this.setState({
-      isLoaded: true
+      isLoaded: bool
     });
   };
 
@@ -115,7 +134,7 @@ class StoryListWrapper extends Component {
     if ((currentPageNumber + 1) * 30 >= this.state.allStoriesIdList.length) {
       return true;
     } else {
-      return false;
+      return this.getDisableStatus();
     }
   };
 
@@ -127,6 +146,19 @@ class StoryListWrapper extends Component {
    * */
   isDisabledLeft = currentPageNumber => {
     if (currentPageNumber === 0) {
+      return true;
+    } else {
+      return this.getDisableStatus();
+    }
+  };
+
+  /**
+   *
+   *
+   * @returns {boolean}
+   */
+  getDisableStatus = () => {
+    if (!this.state.isLoaded) {
       return true;
     } else {
       return false;
@@ -162,6 +194,7 @@ class StoryListWrapper extends Component {
   render() {
     this.start = this.state.currentPageNumber * 30;
     this.end = this.start + 30;
+
     const storyList = this.getStoryList();
 
     return (
