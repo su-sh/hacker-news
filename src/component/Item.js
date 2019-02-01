@@ -52,9 +52,12 @@ class Item extends Component {
   }
   componentDidMount = async () => {
     const itemId = this.props.match.params.id;
-    const data = await fetchItem(itemId);
 
-    data === null ? this.gotoNotFound() : this.checkIfContentIsStory(data);
+    await fetchItem(itemId).then(res => {
+      const data = res.data;
+
+      data === null ? this.gotoNotFound() : this.checkIfContentIsStory(data);
+    });
   };
 
   /**
@@ -64,7 +67,7 @@ class Item extends Component {
    * @memberof Item
    */
   render() {
-    return <div>{<Story data={this.state.data} />}</div>;
+    return <div>{this.state.data && <Story data={this.state.data} />}</div>;
   }
 
 }

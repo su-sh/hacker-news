@@ -155,6 +155,7 @@ class JobsListWrapper extends Component {
     this.setIsLoaded(false);
 
     /* eslint-disable no-await-in-loop */
+    /*
     for (let i = this.start; i < this.end; i++) {
       // handles last list item
       if (i >= this.state.allStoriesIdList.length) {
@@ -169,6 +170,24 @@ class JobsListWrapper extends Component {
         });
       });
     }
+    */
+
+    const slicedArray = this.allStoriesIdList.slice(this.start, this.end - 1);
+
+    if (this.start > this.state.allStoriesIdList.length) {
+      this.setIsLoaded(true);
+
+      return;
+    }
+
+    for (const item of slicedArray) {
+      await fetchItem(item).then(res => {
+        this.setState({
+          stories: [...this.state.stories, res.data]
+        });
+      });
+    }
+
     this.setIsLoaded(true);
   };
 
