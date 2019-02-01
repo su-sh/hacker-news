@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import { fetchStoriesIndexArray, fetchItem } from '../../api/api';
 import { getPosition, getShowStoryList } from '../../utils/utils';
@@ -23,13 +23,11 @@ class StoryListWrapper extends Component {
    */
   constructor() {
     super();
-    this.shouldLoad = true;
 
-    // this.promise = getStoriesIndexArray(this.props.storyType);
     this.state = {
       currentPageNumber: 0,
       allStoriesIdList: undefined,
-      showStoryIdList: undefined,
+
       stories: [],
       isLoaded: false
     };
@@ -47,18 +45,11 @@ class StoryListWrapper extends Component {
     await fetchStoriesIndexArray(this.props.storyType).then(res => {
       this.setState({
         allStoriesIdList: res.data,
-        showStoryIdList: res.data.slice(0, 30),
 
         isLoaded: false
       });
       this.loadStories();
     });
-  };
-
-  componentWillUnmount = () => {
-    // console.log();
-    this.shouldLoad = false;
-    // this.promise.reject();
   };
 
   /**
@@ -69,18 +60,26 @@ class StoryListWrapper extends Component {
    */
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.currentPageNumber !== this.state.currentPageNumber) {
-      this.loadStories();
+      // Total number of stories that current page should conatin
+      const totalNosOfStoriesInCurrentPage =
+        (this.state.currentPageNumber + 1) * 30;
+
+      if (this.state.stories.length < totalNosOfStoriesInCurrentPage) {
+        this.loadStories();
+      }
     }
   };
-  loadStories = () => {
+  loadStories = async () => {
+    this.setState({
+      isLoaded: false
+    });
+
+    /* eslint-disable no-await-in-loop */
     for (let i = this.start; i < this.end; i++) {
-      fetchItem(this.state.allStoriesIdList[i]).then(res => {
-        this.setState(
-          {
-            stories: [...this.state.stories, res.data]
-          },
-          () => {}
-        );
+      await fetchItem(this.state.allStoriesIdList[i]).then(res => {
+        this.setState({
+          stories: [...this.state.stories, res.data]
+        });
       });
     }
     this.setState({
@@ -92,40 +91,18 @@ class StoryListWrapper extends Component {
     let currentPageNumber = this.state.currentPageNumber;
 
     currentPageNumber--;
-    this.setState(
-      {
-        currentPageNumber
-      },
-      () => {
-        console.log(this.state.currentPageNumber);
-        this.setState({
-          showStoryIdList: getShowStoryList(
-            this.state.allStoriesIdList,
-            this.state.currentPageNumber
-          )
-        });
-      }
-    );
+    this.setState({
+      currentPageNumber
+    });
   };
 
   handleNextPaginationClick = () => {
     let currentPageNumber = this.state.currentPageNumber;
 
     currentPageNumber++;
-    this.setState(
-      {
-        currentPageNumber
-      },
-      () => {
-        console.log(this.state.currentPageNumber);
-        this.setState({
-          showStoryIdList: getShowStoryList(
-            this.state.allStoriesIdList,
-            this.state.currentPageNumber
-          )
-        });
-      }
-    );
+    this.setState({
+      currentPageNumber
+    });
   };
 
   /**
@@ -166,11 +143,9 @@ class StoryListWrapper extends Component {
     this.start = this.state.currentPageNumber * 30;
     this.end = this.start + 30;
 
-    console.log(this.start, this.end);
-
     return (
       <div>
-        {!this.state.isLoaded ? (
+        {/* {!this.state.isLoaded ? (
           <Loading />
         ) : (
           this.state.stories
@@ -185,7 +160,23 @@ class StoryListWrapper extends Component {
                 />
               );
             })
-        )}
+        )} */}
+
+        {this.state.stories
+          .slice(this.start, this.end)
+          .map((storyId, index) => {
+            return (
+              <StoryListItem
+                position={getPosition(index, this.state.currentPageNumber)}
+                key={storyId.id}
+                id={storyId.id}
+                data={storyId}
+              />
+            );
+          })}
+
+        {!this.state.isLoaded ? <Loading /> : ''}
+
         {this.state.allStoriesIdList ? (
           <PaginationFooter
             currentPageNumber={this.state.currentPageNumber}
