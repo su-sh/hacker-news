@@ -35,6 +35,13 @@ class JobsListWrapper extends Component {
     this.end = this.start + 30;
   }
 
+
+  /**
+   *
+   *
+   * @memberof JobsListWrapper
+   * @param {boolean} bool
+   */
   setIsLoaded = bool => {
     this.setState({
       isLoaded: bool
@@ -150,29 +157,16 @@ class JobsListWrapper extends Component {
 
   /**
    * This function loads individual story item.
+   *
+   * @returns {*}
    */
   loadStories = async () => {
     this.setIsLoaded(false);
 
-    /* eslint-disable no-await-in-loop */
-    /*
-    for (let i = this.start; i < this.end; i++) {
-      // handles last list item
-      if (i >= this.state.allStoriesIdList.length) {
-        this.setIsLoaded(true);
-
-        return;
-      }
-
-      await fetchItem(this.state.allStoriesIdList[i]).then(res => {
-        this.setState({
-          stories: [...this.state.stories, res.data]
-        });
-      });
-    }
-    */
-
-    const slicedArray = this.allStoriesIdList.slice(this.start, this.end - 1);
+    const slicedArray = this.state.allStoriesIdList.slice(
+      this.start,
+      this.end - 1
+    );
 
     if (this.start > this.state.allStoriesIdList.length) {
       this.setIsLoaded(true);
@@ -180,6 +174,7 @@ class JobsListWrapper extends Component {
       return;
     }
 
+    /* eslint-disable no-await-in-loop */
     for (const item of slicedArray) {
       await fetchItem(item).then(res => {
         this.setState({

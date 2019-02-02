@@ -70,9 +70,7 @@ class Comment extends Component {
    * @memberof Comment
    */
   render() {
-    return !this.state.componentLoaded ? (
-      ''
-    ) : (
+    return this.state.componentLoaded ? (
       <div className="comment">
         <div className="comment-top clearfix">
           <div className="left post-position-arrow">
@@ -90,12 +88,19 @@ class Comment extends Component {
             className="comment-text"
             dangerouslySetInnerHTML={{ __html: this.state.text }}
           />
+
+          <CommentReplies
+            showReplies={this.state.showReplies}
+            kids={this.state.kids}
+          />
         </div>
 
-        {this.state.showReplies
+        {/* {this.state.showReplies
           ? this.state.kids && <CommentContainer kids={this.state.kids} />
-          : ''}
+          : ''} */}
       </div>
+    ) : (
+      ''
     );
   }
 
@@ -106,3 +111,21 @@ Comment.propTypes = {
 };
 
 export default Comment;
+
+/**
+ *
+ *
+ * @param {*} props
+ * @returns {object}
+ */
+const CommentReplies = props => {
+  return (
+    <div>
+      {props.showReplies
+        ? props.kids && <CommentContainer kids={props.kids} />
+        : ''}
+    </div>
+  );
+};
+
+Comment.propTypes = {};
