@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { STORY_TYPE } from '../../constants/api';
 import { fetchStoriesIndexArray, fetchItem } from '../../api/api';
 import { getPosition, getShowStoryList } from '../../utils/utils';
+import { MAX_NO_OF_STORIES } from '../../constants/commonConstants';
 
 import Loading from '../Loading';
 import JobListItem from './JobListItem';
@@ -31,10 +32,9 @@ class JobsListWrapper extends Component {
       isLoaded: false
     };
 
-    this.start = this.state.currentPageNumber * 30;
-    this.end = this.start + 30;
+    this.start = this.state.currentPageNumber * MAX_NO_OF_STORIES;
+    this.end = this.start + MAX_NO_OF_STORIES;
   }
-
 
   /**
    *
@@ -119,7 +119,8 @@ class JobsListWrapper extends Component {
    * @returns {boolean}
    * */
   isDisabledRight = currentPageNumber => {
-    const nosOfElementsTillCurrentPage = (currentPageNumber + 1) * 30;
+    const nosOfElementsTillCurrentPage =
+      (currentPageNumber + 1) * MAX_NO_OF_STORIES;
 
     if (nosOfElementsTillCurrentPage >= this.state.allStoriesIdList.length) {
       return true;
@@ -217,8 +218,8 @@ class JobsListWrapper extends Component {
    * @memberof StoryListWrapper
    */
   render() {
-    this.start = this.state.currentPageNumber * 30;
-    this.end = this.start + 30;
+    this.start = this.state.currentPageNumber * MAX_NO_OF_STORIES;
+    this.end = this.start + MAX_NO_OF_STORIES;
 
     const storyList = this.getJobsList();
 

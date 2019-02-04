@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { fetchStoriesIndexArray, fetchItem } from '../../api/api';
 import { getPosition } from '../../utils/utils';
+import { fetchStoriesIndexArray, fetchItem } from '../../api/api';
+import { MAX_NO_OF_STORIES } from '../../constants/commonConstants';
 
 import Loading from '../Loading';
 import StoryListItem from './StoryListItem';
@@ -32,8 +33,8 @@ class StoryListWrapper extends Component {
       isLoaded: false
     };
 
-    this.start = this.state.currentPageNumber * 30;
-    this.end = this.start + 30;
+    this.start = this.state.currentPageNumber * MAX_NO_OF_STORIES;
+    this.end = this.start + MAX_NO_OF_STORIES;
   }
 
   /**
@@ -62,7 +63,7 @@ class StoryListWrapper extends Component {
     if (prevState.currentPageNumber !== this.state.currentPageNumber) {
       // Total number of stories that current page should conatin
       const totalNosOfStoriesInCurrentPage =
-        (this.state.currentPageNumber + 1) * 30;
+        (this.state.currentPageNumber + 1) * MAX_NO_OF_STORIES;
 
       if (this.state.stories.length < totalNosOfStoriesInCurrentPage) {
         this.loadStories();
@@ -75,10 +76,9 @@ class StoryListWrapper extends Component {
    *
    *
    */
-  loadStories = async () => {
+  loadStories = () => {
     this.setIsLoaded(false);
 
-    /* eslint-disable no-await-in-loop */
     for (let i = this.start; i < this.end; i++) {
       // handles last list item
       if (i >= this.state.allStoriesIdList.length) {
@@ -86,13 +86,17 @@ class StoryListWrapper extends Component {
 
         return;
       }
-      await fetchItem(this.state.allStoriesIdList[i]).then(res => {
+      fetchItem(this.state.allStoriesIdList[i]).then(res => {
         this.setState({
           stories: [...this.state.stories, res.data]
         });
+
+        // last element loading
+        if (i === this.end - 1) {
+          this.setIsLoaded(true);
+        }
       });
     }
-    this.setIsLoaded(true);
   };
 
   /**
@@ -131,7 +135,10 @@ class StoryListWrapper extends Component {
    * @returns {boolean}
    * */
   isDisabledRight = currentPageNumber => {
-    if ((currentPageNumber + 1) * 30 >= this.state.allStoriesIdList.length) {
+    if (
+      (currentPageNumber + 1) * MAX_NO_OF_STORIES >=
+      this.state.allStoriesIdList.length
+    ) {
       return true;
     } else {
       return this.getDisableStatus();
@@ -173,13 +180,13 @@ class StoryListWrapper extends Component {
   getStoryList = () => {
     return this.state.stories
       .slice(this.start, this.end)
-      .map((storyId, index) => {
+      .map((story, index) => {
         return (
           <StoryListItem
             position={getPosition(index, this.state.currentPageNumber)}
-            key={storyId.id}
-            id={storyId.id}
-            data={storyId}
+            key={story.id}
+            id={story.id}
+            data={story}
           />
         );
       });
@@ -192,8 +199,8 @@ class StoryListWrapper extends Component {
    * @memberof StoryListWrapper
    */
   render() {
-    this.start = this.state.currentPageNumber * 30;
-    this.end = this.start + 30;
+    this.start = this.state.currentPageNumber * MAX_NO_OF_STORIES;
+    this.end = this.start + MAX_NO_OF_STORIES;
 
     const storyList = this.getStoryList();
 
