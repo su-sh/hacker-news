@@ -1,1 +1,1 @@
-export const MAX_NO_OF_STORIES = 30;
+export const MAX_NO_OF_STORIES = 10;
