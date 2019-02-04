@@ -202,7 +202,8 @@ div > p:last-child {
 }
 .page-number {
   position: absolute;
-  left: 47%;
+  left: 48%;
+  font-size: 11pt;
 }
 .paginationButton {
   width: 80px;
