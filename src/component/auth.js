@@ -1,21 +1,30 @@
+import axios from 'axios';
+
 /**
  *
  *
  * @param {object} object
- * @returns {boolean}
  */
 export const signup = object => {
-  console.log('hi');
+  const user = {
+    username: object.username,
+    password: object.password
+  };
 
-  if (true) {
-    localStorage.setItem('username', object.username);
-    localStorage.setItem('password', object.password);
-    alert('signup sucessful');
-
-    return true;
-  } else {
-    return false;
-  }
+  axios
+    .post('http://localhost:5000/signup', user)
+    .then(res => {
+      if (res.status === 200) {
+        alert('signup sucessful');
+      }
+    })
+    .catch(err => {
+      if (err.response.status === 409) {
+        alert('username already exists');
+      } else {
+        alert('signup error occured');
+      }
+    });
 };
 
 /**
@@ -24,22 +33,19 @@ export const signup = object => {
  * @param {object} object
  * @returns {boolean}
  */
-export const login = object => {
-  const username = localStorage.getItem('username');
-  const password = localStorage.getItem('password');
+export const login = async object => {
+  // const username = localStorage.getItem('username');
+  // const password = localStorage.getItem('password');
 
-  if (username && password) {
-    if (username === object.username && password === object.password) {
-      localStorage.setItem('token', true);
+  const user = {
+    username: object.username,
+    password: object.password
+  };
 
-      alert('login sucessful');
+  if (user.username && user.password) {
+    localStorage.clear();
 
-      return true;
-    } else {
-      alert('login unsucessful');
-
-      return false;
-    }
+    return axios.post('http://localhost:5000/session/login', user);
   }
 };
 

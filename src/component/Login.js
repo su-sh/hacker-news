@@ -24,11 +24,44 @@ class Login extends Component {
     };
   }
 
-  handleLogin = () => {
+  handleLogin = async () => {
     if (this.state.username && this.state.password) {
-      if (login(this.state)) {
-        this.props.history.replace({ pathname: ROUTES.BOOKMARKS });
-      }
+      const user = {
+        username: this.state.username,
+        password: this.state.password
+      };
+
+      login(user)
+        .then(res => {
+          console.log(res);
+          if (res.status === 200) {
+            const token = res.data.token;
+
+            localStorage.setItem('token', token);
+
+            alert('login sucessful');
+            this.props.history.push(ROUTES.BOOKMARKS);
+
+            // return true;
+          }
+        })
+        .catch(err => {
+          if (err.response.status === 401) {
+            alert('username or password doesnot match');
+          } else {
+            alert('login error occured');
+          }
+
+          return false;
+        });
+      // if (login(user)) {
+      //   console.log('logged in');
+      //   this.props.history.push(ROUTES.BOOKMARKS);
+
+      //   // this.props.history.replace({ pathname: ROUTES.BOOKMARKS });
+      // } else {
+      //   console.log('not login');
+      // }
     }
   };
 

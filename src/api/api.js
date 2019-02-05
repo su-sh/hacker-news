@@ -1,21 +1,13 @@
 import axios from 'axios';
 import { BASE_URL, STORY_TYPE, STORY_TYPE_URL } from '../constants/api';
 
-
 /**
  *
  * @param {*} storiesType
  * @returns {object}
  */
 export const fetchStoriesIndexArray = storiesType => {
-  return axios
-    .get(getStoriesUrl(storiesType))
-    .then(res => {
-      return res.data;
-    })
-    .catch(err => {
-      return err;
-    });
+  return axios.get(getStoriesUrl(storiesType));
 };
 
 /**
@@ -24,14 +16,17 @@ export const fetchStoriesIndexArray = storiesType => {
  * @returns {promise}
  */
 export const fetchItem = id => {
-  return axios
-    .get(getItemUrl(id))
-    .then(res => {
-      return res.data;
-    })
-    .catch(err => {
-      return err;
-    });
+  return axios.get(getItemUrl(id));
+};
+
+/**
+ *
+ *
+ * @param {*} id
+ * @returns {object}
+ */
+export const fetchItemNew = id => {
+  return axios.get(getItemUrl(id));
 };
 
 /**
@@ -61,4 +56,17 @@ const getStoriesUrl = storyType => {
  */
 const getItemUrl = itemId => {
   return `${BASE_URL}/item/${itemId}.json`;
+};
+
+/**
+ *
+ * @returns {object}
+ */
+export const fetchBookmarks = () => {
+  const token = localStorage.getItem('token');
+  const config = {
+    headers: { Authorization: 'bearer ' + token }
+  };
+
+  return axios.get('http://localhost:5000/bookmark', config);
 };

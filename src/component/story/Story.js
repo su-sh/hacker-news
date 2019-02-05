@@ -4,7 +4,11 @@ import React, { Component } from 'react';
 
 import upImg from '../../assets/up.png';
 import CommentContainer from '../storyComment/CommentContainer';
-import { getTimeDifference, getHostname, getSearchUrl } from '../../utils/utils';
+import {
+  getTimeDifference,
+  getHostname,
+  getSearchUrl
+} from '../../utils/utils';
 
 import '../../App.css';
 
@@ -105,11 +109,7 @@ class Story extends Component {
 
               <div className="clearfix left post-new">
                 <div className="left">
-                  <a
-                    href={getSearchUrl(this.state.title)}
-                  >
-                    web
-                  </a>
+                  <a href={getSearchUrl(this.state.title)}>web</a>
                 </div>
               </div>
             </div>

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { fetchStoriesIndexArray } from '../../api/api';
 import { STORY_TYPE } from '../../constants/api';
+import { fetchStoriesIndexArray, fetchItem } from '../../api/api';
 import { getPosition, getShowStoryList } from '../../utils/utils';
+import { MAX_NO_OF_STORIES } from '../../constants/commonConstants';
 
 import Loading from '../Loading';
 import JobListItem from './JobListItem';
@@ -27,10 +28,25 @@ class JobsListWrapper extends Component {
     this.state = {
       currentPageNumber: 0,
       allStoriesIdList: undefined,
-      showStoryIdList: undefined,
+      stories: [],
       isLoaded: false
     };
+
+    this.start = this.state.currentPageNumber * MAX_NO_OF_STORIES;
+    this.end = this.start + MAX_NO_OF_STORIES;
   }
+
+  /**
+   *
+   *
+   * @memberof JobsListWrapper
+   * @param {boolean} bool
+   */
+  setIsLoaded = bool => {
+    this.setState({
+      isLoaded: bool
+    });
+  };
 
   /**
    *
@@ -38,13 +54,13 @@ class JobsListWrapper extends Component {
    * @memberof Newest
    */
   componentDidMount = async () => {
-    const newArray = await fetchStoriesIndexArray(STORY_TYPE.JOB_STORIES);
+    await fetchStoriesIndexArray(STORY_TYPE.JOB_STORIES).then(res => {
+      this.setState({
+        allStoriesIdList: res.data,
 
-    this.setState({
-      allStoriesIdList: newArray,
-      showStoryIdList: newArray.slice(0, 30),
-
-      isLoaded: true
+        isLoaded: false
+      });
+      this.loadStories();
     });
   };
 
@@ -103,13 +119,13 @@ class JobsListWrapper extends Component {
    * @returns {boolean}
    * */
   isDisabledRight = currentPageNumber => {
-
-    const nosOfElementsTillCurrentPage = (currentPageNumber + 1) * 30;
+    const nosOfElementsTillCurrentPage =
+      (currentPageNumber + 1) * MAX_NO_OF_STORIES;
 
     if (nosOfElementsTillCurrentPage >= this.state.allStoriesIdList.length) {
       return true;
     } else {
-      return false;
+      return this.getDisableStatus();
     }
   };
 
@@ -120,7 +136,79 @@ class JobsListWrapper extends Component {
    * @returns {boolean}
    * */
   isDisabledLeft = currentPageNumber => {
-    return currentPageNumber === 0;
+    if (currentPageNumber === 0) {
+      return true;
+    } else {
+      return this.getDisableStatus();
+    }
+  };
+
+  /**
+   *
+   *
+   * @returns {boolean}
+   */
+  getDisableStatus = () => {
+    if (!this.state.isLoaded) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  /**
+   * This function loads individual story item.
+   *
+   * @returns {*}
+   */
+  loadStories = async () => {
+    this.setIsLoaded(false);
+
+    const slicedArray = this.state.allStoriesIdList.slice(
+      this.start,
+      this.end - 1
+    );
+
+    if (this.start > this.state.allStoriesIdList.length) {
+      this.setIsLoaded(true);
+
+      return;
+    }
+
+    /* eslint-disable no-await-in-loop */
+    for (const item of slicedArray) {
+      await fetchItem(item).then(res => {
+        this.setState({
+          stories: [...this.state.stories, res.data]
+        });
+      });
+    }
+
+    this.setIsLoaded(true);
+  };
+
+  /**
+   * This function generates and returns array of StoryListItems for current page.
+   *
+   * @returns {array} Returns array of StoryListItem.
+   * */
+  getJobsList = () => {
+    return this.state.stories
+      .slice(this.start, this.end)
+      .map((story, index) => {
+        if (story) {
+          return (
+            <JobListItem
+              position={getPosition(index, this.state.currentPageNumber)}
+              key={story.id}
+              id={story.id}
+              data={story}
+            />
+          );
+        } else {
+          return '';
+        }
+      });
   };
 
   /**
@@ -130,37 +218,28 @@ class JobsListWrapper extends Component {
    * @memberof StoryListWrapper
    */
   render() {
+    this.start = this.state.currentPageNumber * MAX_NO_OF_STORIES;
+    this.end = this.start + MAX_NO_OF_STORIES;
+
+    const storyList = this.getJobsList();
+
     return (
       <div>
-        {
-          !this.state.showStoryIdList ? (
-            <Loading />
-          ) : (
-            this.state.showStoryIdList.map((storyId, index) => {
-              return (
-                <JobListItem
-                  position={getPosition(index, this.state.currentPageNumber)}
-                  key={storyId}
-                  id={storyId}
-                />
-              );
-            })
-          )
-        }
+        {storyList}
 
-        {
-          this.state.allStoriesIdList ? (
-            <PaginationFooter
-              currentPageNumber={this.state.currentPageNumber}
-              handlePreviousPaginationClick={this.handlePreviousPaginationClick}
-              handleNextPaginationClick={this.handleNextPaginationClick}
-              isDisabledLeft={this.isDisabledLeft}
-              isDisabledRight={this.isDisabledRight}
-            />
-          ) : (
-            ''
-          )
-        }
+        {!this.state.isLoaded ? <Loading /> : ''}
+
+        {this.state.allStoriesIdList ? (
+          <PaginationFooter
+            currentPageNumber={this.state.currentPageNumber}
+            handlePreviousPaginationClick={this.handlePreviousPaginationClick}
+            handleNextPaginationClick={this.handleNextPaginationClick}
+            isDisabledLeft={this.isDisabledLeft}
+            isDisabledRight={this.isDisabledRight}
+          />
+        ) : (
+          ''
+        )}
       </div>
     );
   }

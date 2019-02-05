@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Story from './story/Story';
 import { fetchItem } from '../api/api';
+import ROUTES from '../constants/routes';
 
 /**
  * This Component renders data according to the items type.
@@ -24,14 +25,38 @@ class Item extends Component {
       data: undefined
     };
   }
+  /**
+   *
+   *
+   * @memberof Item
+   */
+  redirectToNotFound() {
+    this.props.history.replace({ pathname: ROUTES.NOT_FOUND });
+  }
 
+  /**
+   *
+   *
+   * @memberof Item
+   * @param {object} data
+   */
+  checkIfContentIsStory(data) {
+    if (data.type !== 'story') {
+      this.redirectToNotFound();
+    } else {
+      this.setState({
+        type: data.type,
+        data: data
+      });
+    }
+  }
   componentDidMount = async () => {
     const itemId = this.props.match.params.id;
-    const data = await fetchItem(itemId);
 
-    this.setState({
-      type: data.type,
-      data: data
+    await fetchItem(itemId).then(res => {
+      const data = res.data;
+
+      data === null ? this.gotoNotFound() : this.checkIfContentIsStory(data);
     });
   };
 
@@ -42,26 +67,17 @@ class Item extends Component {
    * @memberof Item
    */
   render() {
-    return (
-      <div>
-        {this.state.type === 'story' && <Story data={this.state.data} />}
-      </div>
-    );
+    return <div>{this.state.data && <Story data={this.state.data} />}</div>;
   }
 
 }
 
-
 Item.propTypes = {
-  match: PropTypes.shape(
-    {
-      params: PropTypes.shape(
-        {
-          id: PropTypes.string
-        }
-      )
-    }
-  )
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string
+    })
+  })
 };
 
 export default Item;

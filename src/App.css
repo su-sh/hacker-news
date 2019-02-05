@@ -119,12 +119,12 @@ a {
 }
 .post-left {
   display: table-row;
-  width: 51.28px;
+  width: 55.28px;
 }
 .post-right {
   display: table-row;
   padding-left: 5px;
-  width: calc(100% - 51.28px - 5px);
+  width: calc(100% - 55.28px - 5px);
 }
 .post-title {
   font-size: 10pt;
@@ -173,8 +173,11 @@ a {
   font-size: 8pt;
   color: #828282;
 }
-.comment-top > div {
+.comment-top > span {
   margin: 0 4px 0 4px;
+}
+.comment-replies {
+  cursor: pointer;
 }
 .comment-text {
   overflow: hidden;
@@ -191,12 +194,14 @@ a {
 .comment-form > textarea {
   width: 25%;
 }
+
 div > p:last-child {
   margin: 0;
 }
 .post-position-arrow > img {
-  width: 15px;
-  height: 15px;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
 }
 .story {
   padding-top: 15px;
@@ -219,6 +224,7 @@ div > p:last-child {
   font-size: 10pt;
   position: absolute;
   left: 48%;
+  font-size: 11pt;
 }
 .paginationButton {
   width: 80px;
@@ -238,4 +244,9 @@ div > p:last-child {
 }
 img {
   display: block;
+}
+.error {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
 }

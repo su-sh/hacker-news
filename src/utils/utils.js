@@ -1,3 +1,4 @@
+import { MAX_NO_OF_STORIES } from '../constants/commonConstants';
 /**
  *
  * This function return sliced array of id's according to current page number.
@@ -64,7 +65,7 @@ export const getHostname = url => {
  * @returns {number}
  */
 export const getPosition = (index, pageNumber) => {
-  return index + 1 + pageNumber * 30;
+  return index + 1 + pageNumber * MAX_NO_OF_STORIES;
 };
 
 /**
@@ -75,7 +76,10 @@ export const getPosition = (index, pageNumber) => {
  * @returns {array} Array with sliced elements.
  */
 export const getShowStoryList = (array, pageNumber) => {
-  return array.slice(pageNumber * 30, (pageNumber + 1) * 30);
+  return array.slice(
+    pageNumber * MAX_NO_OF_STORIES,
+    (pageNumber + 1) * MAX_NO_OF_STORIES
+  );
 };
 
 /**

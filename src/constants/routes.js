@@ -1,14 +1,15 @@
 const ROUTES = {
+  ROOT: '/',
   ASK: '/ask',
   SHOW: '/show',
   JOBS: '/jobs',
   ITEM: '/item/',
-  NEWEST: '/newest',
   LOGIN: '/login',
+  NEWEST: '/newest',
   SUBMIT: '/submit',
-  COMMENTS: '/newcomments',
-  ROOT: '/',
-  BOOKMARKS: '/bookmarks'
+  NOT_FOUND: '/notfound',
+  BOOKMARKS: '/bookmarks',
+  COMMENTS: '/newcomments'
 };
 
 export default ROUTES;
