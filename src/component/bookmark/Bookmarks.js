@@ -28,19 +28,21 @@ export default class bookmarks extends Component {
   }
 
   componentDidMount = () => {
-    fetchBookmarks().then(res => {
-      const storiesId = [];
+    if (localStorage.getItem('token')) {
+      fetchBookmarks().then(res => {
+        const storiesId = [];
 
-      for (let i = 0; i < res.data.bookmarks.length; i++) {
-        storiesId.push(res.data.bookmarks[i].storyid);
-      }
+        for (let i = 0; i < res.data.bookmarks.length; i++) {
+          storiesId.push(res.data.bookmarks[i].storyid);
+        }
 
-      this.setState({
-        allStoriesIdList: storiesId
+        this.setState({
+          allStoriesIdList: storiesId
+        });
+
+        this.loadStories();
       });
-
-      this.loadStories();
-    });
+    }
   };
 
   /**
