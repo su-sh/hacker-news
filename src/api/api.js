@@ -70,3 +70,22 @@ export const fetchBookmarks = () => {
 
   return axios.get('http://localhost:5000/bookmark', config);
 };
+
+/**
+ * @param {string} storyid
+ * @returns {object}
+ */
+export const saveBookmark = storyid => {
+  const data = {
+    storyid: storyid
+  };
+
+  const token = localStorage.getItem('token');
+  const config = {
+    headers: {
+      Authorization: 'bearer ' + token
+    }
+  };
+
+  return axios.post('http://localhost:5000/bookmark', data, config);
+};

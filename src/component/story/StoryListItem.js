@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
+import { saveBookmark } from '../../api/api';
+
 import ROUTES from '../../constants/routes';
 
 import {
@@ -61,6 +63,12 @@ class StoryListItem extends Component {
       return `(${showUrl})`;
     }
   };
+  handelBookmarkClick = () => {
+    console.log('bookmark click');
+    saveBookmark(this.state.id).then(res => {
+      console.log(res);
+    });
+  };
   /**
    *
    *
@@ -72,7 +80,9 @@ class StoryListItem extends Component {
       <div className="post-item clearfix">
         <div className="post-left left clearfix">
           <div className="left post-position">{this.state.position}.</div>
-          <div className="right post-position-arrow">
+          <div
+            className="right post-position-arrow"
+            onClick={this.handelBookmarkClick}>
             <img className="up-img" alt="up-img" src={bookmarkSave} />
           </div>
         </div>
