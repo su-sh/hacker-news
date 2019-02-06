@@ -200,8 +200,8 @@ div > p:last-child {
 }
 .post-position-arrow > img {
   cursor: pointer;
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
 }
 .story {
   padding-top: 15px;

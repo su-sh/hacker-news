@@ -182,6 +182,7 @@ class StoryListWrapper extends Component {
       .slice(this.start, this.end)
       .map((story, index) => {
         return (
+          // if(story.types)
           <StoryListItem
             position={getPosition(index, this.state.currentPageNumber)}
             key={story.id}

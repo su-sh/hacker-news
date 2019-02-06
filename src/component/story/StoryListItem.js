@@ -2,18 +2,16 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
-import { saveBookmark } from '../../api/api';
-
-import ROUTES from '../../constants/routes';
-
 import {
   getHostname,
   getSearchUrl,
   getTimeDifference
 } from '../../utils/utils';
+import { saveBookmark } from '../../api/api';
+
+import ROUTES from '../../constants/routes';
 
 import '../../App.css';
-import upImg from '../../assets/up.png';
 import bookmarkSave from '../../assets/bookmarkSave.png';
 import bookmarkUnsave from '../../assets/bookmarkUnsave.png';
 /**
@@ -64,7 +62,6 @@ class StoryListItem extends Component {
     }
   };
   handelBookmarkClick = () => {
-    console.log('bookmark click');
     saveBookmark(this.state.id).then(res => {
       console.log(res);
     });
@@ -83,7 +80,7 @@ class StoryListItem extends Component {
           <div
             className="right post-position-arrow"
             onClick={this.handelBookmarkClick}>
-            <img className="up-img" alt="up-img" src={bookmarkSave} />
+            <img className="up-img" alt="up-img" src={bookmarkUnsave} />
           </div>
         </div>
         <div className="left post-right clearfix">
