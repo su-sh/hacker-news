@@ -1,6 +1,8 @@
 import React from 'react';
 
-import JobsListWrapper from './jobs/JobsListWrapper';
+import { STORY_TYPE } from '../constants/api';
+
+import StoryListWrapper from './story/StoryListWrapper';
 
 /**
  *
@@ -8,7 +10,7 @@ import JobsListWrapper from './jobs/JobsListWrapper';
  * @memberof Jobs
  */
 const Jobs = () => {
-  return <JobsListWrapper />;
+  return <StoryListWrapper storyType={STORY_TYPE.JOB_STORIES} />;
 };
 
 export default Jobs;
