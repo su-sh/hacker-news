@@ -34,27 +34,18 @@ class Item extends Component {
     this.props.history.replace({ pathname: ROUTES.NOT_FOUND });
   }
 
-  /**
-   *
-   *
-   * @memberof Item
-   * @param {object} data
-   */
-  checkIfContentIsStory(data) {
-    if (data.type !== 'story') {
-      this.redirectToNotFound();
-    } else {
-      this.setState({
-        type: data.type,
-        data: data
-      });
-    }
-  }
   componentDidMount = async () => {
     const itemId = this.props.match.params.id;
     const data = await fetchItem(itemId);
 
-    data === null ? this.gotoNotFound() : this.checkIfContentIsStory(data);
+    if (data && data.type === 'story') {
+      this.setState({
+        type: data.type,
+        data: data
+      });
+    } else {
+      this.gotoNotFound();
+    }
   };
 
   /**
