@@ -2,18 +2,20 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { getPosition } from '../../utils/utils';
+import { STORY_TYPE } from '../../constants/api';
 import { fetchStoriesIndexArray, fetchItem } from '../../api/api';
 import { MAX_NO_OF_STORIES } from '../../constants/commonConstants';
 
 import Loading from '../Loading';
 import StoryListItem from './StoryListItem';
 import PaginationFooter from '../Pagination';
+import JobListItem from '../jobs/JobListItem';
 
 /**
- *
+ * This is a listWrapper component for both stories and job items.
  *
  * @class StoryListWrapper
- * @extends {Component}
+ * @augments {Component}
  */
 class StoryListWrapper extends Component {
 
@@ -73,7 +75,7 @@ class StoryListWrapper extends Component {
 
   /**
    *
-   *
+   * This function fetches stories.
    *
    */
   loadStories = () => {
@@ -110,6 +112,11 @@ class StoryListWrapper extends Component {
     });
   };
 
+  /**
+   * This function handles previous click.
+   *
+   * @memberof StoryListWrapper
+   */
   handlePreviousPaginationClick = () => {
     let currentPageNumber = this.state.currentPageNumber;
 
@@ -119,6 +126,11 @@ class StoryListWrapper extends Component {
     });
   };
 
+  /**
+   * This function handles next click.
+   *
+   * @memberof StoryListWrapper
+   */
   handleNextPaginationClick = () => {
     let currentPageNumber = this.state.currentPageNumber;
 
@@ -129,7 +141,7 @@ class StoryListWrapper extends Component {
   };
 
   /**
-   *
+   * This function checks if next button is disabled.
    *
    * @param {number} currentPageNumber
    * @returns {boolean}
@@ -146,7 +158,7 @@ class StoryListWrapper extends Component {
   };
 
   /**
-   *
+   * This function checks if previous button is disabled.
    *
    * @param {*} currentPageNumber
    * @returns {boolean}
@@ -181,15 +193,25 @@ class StoryListWrapper extends Component {
     return this.state.stories
       .slice(this.start, this.end)
       .map((story, index) => {
-        return (
-          // if(story.types)
-          <StoryListItem
-            position={getPosition(index, this.state.currentPageNumber)}
-            key={story.id}
-            id={story.id}
-            data={story}
-          />
-        );
+        if (STORY_TYPE.JOB_STORIES === this.props.storyType) {
+          return (
+            <JobListItem
+              position={getPosition(index, this.state.currentPageNumber)}
+              key={story.id}
+              id={story.id}
+              data={story}
+            />
+          );
+        } else {
+          return (
+            <StoryListItem
+              position={getPosition(index, this.state.currentPageNumber)}
+              key={story.id}
+              id={story.id}
+              data={story}
+            />
+          );
+        }
       });
   };
 

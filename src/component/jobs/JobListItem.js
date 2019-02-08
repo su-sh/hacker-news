@@ -9,7 +9,7 @@ import '../../App.css';
  *
  *
  * @class JobListItem
- * @extends {Component}
+ * @augments {Component}
  */
 class JobsListItem extends Component {
 
