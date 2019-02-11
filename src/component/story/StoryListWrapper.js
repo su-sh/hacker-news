@@ -185,9 +185,9 @@ class StoryListWrapper extends Component {
   };
 
   /**
-   * This function generates and returns array of StoryListItems for current page.
+   * This function generates and returns array of StoryListItems or JobsListItems for current page.
    *
-   * @returns {array} Returns array of StoryListItem.
+   * @returns {array} Returns array of StoryListItem or JobListItem.
    * */
   getStoryList = () => {
     return this.state.stories

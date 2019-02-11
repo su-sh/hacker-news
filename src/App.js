@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import { Provider } from 'react-redux';
+import store from './store';
+
 import Menu from './component/Menu';
 import Main from './component/Main';
 
@@ -21,10 +24,12 @@ class App extends Component {
    */
   render() {
     return (
-      <div className="app-container">
-        <Menu />
-        <Main />
-      </div>
+      <Provider store={store}>
+        <div className="app-container">
+          <Menu />
+          <Main />
+        </div>
+      </Provider>
     );
   }
 

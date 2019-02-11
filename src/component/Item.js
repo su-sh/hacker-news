@@ -36,16 +36,18 @@ class Item extends Component {
 
   componentDidMount = async () => {
     const itemId = this.props.match.params.id;
-    const data = await fetchItem(itemId);
+    fetchItem(itemId).then(res=>{
+      const data = res.data;
+      if (data && data.type === 'story') {
+        this.setState({
+          type: data.type,
+          data: data
+        });
+      } else {
+        this.redirectToNotFound();
+      }
+    });
 
-    if (data && data.type === 'story') {
-      this.setState({
-        type: data.type,
-        data: data
-      });
-    } else {
-      this.gotoNotFound();
-    }
   };
 
   /**

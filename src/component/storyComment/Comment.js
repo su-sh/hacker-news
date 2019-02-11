@@ -70,7 +70,8 @@ class Comment extends Component {
    * @memberof Comment
    */
   render() {
-    return this.state.componentLoaded ? (
+
+    return this.state.componentLoaded && this.state.text ? (
       <div className="comment">
         <div className="comment-top clearfix">
           <div className="left post-position-arrow">

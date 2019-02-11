@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+
+import { fetchBookmarksAction } from '../actions/bookmarkActions';
+
 import { signup, login } from './auth';
 
 import ROUTES from '../constants/routes';
@@ -54,14 +58,6 @@ class Login extends Component {
 
           return false;
         });
-      // if (login(user)) {
-      //   console.log('logged in');
-      //   this.props.history.push(ROUTES.BOOKMARKS);
-
-      //   // this.props.history.replace({ pathname: ROUTES.BOOKMARKS });
-      // } else {
-      //   console.log('not login');
-      // }
     }
   };
 
@@ -109,6 +105,18 @@ class Login extends Component {
             </button>
           </div>
         </div>
+
+        <div>
+          <button
+            onClick={() => {
+              console.log('test');
+              this.props.fetchBookmarksAction();
+              console.log(this.props.bookmarks);
+            }}>
+            {' '}
+            Test
+          </button>
+        </div>
       </div>
     );
   }
@@ -125,4 +133,16 @@ class Login extends Component {
 
 }
 
-export default Login;
+/**
+ *
+ * @param {object} state
+ * @returns {object}
+ */
+const mapStateToProps = state => ({
+  bookmarks: state.bookmarks
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchBookmarksAction }
+)(Login);

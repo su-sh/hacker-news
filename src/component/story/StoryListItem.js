@@ -14,6 +14,7 @@ import ROUTES from '../../constants/routes';
 import '../../App.css';
 import bookmarkSave from '../../assets/bookmarkSave.png';
 import bookmarkUnsave from '../../assets/bookmarkUnsave.png';
+
 /**
  * This class renders story item on list.
  *
@@ -66,6 +67,7 @@ class StoryListItem extends Component {
       console.log(res);
     });
   };
+
   /**
    *
    *

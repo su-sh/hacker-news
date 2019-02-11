@@ -55,9 +55,7 @@ export default class bookmarks extends Component {
 
     /* eslint-disable no-await-in-loop */
     for (const item of slicedArray) {
-      console.log(item);
       await fetchItem(item).then(res => {
-        console.log(res);
         this.setState({
           stories: [...this.state.stories, res.data]
         });
