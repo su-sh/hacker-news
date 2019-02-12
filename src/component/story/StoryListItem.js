@@ -7,9 +7,10 @@ import {
   getSearchUrl,
   getTimeDifference
 } from '../../utils/utils';
-import { saveBookmark } from '../../api/api';
 
 import ROUTES from '../../constants/routes';
+import { saveBookmark } from '../../api/api';
+import { withBookmarksData } from '../hoc/withBookmarksData';
 
 import '../../App.css';
 import bookmarkSave from '../../assets/bookmarkSave.png';
@@ -62,10 +63,41 @@ class StoryListItem extends Component {
       return `(${showUrl})`;
     }
   };
+
   handelBookmarkClick = () => {
-    saveBookmark(this.state.id).then(res => {
-      console.log(res);
+    this.props.saveBookmarkAction(this.state.id);
+    // saveBookmark(this.state.id).then(res => {});
+  };
+
+  /**
+   *
+   *
+   * @memberof StoryListItem
+   *
+   * @returns {String}
+   */
+  getBookmarkImageSrc = () => {
+    if (this.props.bookmarks !== undefined) {
+      if (this.checkIfStoryIsBookmark()) {
+        return bookmarkSave;
+      } else {
+        return bookmarkUnsave;
+      }
+    } else {
+      return bookmarkUnsave;
+    }
+  };
+
+  checkIfStoryIsBookmark = () => {
+    const story = this.props.bookmarks.find(ele => {
+      return parseInt(ele.storyid) === this.state.id;
     });
+
+    if (story) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   /**
@@ -79,10 +111,13 @@ class StoryListItem extends Component {
       <div className="post-item clearfix">
         <div className="post-left left clearfix">
           <div className="left post-position">{this.state.position}.</div>
-          <div
-            className="right post-position-arrow"
-            onClick={this.handelBookmarkClick}>
-            <img className="up-img" alt="up-img" src={bookmarkUnsave} />
+          <div className="right post-position-arrow">
+            <img
+              className="up-img"
+              alt="up-img"
+              onClick={this.handelBookmarkClick}
+              src={this.getBookmarkImageSrc()}
+            />
           </div>
         </div>
         <div className="left post-right clearfix">
@@ -129,7 +164,7 @@ StoryListItem.propTypes = {
   id: PropTypes.number
 };
 
-export default StoryListItem;
+export default withBookmarksData(StoryListItem);
 
 /**
  * This component is to be rendered if there is comment.

@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
 import { fetchBookmarksAction } from '../actions/bookmarkActions';
 
 import { signup, login } from './auth';
-
 import ROUTES from '../constants/routes';
+
 /**
  *
  *
@@ -28,7 +27,7 @@ class Login extends Component {
     };
   }
 
-  handleLogin = async () => {
+  handleLogin = () => {
     if (this.state.username && this.state.password) {
       const user = {
         username: this.state.username,

@@ -1,18 +1,20 @@
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
 import { logout } from '../auth';
 import { getPosition } from '../../utils/utils';
 
-import { fetchBookmarks, fetchItem } from '../../api/api';
+import { fetchItem } from '../../api/api';
 import StoryListItem from '../story/StoryListItem';
+import { fetchBookmarksAction } from '../../actions/bookmarkActions';
 
 /**
  *
  *
- * @class bookmarks
+ * @class Bookmarks
  * @augments {Component}
  */
-export default class bookmarks extends Component {
+class Bookmarks extends Component {
 
   /**
    * Creates an instance of bookmarks.
@@ -29,40 +31,51 @@ export default class bookmarks extends Component {
 
   componentDidMount = () => {
     if (localStorage.getItem('token')) {
-      fetchBookmarks().then(res => {
-        const storiesId = [];
+      this.props.fetchBookmarksAction();
+    }
+  };
 
-        for (let i = 0; i < res.data.bookmarks.length; i++) {
-          storiesId.push(res.data.bookmarks[i].storyid);
-        }
+  /**
+   *
+   * @param {object} nextProps
+   * @memberof Bookmarks
+   */
+  componentWillReceiveProps = nextProps => {
+    const bookmarksArray = nextProps.bookmarks;
 
-        this.setState({
+    if (bookmarksArray.length) {
+      const storiesId = [];
+
+      for (let i = 0; i < bookmarksArray.length; i++) {
+        storiesId.push(bookmarksArray[i].storyid);
+      }
+
+      this.setState(
+        {
           allStoriesIdList: storiesId
-        });
-
-        this.loadStories();
-      });
+        },
+        () => {
+          this.loadStories();
+        }
+      );
     }
   };
 
   /**
    * This function loads individual story item.
    *
-   * @returns {*}
    */
-  loadStories = async () => {
+  loadStories = () => {
     const slicedArray = this.state.allStoriesIdList;
 
     /* eslint-disable no-await-in-loop */
     for (const item of slicedArray) {
-      await fetchItem(item).then(res => {
+      fetchItem(item).then(res => {
         this.setState({
           stories: [...this.state.stories, res.data]
         });
       });
     }
-
-    // this.setIsLoaded(true);
   };
 
   handleLogout = () => {
@@ -102,11 +115,23 @@ export default class bookmarks extends Component {
     return (
       <div>
         <button onClick={this.handleLogout}>Logoout</button>
-        This is Bookmark
-        <div>{this.state.allStoriesIdList}</div>
         {stories}
       </div>
     );
   }
 
 }
+
+/**
+ *
+ * @param {object} state
+ * @returns {object}
+ */
+const mapStateToProps = state => ({
+  bookmarks: state.bookmarks.bookmarks
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchBookmarksAction }
+)(Bookmarks);

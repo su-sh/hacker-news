@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
 import { getPosition } from '../../utils/utils';
 import { STORY_TYPE } from '../../constants/api';
 import { fetchStoriesIndexArray, fetchItem } from '../../api/api';
 import { MAX_NO_OF_STORIES } from '../../constants/commonConstants';
+import { fetchBookmarksAction } from '../../actions/bookmarkActions';
 
 import Loading from '../Loading';
 import StoryListItem from './StoryListItem';
@@ -51,6 +53,7 @@ class StoryListWrapper extends Component {
 
         isLoaded: false
       });
+      this.props.fetchBookmarksAction();
       this.loadStories();
     });
   };
@@ -71,6 +74,15 @@ class StoryListWrapper extends Component {
         this.loadStories();
       }
     }
+  };
+
+  /**
+   *
+   * @param {object} nextProps
+   * @memberof Bookmarks
+   */
+  componentWillReceiveProps = nextProps => {
+    const bookmarksArray = nextProps.bookmarks.bookmarks;
   };
 
   /**
@@ -254,4 +266,18 @@ StoryListWrapper.propTypes = {
   storyType: PropTypes.string
 };
 
-export default StoryListWrapper;
+/**
+ *
+ * @param {object} state
+ * @returns {object}
+ */
+const mapStateToProps = state => ({
+  bookmarks: state.bookmarks
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchBookmarksAction }
+)(StoryListWrapper);
+
+// export default ;

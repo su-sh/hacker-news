@@ -1,23 +1,45 @@
-import { FETCH_BOOKMARKS } from './types';
-import { fetchBookmarks } from '../api/api';
+import { FETCH_BOOKMARKS, SAVE_BOOKMARK, REMOVE_BOOKMARK } from './types';
+import { fetchBookmarks, saveBookmark } from '../api/api';
 
 /**
  *
  * @returns {object}
  */
 export const fetchBookmarksAction = () => dispatch => {
-  console.log('fetch bookmarks');
+  fetchBookmarks().then(res => {
+    dispatch({
+      type: FETCH_BOOKMARKS,
+      payload: res.data.bookmarks
+    });
+  });
+};
 
-  fetchBookmarks().then(res=>{
-    console.log('fetchBookmarks', res);
-  })
+/**
+ *
+ * @param {integer} storyid
+ * @returns {*}
+ */
+export const saveBookmarkAction = storyid => dispatch => {
+  console.log(storyid);
 
-  fetch('https://jsonplaceholder.typicode.com/posts/')
-    .then(res => res.json())
-    .then(bookmarks =>
-      dispatch({
-        type: FETCH_BOOKMARKS,
-        payload: bookmarks
-      })
-    );
+  saveBookmark(storyid).then(res => {
+    // console.log('asdfasdf ', res.data.bookmark);
+
+    dispatch({
+      type: SAVE_BOOKMARK,
+      payload: res.data.bookmark
+    });
+  });
+};
+
+/**
+ *
+ * @param {integer} storyid
+ * @returns {*}
+ */
+export const removeBookmarkAction = storyid => dispatch => {
+  dispatch({
+    type: REMOVE_BOOKMARK,
+    payload: storyid
+  });
 };

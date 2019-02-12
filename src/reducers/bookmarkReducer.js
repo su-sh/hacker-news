@@ -1,4 +1,9 @@
-import { FETCH_BOOKMARKS, NEW_BOOKMARKS } from '../actions/types';
+import {
+  FETCH_BOOKMARKS,
+  NEW_BOOKMARKS,
+  GET_BOOKMARKS,
+  SAVE_BOOKMARK
+} from '../actions/types';
 
 const inititalState = {
   bookmarks: [],
@@ -19,12 +24,15 @@ export default function(state = inititalState, action) {
         bookmarks: action.payload
       };
 
-    case NEW_BOOKMARKS:
-      console.log('New Bookmarks Reducer');
-
+    case SAVE_BOOKMARK:
       return {
         ...state,
-        bookmark: action.payload
+        bookmarks: [...state.bookmarks, action.payload]
+      };
+
+    case GET_BOOKMARKS:
+      return {
+        ...state
       };
 
     default:
