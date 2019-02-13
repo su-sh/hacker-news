@@ -1,5 +1,5 @@
 import { FETCH_BOOKMARKS, SAVE_BOOKMARK, REMOVE_BOOKMARK } from './types';
-import { fetchBookmarks, saveBookmark } from '../api/api';
+import { fetchBookmarks, saveBookmark, deleteBookmark } from '../api/api';
 
 /**
  *
@@ -20,11 +20,7 @@ export const fetchBookmarksAction = () => dispatch => {
  * @returns {*}
  */
 export const saveBookmarkAction = storyid => dispatch => {
-  console.log(storyid);
-
   saveBookmark(storyid).then(res => {
-    // console.log('asdfasdf ', res.data.bookmark);
-
     dispatch({
       type: SAVE_BOOKMARK,
       payload: res.data.bookmark
@@ -38,8 +34,10 @@ export const saveBookmarkAction = storyid => dispatch => {
  * @returns {*}
  */
 export const removeBookmarkAction = storyid => dispatch => {
-  dispatch({
-    type: REMOVE_BOOKMARK,
-    payload: storyid
+  deleteBookmark(storyid).then(res => {
+    dispatch({
+      type: REMOVE_BOOKMARK,
+      payload: storyid
+    });
   });
 };

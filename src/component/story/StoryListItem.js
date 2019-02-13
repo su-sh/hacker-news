@@ -20,7 +20,7 @@ import bookmarkUnsave from '../../assets/bookmarkUnsave.png';
  * This class renders story item on list.
  *
  * @class StoryListItem
- * @extends {Component}
+ * @augments {Component}
  */
 class StoryListItem extends Component {
 
@@ -65,8 +65,13 @@ class StoryListItem extends Component {
   };
 
   handelBookmarkClick = () => {
-    this.props.saveBookmarkAction(this.state.id);
-    // saveBookmark(this.state.id).then(res => {});
+    if (this.props.bookmarks !== undefined) {
+      this.storyIsBookmark()
+        ? this.props.removeBookmarkAction(this.state.id)
+        : this.props.saveBookmarkAction(this.state.id);
+    } else {
+      this.props.history.replace({ pathname: ROUTES.LOGIN });
+    }
   };
 
   /**
@@ -78,7 +83,7 @@ class StoryListItem extends Component {
    */
   getBookmarkImageSrc = () => {
     if (this.props.bookmarks !== undefined) {
-      if (this.checkIfStoryIsBookmark()) {
+      if (this.storyIsBookmark()) {
         return bookmarkSave;
       } else {
         return bookmarkUnsave;
@@ -88,7 +93,7 @@ class StoryListItem extends Component {
     }
   };
 
-  checkIfStoryIsBookmark = () => {
+  storyIsBookmark = () => {
     const story = this.props.bookmarks.find(ele => {
       return parseInt(ele.storyid) === this.state.id;
     });

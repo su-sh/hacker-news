@@ -89,3 +89,22 @@ export const saveBookmark = storyid => {
 
   return axios.post('http://localhost:5000/bookmark', data, config);
 };
+
+/**
+ * @param {string} storyid
+ * @returns {object}
+ */
+export const deleteBookmark = storyid => {
+  const data = {
+    storyid: storyid
+  };
+
+  const token = localStorage.getItem('token');
+  const config = {
+    headers: {
+      Authorization: 'bearer ' + token
+    }
+  };
+
+  return axios.delete(`http://localhost:5000/bookmark/${storyid}`, config);
+};

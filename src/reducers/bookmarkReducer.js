@@ -1,6 +1,6 @@
 import {
   FETCH_BOOKMARKS,
-  NEW_BOOKMARKS,
+  REMOVE_BOOKMARK,
   GET_BOOKMARKS,
   SAVE_BOOKMARK
 } from '../actions/types';
@@ -33,6 +33,14 @@ export default function(state = inititalState, action) {
     case GET_BOOKMARKS:
       return {
         ...state
+      };
+
+    case REMOVE_BOOKMARK:
+      return {
+        ...state,
+        bookmarks: state.bookmarks.filter(
+          bookmark => bookmark.storyid !== action.payload
+        )
       };
 
     default:

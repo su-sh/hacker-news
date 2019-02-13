@@ -24,7 +24,7 @@ class Bookmarks extends Component {
   constructor() {
     super();
     this.state = {
-      allStoriesIdList: undefined,
+      allStoriesIdList: [],
       stories: []
     };
   }
@@ -49,10 +49,18 @@ class Bookmarks extends Component {
       for (let i = 0; i < bookmarksArray.length; i++) {
         storiesId.push(bookmarksArray[i].storyid);
       }
-
       this.setState(
         {
           allStoriesIdList: storiesId
+        },
+        () => {
+          this.loadStories();
+        }
+      );
+    } else {
+      this.setState(
+        {
+          allStoriesIdList: []
         },
         () => {
           this.loadStories();
@@ -65,17 +73,21 @@ class Bookmarks extends Component {
    * This function loads individual story item.
    *
    */
-  loadStories = () => {
-    const slicedArray = this.state.allStoriesIdList;
+  loadStories = async () => {
+    const slicedArray = this.props.bookmarks.map(bookmark => bookmark.storyid);
+
+    const stories = [];
 
     /* eslint-disable no-await-in-loop */
     for (const item of slicedArray) {
-      fetchItem(item).then(res => {
-        this.setState({
-          stories: [...this.state.stories, res.data]
-        });
+      await fetchItem(item).then(res => {
+        stories.push(res.data);
       });
     }
+
+    this.setState({
+      stories
+    });
   };
 
   handleLogout = () => {
@@ -89,18 +101,16 @@ class Bookmarks extends Component {
    * @returns {array} Returns array of StoryListItem.
    * */
   getStoryList = () => {
-    return this.state.stories
-      .slice(this.start, this.end)
-      .map((story, index) => {
-        return (
-          <StoryListItem
-            position={getPosition(index, this.state.currentPageNumber)}
-            key={story.id}
-            id={story.id}
-            data={story}
-          />
-        );
-      });
+    return this.state.stories.map((story, index) => {
+      return (
+        <StoryListItem
+          position={getPosition(index, this.state.currentPageNumber)}
+          key={story.id}
+          id={story.id}
+          data={story}
+        />
+      );
+    });
   };
 
   /**

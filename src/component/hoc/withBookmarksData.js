@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { saveBookmarkAction } from '../../actions/bookmarkActions';
+import {
+  saveBookmarkAction,
+  removeBookmarkAction
+} from '../../actions/bookmarkActions';
 
-import ROUTES from '../../constants/routes';
 /**
  *
  *
@@ -16,17 +18,9 @@ export const withBookmarksData = Component => {
    *
    *
    * @class App
-   * @extends {Component}
+   * @augments {Component}
    */
   class App extends Component {
-
-    componentDidMount = () => {
-      const getToken = localStorage.getItem('token');
-
-      if (!getToken) {
-        this.props.history.replace({ pathname: ROUTES.LOGIN });
-      }
-    };
 
     /**
      *
@@ -51,7 +45,7 @@ export const withBookmarksData = Component => {
   return withRouter(
     connect(
       mapStateToProps,
-      { saveBookmarkAction }
+      { saveBookmarkAction, removeBookmarkAction }
     )(App)
   );
 };
