@@ -141,7 +141,6 @@ class JobsListWrapper extends Component {
                 key={storyId}
                 id={storyId}
               />
-              // <div>asdf</div>
             );
           })
         )}

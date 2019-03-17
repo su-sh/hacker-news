@@ -7,6 +7,7 @@ const ROUTES = {
   LOGIN: '/submit',
   SUBMIT: '/submit',
   COMMENTS: '/newcomments',
+  NOT_FOUND: '/notfound',
   ROOT: '/'
 };
 

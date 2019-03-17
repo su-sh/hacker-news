@@ -62,8 +62,8 @@ a {
 .tab-menu-list > ul > li:last-child {
   border-right: 0;
 }
-.tab-menu-list > ul > li .active{
-  color:white;
+.tab-menu-list > ul > li .active {
+  color: white;
 }
 .main {
   background-color: #f6f6ef;
@@ -74,9 +74,8 @@ a {
 }
 .jobs-top {
   font-size: 10pt;
-
 }
-.jobs-title{
+.jobs-title {
   padding-right: 4px;
 }
 .jobs-url {
@@ -206,4 +205,9 @@ div > p:last-child {
 }
 img {
   display: block;
+}
+.error {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
 }

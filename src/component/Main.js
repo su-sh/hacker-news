@@ -4,11 +4,11 @@ import { Switch, Route } from 'react-router-dom';
 import Ask from './Ask';
 import Show from './Show';
 import Jobs from './Jobs';
-import Test from './Item';
+import Item from './Item';
 import Login from './Login';
 import Newest from './Newest';
 import TopStories from './TopStories';
-
+import NotFound from './NotFound';
 import ROUTES from '../constants/routes';
 import '../App.css';
 
@@ -27,7 +27,9 @@ const Main = () => {
         <Route path={ROUTES.SHOW} component={Show} />
         <Route path={ROUTES.JOBS} component={Jobs} />
         <Route path={ROUTES.SUBMIT} component={Login} />
-        <Route path={ROUTES.ITEM + ':id'} component={Test} />
+        <Route path={ROUTES.ITEM + ':id'} component={Item} />
+        <Route path={ROUTES.NOT_FOUND} component={NotFound} />
+        <Route component={NotFound} />
       </Switch>
     </div>
   );
