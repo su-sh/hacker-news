@@ -7,9 +7,14 @@ import Jobs from './Jobs';
 import Item from './Item';
 import Login from './Login';
 import Newest from './Newest';
-import TopStories from './TopStories';
 import NotFound from './NotFound';
+import TopStories from './TopStories';
+import Bookmarks from './bookmark/Bookmarks';
+
 import ROUTES from '../constants/routes';
+import { withLogin } from './hoc/withLogin';
+import { withAuthentication } from './hoc/withAuthentication';
+
 import '../App.css';
 
 /**
@@ -26,8 +31,16 @@ const Main = () => {
         <Route path={ROUTES.ASK} component={Ask} />
         <Route path={ROUTES.SHOW} component={Show} />
         <Route path={ROUTES.JOBS} component={Jobs} />
-        <Route path={ROUTES.SUBMIT} component={Login} />
+        <Route
+          path={ROUTES.BOOKMARKS}
+          component={withAuthentication(Bookmarks)}
+        />
         <Route path={ROUTES.ITEM + ':id'} component={Item} />
+        <Route path={ROUTES.LOGIN} component={withLogin(Login)} />
+        <Route
+          path={ROUTES.BOOKMARKS}
+          component={withAuthentication(Bookmarks)}
+        />
         <Route path={ROUTES.NOT_FOUND} component={NotFound} />
         <Route component={NotFound} />
       </Switch>

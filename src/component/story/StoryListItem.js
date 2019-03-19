@@ -12,7 +12,8 @@ import {
 
 import '../../App.css';
 import upImg from '../../assets/up.png';
-
+import bookmarkSave from '../../assets/bookmarkSave.png';
+import bookmarkUnsave from '../../assets/bookmarkUnsave.png';
 /**
  * This class renders story item on list.
  *
@@ -47,6 +48,21 @@ class StoryListItem extends Component {
 
   /**
    *
+   * @param {string} url
+   * @returns {object}
+   * @memberof StoryListItem
+   */
+  showHostName = url => {
+    const showUrl = getHostname(url);
+
+    if (showUrl === 'localhost') {
+      return '';
+    } else {
+      return `(${showUrl})`;
+    }
+  };
+  /**
+   *
    *
    * @returns {object}
    * @memberof Post
@@ -57,7 +73,7 @@ class StoryListItem extends Component {
         <div className="post-left left clearfix">
           <div className="left post-position">{this.state.position}.</div>
           <div className="right post-position-arrow">
-            <img className="up-img" alt="up-img" src={upImg} />
+            <img className="up-img" alt="up-img" src={bookmarkSave} />
           </div>
         </div>
         <div className="left post-right clearfix">
@@ -66,7 +82,9 @@ class StoryListItem extends Component {
               <a href={this.state.url}>{this.state.title}</a>
             </div>
 
-            <div className="left post-url">({getHostname(this.state.url)})</div>
+            <div className="left post-url">
+              {this.showHostName(this.state.url)}
+            </div>
           </div>
 
           <div className="post-bottom-section clearfix">

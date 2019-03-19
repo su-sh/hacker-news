@@ -57,3 +57,16 @@ const getStoriesUrl = storyType => {
 const getItemUrl = itemId => {
   return `${BASE_URL}/item/${itemId}.json`;
 };
+
+/**
+ *
+ * @returns {object}
+ */
+export const fetchBookmarks = () => {
+  const token = localStorage.getItem('token');
+  const config = {
+    headers: { Authorization: 'bearer ' + token }
+  };
+
+  return axios.get('http://localhost:5000/bookmark', config);
+};
