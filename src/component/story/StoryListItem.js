@@ -2,13 +2,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
-import Loading from '.././Loading';
-import { fetchItem } from '../../api/api';
 import ROUTES from '../../constants/routes';
+
 import {
-  getTimeDifference,
   getHostname,
-  getSearchUrl
+  getSearchUrl,
+  getTimeDifference
 } from '../../utils/utils';
 
 import '../../App.css';
@@ -30,41 +29,21 @@ class StoryListItem extends Component {
    */
   constructor(props) {
     super(props);
+    const data = this.props.data;
 
     this.state = {
-      id: this.props.id,
-      position: this.props.position,
-      by: undefined,
-      url: undefined,
-      time: undefined,
-      score: undefined,
-      title: undefined,
-      descendants: undefined,
-
-      idLoaded: false
-    };
-  }
-
-  /**
-   *
-   *
-   * @memberof StoryListItem
-   */
-  componentDidMount = async () => {
-    const data = await fetchItem(this.state.id);
-
-    this.setState({
-      by: data.by,
       id: data.id,
+      by: data.by,
       url: data.url,
       time: data.time,
       score: data.score,
       title: data.title,
       descendants: data.descendants,
 
+      position: this.props.position,
       idLoaded: true
-    });
-  };
+    };
+  }
 
   /**
    *
@@ -73,9 +52,7 @@ class StoryListItem extends Component {
    * @memberof Post
    */
   render() {
-    return !this.state.idLoaded ? (
-      <Loading />
-    ) : (
+    return (
       <div className="post-item clearfix">
         <div className="post-left left clearfix">
           <div className="left post-position">{this.state.position}.</div>

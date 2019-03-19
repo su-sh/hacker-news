@@ -1,9 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import Loading from '../Loading';
-
-import { fetchItem } from '../../api/api';
 import { getTimeDifference, getHostname } from '../../utils/utils';
 
 import '../../App.css';
@@ -24,29 +21,9 @@ class JobsListItem extends Component {
    */
   constructor(props) {
     super(props);
+    const data = this.props.data;
 
     this.state = {
-      id: this.props.id,
-      by: undefined,
-      url: undefined,
-      time: undefined,
-      type: undefined,
-      score: undefined,
-      title: undefined,
-
-      idLoaded: false
-    };
-  }
-
-  /**
-   *
-   *
-   * @memberof StoryListItem
-   */
-  componentDidMount = async () => {
-    const data = await fetchItem(this.state.id);
-
-    this.setState({
       id: data.id,
       by: data.by,
       url: data.url,
@@ -56,8 +33,8 @@ class JobsListItem extends Component {
       title: data.title,
 
       idLoaded: true
-    });
-  };
+    };
+  }
 
   showUrl = () => {
     if (this.state.url !== undefined) {
@@ -72,9 +49,7 @@ class JobsListItem extends Component {
    * @memberof JobListItem
    */
   render() {
-    return !this.state.idLoaded ? (
-      <Loading />
-    ) : (
+    return (
       <JobListItemContent
         showUrl={this.showUrl}
         title={this.state.title}
