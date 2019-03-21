@@ -2,23 +2,25 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
-import ROUTES from '../../constants/routes';
-
 import {
   getHostname,
   getSearchUrl,
   getTimeDifference
 } from '../../utils/utils';
 
+import ROUTES from '../../constants/routes';
+import { saveBookmark } from '../../api/api';
+import { withBookmarksData } from '../hoc/withBookmarksData';
+
 import '../../App.css';
-import upImg from '../../assets/up.png';
 import bookmarkSave from '../../assets/bookmarkSave.png';
 import bookmarkUnsave from '../../assets/bookmarkUnsave.png';
+
 /**
  * This class renders story item on list.
  *
  * @class StoryListItem
- * @extends {Component}
+ * @augments {Component}
  */
 class StoryListItem extends Component {
 
@@ -61,6 +63,48 @@ class StoryListItem extends Component {
       return `(${showUrl})`;
     }
   };
+
+  handelBookmarkClick = () => {
+    if (this.props.bookmarks !== undefined) {
+      this.storyIsBookmark()
+        ? this.props.removeBookmarkAction(this.state.id)
+        : this.props.saveBookmarkAction(this.state.id);
+    } else {
+      this.props.history.replace({ pathname: ROUTES.LOGIN });
+    }
+  };
+
+  /**
+   *
+   *
+   * @memberof StoryListItem
+   *
+   * @returns {String}
+   */
+  getBookmarkImageSrc = () => {
+    if (this.props.bookmarks !== undefined) {
+      if (this.storyIsBookmark()) {
+        return bookmarkSave;
+      } else {
+        return bookmarkUnsave;
+      }
+    } else {
+      return bookmarkUnsave;
+    }
+  };
+
+  storyIsBookmark = () => {
+    const story = this.props.bookmarks.find(ele => {
+      return parseInt(ele.storyid) === this.state.id;
+    });
+
+    if (story) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   /**
    *
    *
@@ -73,7 +117,12 @@ class StoryListItem extends Component {
         <div className="post-left left clearfix">
           <div className="left post-position">{this.state.position}.</div>
           <div className="right post-position-arrow">
-            <img className="up-img" alt="up-img" src={bookmarkSave} />
+            <img
+              className="up-img"
+              alt="up-img"
+              onClick={this.handelBookmarkClick}
+              src={this.getBookmarkImageSrc()}
+            />
           </div>
         </div>
         <div className="left post-right clearfix">
@@ -120,7 +169,7 @@ StoryListItem.propTypes = {
   id: PropTypes.number
 };
 
-export default StoryListItem;
+export default withBookmarksData(StoryListItem);
 
 /**
  * This component is to be rendered if there is comment.

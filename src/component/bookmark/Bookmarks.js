@@ -1,18 +1,20 @@
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
 import { logout } from '../auth';
 import { getPosition } from '../../utils/utils';
 
-import { fetchBookmarks, fetchItem } from '../../api/api';
+import { fetchItem } from '../../api/api';
 import StoryListItem from '../story/StoryListItem';
+import { fetchBookmarksAction } from '../../actions/bookmarkActions';
 
 /**
  *
  *
- * @class bookmarks
+ * @class Bookmarks
  * @augments {Component}
  */
-export default class bookmarks extends Component {
+class Bookmarks extends Component {
 
   /**
    * Creates an instance of bookmarks.
@@ -22,47 +24,70 @@ export default class bookmarks extends Component {
   constructor() {
     super();
     this.state = {
-      allStoriesIdList: undefined,
+      allStoriesIdList: [],
       stories: []
     };
   }
 
   componentDidMount = () => {
-    fetchBookmarks().then(res => {
+    if (localStorage.getItem('token')) {
+      this.props.fetchBookmarksAction();
+    }
+  };
+
+  /**
+   *
+   * @param {object} nextProps
+   * @memberof Bookmarks
+   */
+  componentWillReceiveProps = nextProps => {
+    const bookmarksArray = nextProps.bookmarks;
+
+    if (bookmarksArray.length) {
       const storiesId = [];
 
-      for (let i = 0; i < res.data.bookmarks.length; i++) {
-        storiesId.push(res.data.bookmarks[i].storyid);
+      for (let i = 0; i < bookmarksArray.length; i++) {
+        storiesId.push(bookmarksArray[i].storyid);
       }
-
-      this.setState({
-        allStoriesIdList: storiesId
-      });
-
-      this.loadStories();
-    });
+      this.setState(
+        {
+          allStoriesIdList: storiesId
+        },
+        () => {
+          this.loadStories();
+        }
+      );
+    } else {
+      this.setState(
+        {
+          allStoriesIdList: []
+        },
+        () => {
+          this.loadStories();
+        }
+      );
+    }
   };
 
   /**
    * This function loads individual story item.
    *
-   * @returns {*}
    */
   loadStories = async () => {
-    const slicedArray = this.state.allStoriesIdList;
+    const slicedArray = this.props.bookmarks.map(bookmark => bookmark.storyid);
+
+    const stories = [];
 
     /* eslint-disable no-await-in-loop */
     for (const item of slicedArray) {
-      console.log(item);
       await fetchItem(item).then(res => {
-        console.log(res);
-        this.setState({
-          stories: [...this.state.stories, res.data]
-        });
+        stories.push(res.data);
       });
     }
 
-    // this.setIsLoaded(true);
+    this.setState({
+      stories
+    });
   };
 
   handleLogout = () => {
@@ -76,18 +101,16 @@ export default class bookmarks extends Component {
    * @returns {array} Returns array of StoryListItem.
    * */
   getStoryList = () => {
-    return this.state.stories
-      .slice(this.start, this.end)
-      .map((story, index) => {
-        return (
-          <StoryListItem
-            position={getPosition(index, this.state.currentPageNumber)}
-            key={story.id}
-            id={story.id}
-            data={story}
-          />
-        );
-      });
+    return this.state.stories.map((story, index) => {
+      return (
+        <StoryListItem
+          position={getPosition(index, this.state.currentPageNumber)}
+          key={story.id}
+          id={story.id}
+          data={story}
+        />
+      );
+    });
   };
 
   /**
@@ -102,11 +125,23 @@ export default class bookmarks extends Component {
     return (
       <div>
         <button onClick={this.handleLogout}>Logoout</button>
-        This is Bookmark
-        <div>{this.state.allStoriesIdList}</div>
         {stories}
       </div>
     );
   }
 
 }
+
+/**
+ *
+ * @param {object} state
+ * @returns {object}
+ */
+const mapStateToProps = state => ({
+  bookmarks: state.bookmarks.bookmarks
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchBookmarksAction }
+)(Bookmarks);
