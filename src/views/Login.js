@@ -1,16 +1,15 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
+import ROUTES from '../constants/routes';
 import { fetchBookmarksAction } from '../actions/bookmarkActions';
 
-import { signup, login } from './auth';
-import ROUTES from '../constants/routes';
+import { signup, login } from '../component/auth';
 
 /**
  *
  *
  * @class Login
- * @extends {Component}
  */
 class Login extends Component {
 
@@ -36,7 +35,6 @@ class Login extends Component {
 
       login(user)
         .then(res => {
-          console.log(res);
           if (res.status === 200) {
             const token = res.data.token;
 
@@ -44,8 +42,6 @@ class Login extends Component {
 
             alert('login sucessful');
             this.props.history.push(ROUTES.BOOKMARKS);
-
-            // return true;
           }
         })
         .catch(err => {
@@ -58,6 +54,17 @@ class Login extends Component {
           return false;
         });
     }
+  };
+
+  /**
+   *
+   * @param {object} e Event.
+   * @memberof Login
+   */
+  inputChangeHandler = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   };
 
   handleSignup = () => {
@@ -104,31 +111,9 @@ class Login extends Component {
             </button>
           </div>
         </div>
-
-        <div>
-          <button
-            onClick={() => {
-              console.log('test');
-              this.props.fetchBookmarksAction();
-              console.log(this.props.bookmarks);
-            }}>
-            {' '}
-            Test
-          </button>
-        </div>
       </div>
     );
   }
-  /**
-   *
-   * @param {object} e Event.
-   * @memberof Login
-   */
-  inputChangeHandler = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
 
 }
 
@@ -141,7 +126,4 @@ const mapStateToProps = state => ({
   bookmarks: state.bookmarks
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchBookmarksAction }
-)(Login);
+export default connect(mapStateToProps, { fetchBookmarksAction })(Login);

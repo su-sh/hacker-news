@@ -8,7 +8,7 @@ a {
 .app-container {
   width: 100%;
   max-width: 85%;
-  margin: 10px auto 0px auto;
+  margin: 10px auto 10px auto;
 }
 @media only screen and (max-width: 768px) {
   .app-container {

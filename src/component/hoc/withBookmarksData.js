@@ -15,23 +15,19 @@ import {
  */
 export const withBookmarksData = Component => {
   /**
-   *
-   *
    * @class App
    * @augments {Component}
    */
   class App extends Component {
 
     /**
-     *
-     *
      * @returns {object}
      */
     render() {
       return <Component {...this.props} {...this.state} />;
     }
-
-  }
+  
+}
 
   /**
    *
@@ -43,9 +39,6 @@ export const withBookmarksData = Component => {
   });
 
   return withRouter(
-    connect(
-      mapStateToProps,
-      { saveBookmarkAction, removeBookmarkAction }
-    )(App)
+    connect(mapStateToProps, { saveBookmarkAction, removeBookmarkAction })(App)
   );
 };

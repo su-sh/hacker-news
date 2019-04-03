@@ -27,7 +27,7 @@ export default function(state = inititalState, action) {
     case SAVE_BOOKMARK:
       return {
         ...state,
-        bookmarks: [...state.bookmarks, action.payload]
+        bookmarks: [ ...state.bookmarks, action.payload ]
       };
 
     case GET_BOOKMARKS:

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Story from './story/Story';
 import { fetchItem } from '../api/api';
 import ROUTES from '../constants/routes';
+
+import Story from './story/Story';
 
 /**
  * This Component renders data according to the items type.
@@ -27,7 +28,6 @@ class Item extends Component {
   }
   /**
    *
-   *
    * @memberof Item
    */
   redirectToNotFound() {
@@ -36,8 +36,10 @@ class Item extends Component {
 
   componentDidMount = async () => {
     const itemId = this.props.match.params.id;
-    fetchItem(itemId).then(res=>{
+
+    fetchItem(itemId).then(res => {
       const data = res.data;
+
       if (data && data.type === 'story') {
         this.setState({
           type: data.type,
@@ -47,7 +49,6 @@ class Item extends Component {
         this.redirectToNotFound();
       }
     });
-
   };
 
   /**

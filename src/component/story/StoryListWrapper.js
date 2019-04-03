@@ -102,7 +102,7 @@ class StoryListWrapper extends Component {
       }
       fetchItem(this.state.allStoriesIdList[i]).then(res => {
         this.setState({
-          stories: [...this.state.stories, res.data]
+          stories: [ ...this.state.stories, res.data ]
         });
 
         // last element loading
@@ -275,9 +275,6 @@ const mapStateToProps = state => ({
   bookmarks: state.bookmarks
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchBookmarksAction }
-)(StoryListWrapper);
-
-// export default ;
+export default connect(mapStateToProps, { fetchBookmarksAction })(
+  StoryListWrapper
+);

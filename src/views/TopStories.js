@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { STORY_TYPE } from '../constants/api';
-import StoryListWrapper from './story/StoryListWrapper';
+import StoryListWrapper from '../component/story/StoryListWrapper';
 
 /**
  *

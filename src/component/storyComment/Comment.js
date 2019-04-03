@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { fetchItem } from '../../api/api';
-import CommentContainer from './CommentContainer';
 import { getTimeDifference } from '../../utils/utils';
 
 import '../../App.css';
 import upImg from '../../assets/up.png';
+import CommentContainer from './CommentContainer';
 
 /**
  *
@@ -15,7 +15,6 @@ import upImg from '../../assets/up.png';
  * @extends {Component}
  */
 class Comment extends Component {
-
   /**
    * Creates an instance of Comment.
    *
@@ -70,7 +69,6 @@ class Comment extends Component {
    * @memberof Comment
    */
   render() {
-
     return this.state.componentLoaded && this.state.text ? (
       <div className="comment">
         <div className="comment-top clearfix">
@@ -104,7 +102,6 @@ class Comment extends Component {
       ''
     );
   }
-
 }
 
 Comment.propTypes = {
@@ -122,9 +119,11 @@ export default Comment;
 const CommentReplies = props => {
   return (
     <div>
-      {props.showReplies
-        ? props.kids && <CommentContainer kids={props.kids} />
-        : ''}
+      {props.showReplies ? (
+        props.kids && <CommentContainer kids={props.kids} />
+      ) : (
+        ''
+      )}
     </div>
   );
 };

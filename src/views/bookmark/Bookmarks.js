@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
-import { logout } from '../auth';
+import { logout } from '../../component/auth';
 import { getPosition } from '../../utils/utils';
 
 import { fetchItem } from '../../api/api';
-import StoryListItem from '../story/StoryListItem';
+import StoryListItem from '../../component/story/StoryListItem';
 import { fetchBookmarksAction } from '../../actions/bookmarkActions';
 
 /**
@@ -141,7 +141,4 @@ const mapStateToProps = state => ({
   bookmarks: state.bookmarks.bookmarks
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchBookmarksAction }
-)(Bookmarks);
+export default connect(mapStateToProps, { fetchBookmarksAction })(Bookmarks);

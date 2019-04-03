@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import Comment from './Comment';
+
 /**
  * This Component contains multiple ID of comments from same thread.
  *
@@ -8,7 +10,6 @@ import Comment from './Comment';
  * @extends {Component}
  */
 class CommentContainer extends Component {
-
   /**
    * Creates an instance of CommentContainer.
    *
@@ -35,7 +36,6 @@ class CommentContainer extends Component {
 
     return <div>{commentList}</div>;
   }
-
 }
 
 CommentContainer.propTypes = {

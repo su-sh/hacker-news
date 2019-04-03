@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import upImg from '../../assets/up.png';
-import CommentContainer from '../storyComment/CommentContainer';
 import {
   getTimeDifference,
   getHostname,
@@ -11,6 +10,7 @@ import {
 } from '../../utils/utils';
 
 import '../../App.css';
+import CommentContainer from '../storyComment/CommentContainer';
 
 /**
  * This is a component holds and render individual story.
@@ -19,7 +19,6 @@ import '../../App.css';
  * @extends {Component}
  */
 class Story extends Component {
-
   /**
    * Creates an instance of Story.
    *
@@ -125,7 +124,6 @@ class Story extends Component {
       </div>
     );
   }
-
 }
 Story.propTypes = {
   data: PropTypes.object

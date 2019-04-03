@@ -43,7 +43,9 @@ class Menu extends Component {
             </li>
           </ul>
         </div>
-        <div className="right login-menu">Login</div>
+        <div className="right login-menu">
+          <NavLink to={ROUTES.BOOKMARKS}>login</NavLink>
+        </div>
       </div>
     );
   }
