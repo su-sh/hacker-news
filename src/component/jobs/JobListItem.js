@@ -6,8 +6,6 @@ import { getTimeDifference, getHostname } from '../../utils/utils';
 import '../../App.css';
 
 /**
- *
- *
  * @class JobListItem
  * @augments {Component}
  */
@@ -43,8 +41,6 @@ class JobsListItem extends Component {
   };
 
   /**
-   *
-   *
    * @returns {object}
    * @memberof JobListItem
    */

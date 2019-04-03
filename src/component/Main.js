@@ -1,15 +1,15 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Ask from './Ask';
-import Show from './Show';
-import Jobs from './Jobs';
 import Item from './Item';
-import Login from './Login';
-import Newest from './Newest';
+import Ask from '../views/Ask';
+import Show from '../views/Show';
+import Jobs from '../views/Jobs';
 import NotFound from './NotFound';
-import TopStories from './TopStories';
-import Bookmarks from './bookmark/Bookmarks';
+import Login from '../views/Login';
+import Newest from '../views/Newest';
+import TopStories from '../views/TopStories';
+import Bookmarks from '../views/bookmark/Bookmarks';
 
 import ROUTES from '../constants/routes';
 import { withLogin } from './hoc/withLogin';
@@ -27,21 +27,21 @@ const Main = () => {
     <div className="main ">
       <Switch>
         <Route exact path={ROUTES.ROOT} component={TopStories} />
-        <Route path={ROUTES.NEWEST} component={Newest} />
         <Route path={ROUTES.ASK} component={Ask} />
         <Route path={ROUTES.SHOW} component={Show} />
         <Route path={ROUTES.JOBS} component={Jobs} />
-        <Route
-          path={ROUTES.BOOKMARKS}
-          component={withAuthentication(Bookmarks)}
-        />
+        <Route path={ROUTES.NEWEST} component={Newest} />
         <Route path={ROUTES.ITEM + ':id'} component={Item} />
+        <Route path={ROUTES.NOT_FOUND} component={NotFound} />
         <Route path={ROUTES.LOGIN} component={withLogin(Login)} />
         <Route
           path={ROUTES.BOOKMARKS}
           component={withAuthentication(Bookmarks)}
         />
-        <Route path={ROUTES.NOT_FOUND} component={NotFound} />
+        <Route
+          path={ROUTES.BOOKMARKS}
+          component={withAuthentication(Bookmarks)}
+        />
         <Route component={NotFound} />
       </Switch>
     </div>
